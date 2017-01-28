@@ -1,0 +1,40 @@
+<?php
+$frm = $this->frm;
+$frm->setAttribute('action', $this->url() . '/tambah');
+$frm->setAttribute('id', "formtambah");
+$frm->prepare();
+?>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">SETTING KELURAHAN</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row margin">
+                            <div class="col-md-12">
+                                <fieldset>                 
+                                    <div>
+                                        <?= $this->form()->openTag($frm) ?>
+                                        <?= $this->formRow($frm->get('s_idkecamatan')) ?>  
+                                        <?= $this->formRow($frm->get('s_idkelurahan')) ?>
+                                        <?= $this->formRow($frm->get('s_kodekelurahan')) ?>
+                                        <?= $this->formRow($frm->get('s_namakelurahan')) ?>
+                                        <br/>
+                                        <div align="right">
+                                            <?= $this->formInput($frm->get('simpan')) ?> 
+                                            <a href="<?= $this->url('setting_kelurahan_bphtb') ?>" class="btn btn-success">Kembali</a>
+                                        </div>
+                                        <?= $this->form()->closeTag($frm) ?>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->

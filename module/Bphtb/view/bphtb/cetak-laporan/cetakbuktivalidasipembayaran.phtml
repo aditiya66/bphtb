@@ -1,0 +1,28 @@
+<?php
+foreach ($this->datavalidasipembayaran as $k => $v) {
+    ?>
+    <div style="font-size: 13px;">
+        <table>
+            <tr>
+                <td>Tanggal Pembayaran</td>
+                <td> : <?= date('d-m-Y', strtotime($v['t_tanggalpembayaran'])) ?></td>
+            </tr>
+            <tr>
+                <td>Nama WP</td>
+                <td> : <?= strtoupper($v['t_namawppembeli']) ?> </td>
+            </tr>
+            <tr>
+                <td>No. SSPD</td>
+                <td> : <?= str_pad($v['t_kohirketetapanspt'], 4, '0', STR_PAD_LEFT) ?></td>
+            </tr>
+            <tr>
+                <td>NOP</td>
+                <td> : <?= $v['t_nopbphtbsppt'] ?></td>
+            </tr>
+            <tr>
+                <td>Jumlah Pembayaran</td>
+                <td> : Rp. <?= number_format($v['t_nilaipembayaranspt'], 2, ',', '.') ?></td>
+            </tr>
+        </table>
+    </div>
+<?php } ?>

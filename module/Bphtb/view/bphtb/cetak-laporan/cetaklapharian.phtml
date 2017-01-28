@@ -1,0 +1,181 @@
+<table width="100%" style="border-spacing: 0" class="font_sembilan">
+    <tr style="text-align: center;">
+        <td colspan="9">
+            <strong>NILAI HARIAN PEROLEHAN HAK ATAS TANAH DAN BANGUNAN (BPHTB)</strong>
+            <br>
+            <?php
+            $tanggal_bayar = explode('-', $tgl_cetak);
+            $tahun = $tanggal_bayar[2];
+            $bulan = $tanggal_bayar[1];
+            $tanggal = $tanggal_bayar[0];
+            ?>
+            TANGGAL <?= $tanggal ?> BULAN <?= $bulan ?> TAHUN <?= $tahun ?>
+            <br>
+        </td>
+    </tr>
+    <tr style="text-align: left;">
+        <td colspan="9">
+            Tanggal Penerimaan : <?= $tgl_cetak ?>
+        </td>
+    </tr>
+    <tr style="text-align: center">
+        <td class="border_atas border_bawah border_kanan border_kiri">
+            No.
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            NOP
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Nama WP
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Kelurahan
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Kecamatan
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Nama Notaris
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Luas Tanah
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Luas Bng
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Nilai Perolehan
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            BPHTB yang dibayar
+        </td>
+    </tr>
+    <?php
+    $totalPembayaran = 0;
+    $counter = 1;
+    $jmlpenerimaan = 0;
+    foreach ($this->data_lapharian as $k => $v) {
+        ?>
+        <tr>
+            <td style="text-align: center" class="border_bawah border_kanan border_kiri">
+                <?= $counter ?>
+            </td>
+            <td class="border_bawah border_kanan" align="center">
+                <?= $v['t_nopbphtbsppt'] ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= $v['t_namawppembeli'] ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= $v['t_kelurahanwppembeli'] ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= $v['t_kecamatanwppembeli'] ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= $v['s_namanotaris'] ?>
+            </td>
+            <td class="border_bawah border_kanan" align="center">
+                <?= $v['t_luastanah'] ?>
+            </td>
+            <td class="border_bawah border_kanan" align="center">
+                <?= $v['t_luasbangunan'] ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?php
+                if ($v['t_nilaitransaksispt'] < $v['t_grandtotalnjop']) {
+                    $nilaiperolehan = $v['t_grandtotalnjop'];
+                } else {
+                    $nilaiperolehan = $v['t_nilaitransaksispt'];
+                }
+                ?>
+                <?= number_format($nilaiperolehan, 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['t_nilaipembayaranspt'], 0, ',', '.'); ?>
+            </td>
+        </tr>
+        <?php
+        $jmlpenerimaan += $v['t_nilaipembayaranspt'];
+        $counter++;
+    }
+    ?>
+    <tr>
+        <td colspan="9" style="text-align: right" class="border_bawah border_kanan border_kiri">
+            Jumlah Penerimaan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmlpenerimaan, 0, ',', '.'); ?>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="text-align: center; padding-top: 30px;">
+            Mengetahui,
+            <br>
+            <?= $data_mengetahui->s_jabatanpejabat ?>
+            <br><br><br><br>
+    <u><?= $data_mengetahui->s_namapejabat ?></u>
+    <br>
+    NIP. <?= $data_mengetahui->s_nippejabat ?>
+    </td>
+    <td></td>
+    <td colspan="4" style="text-align: center; padding-top: 30px;">
+        <?= $data_pemda->s_namakabkot ?>, <?= $tgl_cetak; ?>
+        <br>
+        <?= $data_pejabat->s_jabatanpejabat ?>
+        <br><br><br><br>
+    <u><?= $data_pejabat->s_namapejabat ?></u>
+    <br>
+    NIP. <?= $data_pejabat->s_nippejabat ?>
+    </td>
+    </tr>
+</table>
+
+<style type="text/css">
+
+    .border_atas {
+        border-top: 1px black solid;
+    }
+
+    .border_kiri {
+        border-left: 1px black solid;
+    }
+
+    .border_kanan {
+        border-right: 1px black solid;
+    }
+
+    .border_bawah {
+        border-bottom: 1px black solid;
+    }
+
+    .font_besar {
+        font-size: 12pt;
+    }
+
+    .font_kecil {
+        font-size: 10pt;
+    }
+
+    .font_lima {
+        font-size: 7pt;
+    }
+
+    .font_tujuh {
+        font-size: 7pt;
+    }  
+
+    .font_delapan {
+        font-size: 8pt;
+    }    
+
+    .font_sembilan {
+        font-size: 9pt;
+    }    
+
+
+    @page {
+        margin-top: 1.5em;  
+        margin-left: 3.8em;          
+    }
+</style>

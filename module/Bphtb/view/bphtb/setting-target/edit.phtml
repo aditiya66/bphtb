@@ -1,0 +1,37 @@
+<?php
+$frm = $this->frm;
+$frm->setAttribute('action', $this->url() . '/tambah');
+$frm->setAttribute('id', "formtambah");
+$frm->prepare();
+?>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">SETTING TARGET ANGGARAN</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row margin">
+                            <div class="col-md-12">
+                                <div>
+                                    <?= $this->form()->openTag($frm) ?>
+                                    <?= $this->formHidden($frm->get('id_anggaran')) ?>  
+                                    <?= $this->formRow($frm->get('thn_anggaran')) ?>
+                                    <?= $this->formRow($frm->get('target_anggaran')) ?>
+                                    <?= $this->formRow($frm->get('jenis_anggaran')) ?>
+                                    <br/>
+                                    <div align="right">
+                                        <?= $this->formInput($frm->get('simpan')) ?> <a href="<?= $this->url('setting_target') ?>" class="btn btn-success">Kembali</a>
+                                    </div>
+                                    <?= $this->form()->closeTag($frm) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->

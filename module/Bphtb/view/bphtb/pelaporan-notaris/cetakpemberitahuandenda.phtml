@@ -1,0 +1,321 @@
+<style type="text/css">
+.kotak {
+	border-bottom: 1px black solid;
+}
+
+.tengah {
+	float: none;
+	margin: 0 auto;
+}
+
+.border_putus {
+	border-top: 1px black dashed;
+}
+
+.border_atas {
+	border-top: 1px black solid;
+}
+
+.border_kiri {
+	border-left: 1px black solid;
+}
+
+.border_kanan {
+	border-right: 1px black solid;
+}
+
+.border_bawah {
+	border-bottom: 1px black solid;
+}
+
+.font_besar {
+	font-size: 12pt;
+}
+
+.font_kecil {
+	font-size: 10pt;
+}
+
+.font_lima {
+	font-size: 7pt;
+}
+
+.font_tujuh {
+	font-size: 7pt;
+}
+
+.font_delapan {
+	font-size: 8pt;
+}
+
+.font_sembilan {
+	font-size: 9pt;
+}
+</style>
+<?php
+ini_set("max_execution_time", 500);
+if (! function_exists('kekata')) {
+
+    function kekata($x)
+    {
+        $x = abs($x);
+        $angka = array(
+            "",
+            "Satu",
+            "Dua",
+            "Tiga",
+            "Empat",
+            "Lima",
+            "Enam",
+            "Tujuh",
+            "Delapan",
+            "Sembilan",
+            "Sepuluh",
+            "Sebelas"
+        );
+        $temp = "";
+        if ($x < 12) {
+            $temp = " " . $angka[$x];
+        } else 
+            if ($x < 20) {
+                $temp = kekata($x - 10) . " Belas";
+            } else 
+                if ($x < 100) {
+                    $temp = kekata($x / 10) . " Puluh" . kekata($x % 10);
+                } else 
+                    if ($x < 200) {
+                        $temp = " Seratus" . kekata($x - 100);
+                    } else 
+                        if ($x < 1000) {
+                            $temp = kekata($x / 100) . " Ratus" . kekata($x % 100);
+                        } else 
+                            if ($x < 2000) {
+                                $temp = " Seribu" . kekata($x - 1000);
+                            } else 
+                                if ($x < 1000000) {
+                                    $temp = kekata($x / 1000) . " Ribu" . kekata($x % 1000);
+                                } else 
+                                    if ($x < 1000000000) {
+                                        $temp = kekata($x / 1000000) . " Juta" . kekata($x % 1000000);
+                                    } else 
+                                        if ($x < 1000000000000) {
+                                            $temp = kekata($x / 1000000000) . " Milyar" . kekata(fmod($x, 1000000000));
+                                        } else 
+                                            if ($x < 1000000000000000) {
+                                                $temp = kekata($x / 1000000000000) . " Trilyun" . kekata(fmod($x, 1000000000000));
+                                            }
+        return $temp;
+    }
+}
+
+function terbilang($x, $style = 4)
+{
+    if ($x < 0) {
+        $hasil = "MINUS " . trim(kekata($x));
+    } else {
+        $hasil = trim(kekata($x));
+    }
+    switch ($style) {
+        case 1:
+            $hasil = strtoupper($hasil);
+            break;
+        case 2:
+            $hasil = strtolower($hasil);
+            break;
+        case 3:
+            $hasil = ucwords($hasil);
+            break;
+        default:
+            $hasil = ucfirst($hasil);
+            break;
+    }
+    return $hasil;
+}
+?>
+<div style="page-break-after: always; width: 100%;">
+	<table width="100%"
+		class="border_atas border_bawah border_kanan border_kiri font_kecil"
+		style="padding: 0; border-spacing: 0px;">
+		<tr>
+			<td class="border_bawah" style="width: 5%">
+				<table align="left">
+					<tr>
+						<td align="left">
+                            <?php $gambar = "/var/www/html" . $this->basePath() . "/" . $data_pemda->s_logo; ?>        
+                            <img src="<?= $gambar ?>"
+							style="width: 50px; padding: 0px" />
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td colspan="9" class="border_kanan border_bawah">
+				<table width="100%" style="padding: 0; border-spacing: 0px;">
+					<tr>
+						<td align="center" class="font_kecil">
+                            PEMERINTAH <?= strtoupper($data_pemda->s_namakabkot); ?>
+                            <br /> <strong><?= strtoupper($data_pemda->s_namainstansi); ?></strong>
+						</td>
+					</tr>
+					<tr>
+						<td align="center" class="font_tujuh">
+                            <?= ucwords($data_pemda->s_alamatinstansi); ?>
+                        </td>
+					</tr>
+				</table> <br>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="10" class="border_bawah font_delapan">
+				<table width="100%" style="border-spacing: 0px;">
+					<tr>
+						<td align="center" style="width: 5%; padding: 0;"
+							class="border_bawah"></td>
+						<td align="center" style="width: 70%; padding: 0;"
+							class="border_bawah border_kanan">
+							<table style="border-spacing: 0px;">
+								<tr>
+									<td></td>
+									<td>&nbsp;<strong>SURAT PEMBERITAHUAN</strong></td>
+								</tr>
+								<?php if ($dataDenda['t_ketetapands'] == 3) { ?>
+								<tr>
+									<td>BULAN</td>
+									<td>
+                                        : <?= $dataDenda['t_dendabulan']?>
+                                    </td>
+								</tr>
+								<?php }?>
+								<tr>
+									<td>TAHUN</td>
+									<td>
+                                        : <?= $dataDenda['t_periodeds']?><br>
+                                    </td>
+								</tr>
+							</table>
+						</td>
+						<td class="border_bawah" style="text-align: center;"><strong>NO
+								URUT</strong><br><?= $dataDenda['t_kohirds']?>
+						</td>
+					</tr>
+				</table>
+				<table width="100%" style="border-spacing: 0px;">
+					<tr>
+						<td align="center" style="width: 5%; padding: 0;"></td>
+						<td style="width: 25%; padding: 0;"><br> NAMA</td>
+						<td><br>
+                            : <?= strtoupper($dataDenda['s_namanotaris'])?>
+                        </td>
+					</tr>
+					<tr>
+						<td align="center" style="width: 5%; padding: 0;"></td>
+						<td>ALAMAT</td>
+						<td>
+                            : <?= strtoupper($dataDenda['s_alamatnotaris'])?>
+                        </td>
+					</tr>
+					<tr>
+						<td align="center" style="width: 5%; padding: 0;"></td>
+						<td>JABATAN</td>
+						<td>
+                            : <?= strtoupper($dataDenda['s_jabatan'])?>
+                        </td>
+					</tr>
+					<tr>
+						<td align="center" style="width: 5%; padding: 0;"></td>
+						<td>TANGGAL JATUH TEMPO</td>
+						<td>:</td>
+					</tr>
+                    <?php if ($dataDenda['t_ketetapands'] == 3) { ?>
+                        <tr>
+						<td align="center" style="width: 5%; padding-top: -10px;"><br> I.</td>
+						<td colspan="2"><br> Berdasarkan Ketentuan Pasal 93 ayat (2)
+							Undang-Undang Nomor 28 Tahun 2009 tantang Pajak Daerah dan
+							Retribusi Daerah. <?= $peraturan['s_teksperaturan'] ?></td>
+					</tr>
+					<tr>
+						<td align="center" style="width: 5%; padding-top: -40px;">II.</td>
+						<td colspan="2">Berdasarkan Ketentuan Pasal di atas maka Pejabat
+							Pembuat Akta Tanah/Notaris yang membidangi pelayanan lelang
+							negara yang tidak atau terlambat melaporkan pembuatan akta
+							pemindahan Hak atas Tanah dan/atau Bangunan atau risalah lelang
+							Perolehan Hak atas Tanah dan/atau Bangunan, dikenakan sanksi
+							administrasi berupa denda sebesar Rp. 250.000,00 (dua ratus lima
+							puluh ribu rupiah). Sehingga berdasarkan ketentuan yang berlaku
+							dikenakan sanksi Administrasi berupa denda yang harus dibayar
+							sebagai berikut :</td>
+					</tr>
+                    <?php } else { ?> 
+                        <tr>
+						<td align="center" style="width: 5%; padding-top: -10px;">I.</td>
+						<td colspan="2">Berdasarkan Ketentuan Pasal 93 ayat (2)
+							Undang-Undang Nomor 28 Tahun 2009 tantang Pajak Daerah dan
+							Retribusi Daerah. <?= $peraturan['s_teksperaturan'] ?></td>
+					</tr>
+					<tr>
+						<td align="center" style="width: 5%; padding-top: -40px;">II.</td>
+						<td colspan="2">Berdasarkan Ketentuan Pasal Diatas maka Pejabat
+							Pembuat Akta Tanah/Notaris yang membidangi pelayanan lelang
+							negara dikenakan sanksi administrasi berupa denda sebesar Rp.
+							7.500.000,00 (Tujuh juta lima ratus ribu rupiah) untuk setiap
+							pelanggaran berupa menandatangani akta pemindahan Hak atas Tanah
+							dan/atau Bangunan atau menandatangani risalah lelang Perolehan
+							Hak atas Tanah dan/atau Bangunan, sebelum Wajib Pajak menyerahkan
+							bukti pembayaran pajak.</td>
+					</tr>
+                    <?php } ?>
+					<tr>
+						<td align="center" style="width: 5%; padding: 0;"></td>
+						<td>1. Jumlah Laporan</td>
+						<td>...........</td>
+					</tr>
+					<tr>
+						<td align="center" style="width: 5%; padding: 0;"></td>
+						<td>2. Sanksi Administratif : <br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a. Denda
+						</td>
+						<td>Rp. <?= number_format($dataDenda['t_jumlahds'],0,',','.') ?></td>
+					</tr>
+					<tr>
+						<td align="center" style="width: 5%; padding: 0;"></td>
+						<td>3. Jumlah yang harus dibayar (1x2a)</td>
+						<td>Rp. <?= number_format($dataDenda['t_jumlahds'],0,',','.') ?></td>
+					</tr>
+                    <tr>
+						<td colspan="3" class="border_atas border_bawah">Dengan Huruf : <?= terbilang($dataDenda['t_jumlahds']) ?><br>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3" class="border_atas border_bawah"><br> PERHATIAN :
+							<br> 1. Pembayaran atas sanksi administratif berupa denda
+							dilakukan pada Kas Daerah dengan menggunakan Surat Tanda Setoran
+							(STS) dan dinyatakan lunas jika telah disahkan / divalidasi. <br>
+							2. Coret yang tidak perlu <br></td>
+					</tr>
+				</table>
+				<table width="100%" style="border-spacing: 0px;">
+					<tr>
+						<td align="center" style="width: 50%;"></td>
+						<td align="center" style="width: 50%;"><br> <br><?= ucwords($data_pemda->s_namakabkot);  ?>, <?php echo date('d-m-Y', strtotime($tgl_cetak)) ?></td>
+					</tr>
+					<tr>
+						<td align="center" style="width: 50%;"></td>
+						<td align="center" style="width: 50%;"><b><?= $ar_Pejabat->s_jabatanpejabat ?></b></td>
+					</tr>
+					<tr>
+						<td align="center" style="width: 50%;"></td>
+						<td align="center" style="width: 50%;"><br> <br> <br> <br>
+                            ( <?= strtoupper($ar_Pejabat->s_namapejabat) ?> )
+                        </td>
+					</tr>
+					<tr>
+						<td align="center" style="width: 50%;"></td>
+						<td align="center" style="width: 50%;">
+                            NIP. <?= $ar_Pejabat->s_nippejabat ?> 
+                        </td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+

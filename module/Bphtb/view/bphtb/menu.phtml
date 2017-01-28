@@ -1,0 +1,36 @@
+<header class="main-header">
+    <!-- Logo -->
+    <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>SIM</b>-B</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg">
+            <?php if ($aturgambar == 1) { ?>
+                <img src="<?= $data_pemda->s_logo ?>" alt="" width="15%">
+            <?php } elseif ($aturgambar == 2) { ?>
+                <img src="../<?= $data_pemda->s_logo ?>" alt="" width="15%">
+            <?php } ?>
+            &nbsp;<b>SIM</b>-BPHTB</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>MENU
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li class="dropdown messages-menu  bg-red">
+                    <a href="<?= $this->url('sign_in') ?>/logout">
+                        <i class="fa fa-sign-out"></i> &nbsp;<span class="">Keluar</span>
+                    </a>
+                </li>
+                <?php if (@$role_id == 1) { ?>
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </div>
+    </nav>
+</header>

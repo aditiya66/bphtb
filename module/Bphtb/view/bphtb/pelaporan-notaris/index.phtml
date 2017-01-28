@@ -1,0 +1,461 @@
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span style="font-size: 15px">PELAPORAN NOTARIS</span>
+                                        <div class="pull-right"> 
+                                            <?php if ($this->role_id == 1 || $this->role_id == 2) { ?>
+                                                <!--<a href="#" class="btn btn-success btn-sm" onclick="openCetakKonfirmasi()">Konfirmasi Notaris</a>--> 
+                                                <a href="<?= $this->url() ?>/inputdenda" class="btn btn-danger btn-sm btn-flat"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;Input Denda</a>
+                                            <?php } ?>
+                                            <a href="#" class="btn btn-success btn-sm btn-flat" onclick="openCetakLapBulanan()"><span class="glyphicon glyphicon-print"></span> &nbsp;Cetak Pelaporan Notaris</a> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div style=" overflow: auto;">
+                                        <div class="col-lg-12 col-sm12">
+                                            <table class="table table-hover table-bordered" style="width: 100%; font-size: 12px">
+                                                <thead>
+                                                    <tr class="bg-blue">  
+                                                        <th class="text-center">
+                                                            No. Daftar
+                                                        </th>               
+                                                        <th class="text-center">
+                                                            Tgl Daftar
+                                                        </th>     
+                                                        <th class="text-center">
+                                                            Nama WP
+                                                        </th>         
+                                                        <th class="text-center">
+                                                            Jumlah Pajak
+                                                        </th>     
+                                                        <th class="text-center">
+                                                            Bulan Selesai Bayar
+                                                        </th>          
+                                                        <th class="text-center">
+                                                            Nama Notaris
+                                                        </th>     
+    <!--                                                    <th class="text-center">
+                                                            Pembayaran
+                                                        </th>     -->
+                                                        <th class="text-center">
+                                                            Tgl Bayar
+                                                        </th>     
+                                                        <th class="text-center" colspan="2">
+                                                            No./Tgl AJB Baru
+                                                        </th>           
+<!--                                                        <th class="text-center">
+                                                            Sanksi
+                                                        </th>           -->
+                                                        <th class="text-center">
+                                                            Laporkan
+                                                        </th>           
+                                                        <th class="text-center">
+                                                            Status/Pembayaran Denda
+                                                        </th>  
+                                                    </tr>
+                                                </thead>
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" id="t_kohirspt" name="t_kohirspt" class="form-control" onkeyup="calldatagride()">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="t_tglprosesspt" name="t_tglprosesspt" class="form-control" onkeyup="calldatagride()" onchange="calldatagride()" onblur="calldatagride()">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="t_namawppembeli" name="t_namawppembeli" class="form-control" onkeyup="calldatagride()">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="t_totalspt" name="t_totalspt" class="form-control" onkeyup="calldatagride()">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="t_bulanselesaibayar" name="t_bulanselesaibayar" class="form-control" onkeyup="calldatagride()" onchange="calldatagride()" onblur="calldatagride()">
+                                                    </td>
+                                                    <td>
+                                                        <select id="t_idnotarisspt" class="form-control" onchange="calldatagride()" onblur="calldatagride()">
+                                                            <option value="">Pilih</option>
+                                                            <?php foreach ($data_notaris as $row_n) { ?>
+                                                                <option value="<?= $row_n['s_iduser'] ?>"><?= $row_n['s_namanotaris'] ?> </option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="t_tanggalpembayaran" name="t_tanggalpembayaran" class="form-control" onkeyup="calldatagride()" onchange="calldatagride()" onblur="calldatagride()">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="t_noajbbaru" placeholder="No" name="t_noajbbaru" class="form-control" onkeyup="calldatagride()">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="t_tglajbbaru" placeholder="Tgl" name="t_tglajbbaru" class="form-control" onkeyup="calldatagride()" onchange="calldatagride()" onblur="calldatagride()">
+                                                    </td>
+                                                    <td>
+                                                        <select id="statuspelaporan" class="form-control" onchange="calldatagride()" onblur="calldatagride()">
+                                                            <option value="">PILIH</option>
+                                                            <option value="1">Sudah Dilaporkan</option>
+                                                            <option value="2">Belum Dilaporkan</option>
+                                                        </select>
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tbody id="body_grid">
+                                                </tbody>
+                                                <tfoot>              
+                                                    <tr>
+                                                        <td colspan="12" class="text-center">
+                                                            <div class="row">
+                                                                <div class="col-sm-4 text-left">Jumlah Baris Ditampilkan: <input type="text" id="rows" style="width: 20%" class="text-center" value="10"></div>
+                                                                <div class="col-sm-3">
+                                                                    <a href="#" onclick="calldatagride(1);
+                                                                            return false;"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></a>
+
+                                                                    <input type="text" id="page" value="1" style="width: 20%" class="text-center">
+
+                                                                    <a href="#" onclick="calldatagride(2);
+                                                                            return false;"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a>
+                                                                </div>
+                                                                <div class="col-sm-5 text-right">
+                                                                    <p>Jumlah Data <span id="total_data"></span>&nbsp;Jumlah Halaman <span id="total_halaman"></span></p>                                    
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+<div class="modal fade" id="myModalLapBulanan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">CETAK LAPORAN BULANAN NOTARIS</h4>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td>
+                            Bulan Notaris Melaporkan
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <select id="bulanpelaporan" class="form-control" name="bulanpelaporan">
+                                        <option value="1">Januari</option>
+                                        <option value="2">Februari</option>
+                                        <option value="3">Maret</option>
+                                        <option value="4">April</option>
+                                        <option value="5">Mei</option>
+                                        <option value="6">Juni</option>
+                                        <option value="7">Juli</option>
+                                        <option value="8">Agustus</option>
+                                        <option value="9">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">Nopember</option>
+                                        <option value="12">Desember</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:40%">
+                            Tahun Notaris Melaporkan
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="text" id="periode_spt" value="<?= date('Y') ?>" class="form-control">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Tanggal Cetak
+                        </td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="text" id="tgl_cetaklapbulanan" value="<?= date('d-m-Y') ?>" class="form-control">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="<?= $show_hide_combo_notaris ?>">
+                        <td>Nama Notaris</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <?= $this->formRow($frm->get('t_idnotarissptcetak')) ?>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div align="right">
+                    <button class="btn btn-success" onclick="cetakLapBulanan();">Cetak</button> <button class="btn btn-success" onclick="tutupLapBulanan()">Tutup</button>
+                </div>                
+            </div>            
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModalLaporkan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">LAPORKAN DATA & INPUT AJB BARU</h4>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td style="width:40%">
+                            Nomor Pendaftaran
+                        </td>
+                        <td>
+                            <input type="hidden" id="t_iddetailsptbphtb" class="form-control">
+                            <input type="text" id="t_kohirsptlap" class="form-control" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Nama WP
+                        </td>
+                        <td>
+                            <input type="text" id="t_namawppembelilap" class="form-control" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            No AJB
+                        </td>
+                        <td>
+                            <input type="text" id="t_noajbbarulap" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Tanggal AJB
+                        </td>
+                        <td>
+                            <input type="text" id="t_tglajbbarulap" name="t_tglajbbarulap" value="<?= date('d-m-Y') ?>" class="form-control">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Jumlah PPH
+                        </td>
+                        <td>
+                            <input type="text" id="t_jmlpph" class="form-control" onKeyUp="this.value = formatCurrency(this.value);" style="text-align: right">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Tanggal PPH
+                        </td>
+                        <td>
+                            <input type="text" id="t_tglpph" name="t_tglpph" value="<?= date('d-m-Y') ?>" class="form-control">
+                        </td>
+                    </tr>
+                    <tr style="<?= $show_hide_tglpelaporan ?>">
+                        <td>Tanggal Pelaporan</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="text" id="t_tglpelaporannotaris" name="t_tglpelaporannotaris" value="<?= date('d-m-Y') ?>" class="form-control">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div align="right">
+                    <button class="btn btn-success" onclick="laporkandata();">Laporkan</button> <button class="btn btn-success" onclick="tutupLaporkan()">Tutup</button>
+                </div>                
+            </div>            
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        calldatagride();
+    });
+
+    $("#t_bulanselesaibayar").datepicker({
+        format: 'mm-yyyy',
+        startView: "months",
+        minViewMode: "months"
+    });
+
+    jQuery("#t_tglprosesspt").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+
+    jQuery("#t_tanggalpembayaran").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+
+    jQuery("#t_tglajbbaru").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+
+    jQuery("#t_tglpph").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+
+    function openLaporkan(a, b, c, d, e) {
+        jQuery('#myModalLaporkan').modal('show');
+        $("#t_iddetailsptbphtb").val(a);
+        $("#t_namawppembelilap").val(b);
+        $("#t_kohirsptlap").val(c);
+        if(d !== '' || e !== ''){
+            document.getElementById("t_noajbbarulap").readOnly = true;
+            document.getElementById("t_tglajbbarulap").readOnly = true;
+        }else{
+            document.getElementById("t_noajbbarulap").readOnly = false;
+            document.getElementById("t_tglajbbarulap").readOnly = false;
+        }
+        $("#t_noajbbarulap").val(d);
+        $("#t_tglajbbarulap").val(e);
+    }
+
+    function tutupLaporkan() {
+        jQuery('#myModalLaporkan').modal('hide');
+        jQuery("#t_iddetailsptbphtb").val('');
+        jQuery("#t_namawppembelilap").val('');
+        jQuery("#t_kohirsptlap").val('');
+        jQuery("#t_noajbbarulap").val('');
+        jQuery("#t_noajbbarulap").val('');
+        jQuery("#t_jmlpph").val('');
+        jQuery("#t_tglpph").val('');
+        jQuery("#t_tglajbbarulap").val('');
+    }
+
+    function calldatagride(direction) {
+        if ($("#t_kohirspt").val().length == 0)
+            par1 = undefined;
+        else
+            par1 = $("#t_kohirspt").val()
+        if ($("#t_tglprosesspt").val().length == 0)
+            par2 = undefined;
+        else
+            par2 = $("#t_tglprosesspt").val()
+        if ($("#t_namawppembeli").val().length == 0)
+            par3 = undefined;
+        else
+            par3 = $("#t_namawppembeli").val()
+        if ($("#t_totalspt").val().length == 0)
+            par4 = undefined;
+        else
+            par4 = $("#t_totalspt").val()
+        if ($("#t_bulanselesaibayar").val().length == 0)
+            par5 = undefined;
+        else
+            par5 = $("#t_bulanselesaibayar").val()
+        if ($("#t_tanggalpembayaran").val().length == 0)
+            par6 = undefined;
+        else
+            par6 = $("#t_tanggalpembayaran").val()
+        if ($("#t_noajbbaru").val().length == 0)
+            par7 = undefined;
+        else
+            par7 = $("#t_noajbbaru").val()
+        if ($("#t_tglajbbaru").val().length == 0)
+            par8 = undefined;
+        else
+            par8 = $("#t_tglajbbaru").val()
+        if ($("#t_idnotarisspt").val().length == 0)
+            par9 = undefined;
+        else
+            par9 = $("#t_idnotarisspt").val()
+        if ($("#statuspelaporan").val().length == 0)
+            par10 = undefined;
+        else
+            par10 = $("#statuspelaporan").val()
+        datagride($("#page").val(), $("#rows").val(), direction, par1, par2, par3, par4, par5, par6, par7, par8, par9, par10);
+    }
+
+    function datagride(page, row, direction, par1, par2, par3, par4, par5, par6, par7, par8, par9, par10) {
+        $.get('<?= $this->url() ?>/dataGrid/' + page + '/' + row + '/' + direction + '/' + par1 + '/' + par2 + '/' + par3 + '/' + par4 + '/' + par5 + '/' + par6 + '/' + par7 + '/' + par8 + '/' + par9 + '/' + par10, function (data) {
+            var aa = JSON.parse(data)
+            $("#body_grid").html(aa.grid);
+            $("#rows").val(aa.rows);
+            $("#page").val(aa.page);
+            $("#total_data").html(": " + aa.count);
+            $("#total_halaman").html(": " + aa.total_halaman);
+        });
+    }
+
+    jQuery("#t_tglajbbarulap").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+
+    jQuery("#t_tglpelaporannotaris").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+
+    function laporkandata(a) {
+        if ($("#t_noajbbarulap").val() == '' || $("#t_tglajbbarulap").val() == '') {
+            alert('Isi Nomor dan Tanggal AJB');
+        } else {
+            $.post('<?= $this->url() ?>/laporkandata', {t_iddetailsptbphtb: $("#t_iddetailsptbphtb").val(), t_noajbbaru: $("#t_noajbbarulap").val(), t_tglajbbaru: $("#t_tglajbbarulap").val(), t_jmlpph: $("#t_jmlpph").val(), t_tglpph: $("#t_tglpph").val(), t_tglpelaporannotaris: $("#t_tglpelaporannotaris").val()}, function (data) {
+                tutupLaporkan();
+                calldatagride();
+            });
+            calldatagride();
+        }
+        calldatagride();
+    }
+
+    function cetakkonfnotaris() {
+        window.open('<?= $this->url('cetak_laporan') ?>/cetakkonfnotaris?periode_sptkonf=' + $("#periode_sptkonf").val() + "&tgl_cetaklapbulanankonf=" + $("#tgl_cetaklapbulanankonf").val() + "&bulanpelaporankonf=" + $("#bulanpelaporankonf").val() + "&t_idnotarisspt1=" + $("#t_idnotarisspt1").val())
+    }
+
+//  =========================================================
+//  Cetak Pelaporan Notaris
+    $("#periode_spt").datepicker({
+        format: 'yyyy',
+        viewMode: "years",
+        minViewMode: "years"
+    });
+
+    jQuery("#tgl_cetaklapbulanan").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+
+    function openCetakLapBulanan() {
+        jQuery('#myModalLapBulanan').modal('show');
+    }
+
+    function tutupLapBulanan() {
+        jQuery('#myModalLapBulanan').modal('hide');
+    }
+
+    function cetakLapBulanan() {
+        window.open('<?= $this->url('cetak_laporan') ?>/cetaklapbulananbphtb?periode_spt=' + $("#periode_spt").val() + "&tgl_cetaklapbulanan=" + $("#tgl_cetaklapbulanan").val() + "&bulanpelaporan=" + $("#bulanpelaporan").val() + "&t_idnotarisspt=" + $("#t_idnotarissptcetak").val())
+    }
+//  =========================================================
+
+</script>

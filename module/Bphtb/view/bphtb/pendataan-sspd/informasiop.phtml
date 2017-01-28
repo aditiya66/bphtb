@@ -1,0 +1,103 @@
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">INFORMASI OBJEK PAJAK</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-2">
+                                    NOP/Tahun SPPT
+                                </div>
+                                <div class="col-sm-3">
+                                    <?= $this->formRow($frm->get('t_nopbphtbspptinfoop')) ?>
+                                </div>
+                                <div class="col-sm-1">
+                                    <?= $this->formRow($frm->get('t_thnspptinfoop')) ?>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button class="btn btn-success btn-sm btn-flat" onclick="informasiop();"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp;CEK</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">   
+                                <div class="col-sm-2">
+                                    Pencetak
+                                </div>                                     
+                                <div class="col-sm-3">
+                                    <select id="Pencetak" class="select2">
+                                        <?php foreach ($this->Pencetak as $k => $v) { ?>
+                                            <option value="<?= $v['s_idpejabat'] ?>"><?= $v['s_namapejabat'] ?></option>
+                                        <?php } ?>
+                                    </select>    
+                                </div>
+                                <div class="col-sm-3">
+                                    <button class="btn btn-success btn-sm btn-flat" onclick="cetaktunggakanpbb();"><span class="glyphicon glyphicon-print"></span>&nbsp;&nbsp;Cetak</button>
+                                </div>   
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="historydiv">
+                            </div>
+                        </div>
+                        <?php $gambar = "http://" . $_SERVER['HTTP_HOST'] . "" . $this->basePath() . "/public/upload/loading1.gif"; ?>
+                        <div id="myDiv" style="display:none; text-align: center;">
+                            <img id="myImage" src="<?= $gambar; ?>">
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $(".select2").select2();
+    });
+
+    jQuery("[data-mask]").inputmask();
+
+    $("#t_thnspptinfoop").datepicker({
+        format: 'yyyy',
+        viewMode: "years",
+        minViewMode: "years"
+    });
+
+    function show() {
+        document.getElementById("myDiv").style.display = "block";
+    }
+
+    function hide() {
+        document.getElementById("myDiv").style.display = "none";
+    }
+
+    function informasiop() {
+        document.getElementById("historydiv").style.display = "none";
+        if ($("#t_nopbphtbspptinfoop").val() == '' || $("#t_thnspptinfoop").val() == '') {
+            alert("Tolong Isi NOP & Tahun SPPT");
+        } else {
+            show();
+            $.post('<?= $this->url() ?>/cariinformasiop', {t_nopbphtbspptinfoop: $('#t_nopbphtbspptinfoop').val(), t_thnspptinfoop: $('#t_thnspptinfoop').val()}, function (data) {
+                var aa = JSON.parse(data);
+                //Informasi OP
+                document.getElementById("historydiv").style.display = "block";
+                if (aa.infoop == null) {
+                    hide();
+                }
+                $("#historydiv").html(aa.infoop);
+                hide();
+            });
+        }
+    }
+
+    function cetaktunggakanpbb() {
+        window.open('<?= $this->url('pendataan_sspd') ?>/cetaktunggakanpbb?t_nopbphtbspptinfoop=' + $("#t_nopbphtbspptinfoop").val() + "&t_thnspptinfoop=" + $("#t_thnspptinfoop").val() + "&Pencetak=" + $("#Pencetak").val());
+    }
+
+    $('#t_thnspptinfoop').attr('readonly', 'readonly');
+</script>

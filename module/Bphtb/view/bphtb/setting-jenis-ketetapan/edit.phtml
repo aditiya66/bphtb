@@ -1,0 +1,35 @@
+<?php
+$frm = $this->frm;
+$frm->setAttribute('action', $this->url() . '/tambah');
+$frm->setAttribute('id', "formtambah");
+$frm->prepare();
+?>
+<div class="col-md-3">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title"><span style="font-size: 8pt">Navigasi Setting</span></h3></div>
+        <div class="panel-body">
+            <?= $this->sidemenu ?>
+        </div>        
+    </div>    
+</div>
+<div class="col-md-9">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title"><span style="font-size: 10pt">Setting Jenis Ketetapan</span></h3></div>
+        <div class="panel-body">
+            <fieldset>
+                <legend>JENIS KETETAPAN</legend>                    
+                <div>
+                    <?= $this->form()->openTag($frm) ?>
+                    <?= $this->formHidden($frm->get('s_idjenisketetapan')) ?>  
+                    <?= $this->formRow($frm->get('s_namajenisketetapan')) ?>
+                    <?= $this->formRow($frm->get('s_namasingkatjenisketetapan')) ?>
+                    <br/>
+                    <div align="right">
+                        <?= $this->formInput($frm->get('simpan')) ?> <a href="<?= $this->url('setting_jenis_ketetapan') ?>" class="btn btn-success">Kembali</a>
+                    </div>
+                    <?= $this->form()->closeTag($frm) ?>
+                </div>
+            </fieldset>
+        </div>        
+    </div>    
+</div>

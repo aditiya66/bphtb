@@ -1,0 +1,106 @@
+<?php
+$frm = $this->frm;
+$frm->setAttribute('action', $this->url() . '/tambah');
+$frm->prepare();
+?>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">SETTING PENGGUNA</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row margin">
+                            <div class="col-md-12">
+                                <fieldset>             
+                                    <?= $this->form()->openTag($frm) ?>
+                                    <div class="row-fluid">                    
+                                        <?= $this->formRow($frm->get('s_iduser')) ?>
+                                        <?= $this->formRow($frm->get('s_username')) ?>                    
+                                        <?= $this->formRow($frm->get('s_password')) ?>
+                                        <?= $this->formRow($frm->get('t_pass2')) ?>
+                                        <?= $this->formRow($frm->get('s_jabatan')) ?>
+                                        <?= $this->formRow($frm->get('s_tipe_pejabat')) ?>    
+                                        <!-- <div class="radio_render"> -->
+                                        <?= $this->formRow($frm->get('s_idpejabat_idnotaris')) ?>
+                                        <?= $this->formRow($frm->get('s_akses')) ?>  
+                                        <!-- </div>                     -->
+                                        <div class="radio_render">
+                                            <?= $this->formRow($frm->get('s_standart')) ?>
+                                            <?= $this->formRow($frm->get('s_pendataansspd')) ?> 
+                                            <?= $this->formRow($frm->get('s_verifikasisspd')) ?> 
+                                            <?= $this->formRow($frm->get('s_pembayaransspd')) ?> 
+                                            <?= $this->formRow($frm->get('s_koreksi')) ?> 
+                                            <?= $this->formRow($frm->get('s_bpn')) ?> 
+                                            <?= $this->formRow($frm->get('s_cetaklaporan')) ?> 
+                                            <?= $this->formRow($frm->get('s_cetaksspd')) ?> 
+                                            <?= $this->formRow($frm->get('s_pelaporannotaris')) ?>
+                                            <?= $this->formRow($frm->get('s_pendataanpbb')) ?>
+                                            <?= $this->formRow($frm->get('s_monitoring')) ?>   
+                                            <?= $this->formRow($frm->get('s_doktanah')) ?> 
+                                            <?= $this->formRow($frm->get('s_haktanah')) ?> 
+                                            <?= $this->formRow($frm->get('s_jenistransaksi')) ?> 
+                                            <?= $this->formRow($frm->get('s_notaris')) ?> 
+                                            <?= $this->formRow($frm->get('s_pejabat')) ?> 
+                                            <?= $this->formRow($frm->get('s_pemda')) ?> 
+                                            <?= $this->formRow($frm->get('s_persyaratantransaksi')) ?> 
+                                            <?= $this->formRow($frm->get('s_tarifbphtb')) ?> 
+                                            <?= $this->formRow($frm->get('s_tarifnpoptkp')) ?> 
+                                            <?= $this->formRow($frm->get('s_hargaacuan')) ?> 
+                                            <?= $this->formRow($frm->get('s_kecamatan')) ?>  
+                                            <?= $this->formRow($frm->get('s_kelurahan')) ?>  
+                                            <?= $this->formRow($frm->get('s_target')) ?> 
+                                            <?= $this->formRow($frm->get('s_user')) ?>  
+                                            <?= $this->formRow($frm->get('s_historylog')) ?>  
+                                        </div>
+                                        <div align="center">
+                                            <?= $this->formInput($frm->get('simpan')) ?> <a href="<?= $this->url('setting_user_bphtb') ?>" class="btn btn-success">Kembali</a>
+                                        </div>                    
+                                    </div>
+                                    <?= $this->form()->closeTag($frm) ?>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+<style>
+    .radio_render{
+
+    }
+
+    .radio_render label {
+        width: 25%;
+        float: left;
+    }
+
+    .radio_render label input {        
+        vertical-align: top;
+
+    }
+
+</style>
+<script type="text/javascript">
+    $('#s_tipe_pejabat').on('change', function () {
+        //console.log(this.value);
+        $.post('<?= $this->url() ?>/getListPejabat', {s_tipe_pejabat: this.value}, function (data) {
+            var dt = JSON.parse(data);
+            var options = $("#s_list_pejabat");
+            options.find('option').remove().end().append($("<option />").val('').text('Silahkan Pilih'));
+            for (var i = 0; i < dt.count; i++) {
+                options.find('option').remove().end().append($("<option />").val(dt.id_pejabat).text(dt.nama_pejabat));
+            }
+
+        });
+        if (this.value == '2') {
+            $("#s_akses").val("3");
+        } else {
+            $("#s_akses").val("");
+        }
+    });
+</script>

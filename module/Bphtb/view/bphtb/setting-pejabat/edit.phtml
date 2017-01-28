@@ -1,0 +1,125 @@
+<?php
+$frm = $this->frm;
+$frm->setAttribute('action', $this->url() . '/tambah');
+$frm->setAttribute('id', "formtambah");
+$frm->prepare();
+?>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">SETTING PEJABAT</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row margin">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><h3 class="panel-title"><span style="font-size: 10pt">Setting Pejabat</span></h3></div>
+                                    <div class="panel-body">
+                                        <fieldset>
+                                            <legend>PEJABAT</legend>                    
+                                            <div>
+                                                <?= $this->form()->openTag($frm) ?>
+                                                <?= $this->formRow($frm->get('s_idpejabat')) ?>  
+                                                <?= $this->formRow($frm->get('s_namapejabat')) ?> 
+                                                <?= $this->formRow($frm->get('s_nippejabat')) ?> 
+                                                <?= $this->formRow($frm->get('s_jabatanpejabat')) ?>  
+                                                <?= $this->formRow($frm->get('s_golonganpejabat')) ?>     
+                                                <br/>
+                                                <div align="right">
+                                                    <?= $this->formInput($frm->get('simpan')) ?> <a href="<?= $this->url('setting_pejabat_bphtb') ?>" class="btn btn-success">Kembali</a>
+                                                </div>
+                                                <?= $this->form()->closeTag($frm) ?>
+                                            </div>
+                                        </fieldset>
+                                    </div>        
+                                </div>    
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+
+<script type="text/javascript">
+    $.validate();
+
+    function namapejabat() {
+        var alphaExp = /^[ a-zA-Z]+$/;
+        var namapej = document.getElementById('s_namapejabat').value;
+        var nalt = document.getElementById('namap');
+        if (namapej != "") {
+            if (!namapej.match(alphaExp)) {
+                nalt.innerHTML = "<font color='red'> Isi dengan Huruf</font>";
+                document.getElementById('s_namapejabat').focus();
+                document.getElementById('s_namapejabat').value = "";
+                return false;
+            } else {
+                nalt.innerHTML = "<span class='icon-check'></span>";
+                return true;
+            }
+        } else {
+            nalt.innerHTML = "<font color='red'> Kolom Harus Diisi</font>";
+            document.getElementById('s_namapejabat').focus();
+            return false;
+        }
+    }
+
+    function nippejabat() {
+        var alphaExp = /^[. 0-9]+$/;
+        var nippej = document.getElementById('s_nippejabat').value;
+        var nalt = document.getElementById('nipp');
+        if (nippej != "") {
+            if (!nippej.match(alphaExp)) {
+                nalt.innerHTML = "<font color='red'> Isi dengan Angka dan Titik</font>";
+                document.getElementById('s_nippejabat').focus();
+                document.getElementById('s_nippejabat').value = "";
+                return false;
+            } else {
+                nalt.innerHTML = "<span class='icon-check'></span>";
+                return true;
+            }
+        } else {
+            nalt.innerHTML = "<font color='red'> Kolom Harus Diisi</font>";
+            document.getElementById('s_nippejabat').focus();
+            return false;
+        }
+    }
+
+    function jabatan() {
+        var jab = document.getElementById('s_jabatanpejabat').value;
+        var nalt = document.getElementById('jabatanp');
+        if (jab != "") {
+            nalt.innerHTML = "<span class='icon-check'></span>";
+            return true;
+        } else {
+            nalt.innerHTML = "<font color='red'> Kolom Harus Diisi</font>";
+            document.getElementById('s_jabatanpejabat').focus();
+            return false;
+        }
+    }
+
+    function golongan() {
+        var selct = document.getElementById('s_golonganpejabat').value;
+        var nalt = document.getElementById('golonganp');
+
+        if (selct == 0)
+        {
+            nalt.innerHTML = "<font color='red'> Pilih Golongan Pejabat</font>";
+            document.getElementById('s_golonganpejabat').focus();
+            return false;
+        }
+        else {
+            nalt.innerHTML = "<span class='icon-check'></span>";
+            return true;
+        }
+    }
+
+    function validasiform() {
+        document.forms['formtambah'].submit();
+    }
+</script>

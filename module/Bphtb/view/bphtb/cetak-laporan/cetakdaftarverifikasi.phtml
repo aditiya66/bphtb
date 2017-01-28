@@ -1,0 +1,300 @@
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <a href="javascript:window.print()" class="btn btn-flat btn-primary"><span class="glyphicon glyphicon-print"></span> Print</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div id="section-to-print"> 
+                                    <div id="content">
+                                        <h2 style="text-align: center">DAFTAR SSPD BPHTB YANG TELAH VALIDASI</h2>
+                                        <div style='width: 10%; float: left;'>
+                                            Tanggal Cetak
+                                        </div>
+                                        <div style='width: 90%; float: right;'>
+                                            : <?= $tgl_cetak ?>
+                                        </div>
+                                        <div style='width: 10%; float: left;'>
+                                            Tanggal Validasi
+                                        </div>
+                                        <div style='width: 90%; float: right;'>
+                                            : <?= $tgl_verifikasi1 ?> s/d <?= $tgl_verifikasi2 ?>
+                                        </div>
+                                        <table width="100%" style="border-spacing: 0">
+                                            <thead>
+                                                <tr style="text-align: center">
+                                                    <td rowspan="3" style="width: 4%">
+                                                        No.
+                                                    </td>
+                                                    <td rowspan="3">
+                                                        No. Daftar
+                                                    </td>
+                                                    <td rowspan="1" colspan="2">
+                                                        Yang Menerima Hak
+                                                    </td>
+                                                    <td rowspan="1" colspan="9">
+                                                        Berdasarkan SSPD Lembar ke-3
+                                                    </td>
+                                                    <td rowspan="1" colspan="3">
+                                                        Pembayaran BPHTB
+                                                    </td>
+                                                    <td rowspan="3">
+                                                        Tanggal Validasi
+                                                    </td>
+                                                </tr>
+                                                <tr style="text-align: center">
+                                                    <td rowspan="2" colspan="1">
+                                                        Nama
+                                                    </td>
+                                                    <td rowspan="2" colspan="1">
+                                                        Alamat
+                                                    </td>
+                                                    <td rowspan="2" colspan="1">
+                                                        Harga Transaksi
+                                                    </td>
+                                                    <td rowspan="1" colspan="2">
+                                                        Bumi
+                                                    </td>
+                                                    <td rowspan="1" colspan="2">
+                                                        Bangunan
+                                                    </td>
+                                                    <td rowspan="2" colspan="1">
+                                                        NJOP Total
+                                                    </td>
+                                                    <td rowspan="2" colspan="1">
+                                                        NPOP
+                                                    </td>
+                                                    <td rowspan="2" colspan="1">
+                                                        NPOPTKP
+                                                    </td>
+                                                    <td rowspan="2" colspan="1">
+                                                        BPHTB Terhutang
+                                                    </td>
+                                                    <td rowspan="2" colspan="1">
+                                                        Rp.
+                                                    </td>
+                                                    <td rowspan="2" colspan="1">
+                                                        Tgl
+                                                    </td>
+                                                    <td rowspan="2" colspan="1">
+                                                        Nama Notaris/PPATS
+                                                    </td>
+                                                </tr>
+                                                <tr align="center">
+                                                    <td rowspan="1" colspan="1">
+                                                        Luas (m2)
+                                                    </td>
+                                                    <td rowspan="1" colspan="1">
+                                                        NJOP (Rp/m2)
+                                                    </td>
+                                                    <td rowspan="1" colspan="1">
+                                                        Luas (m2)
+                                                    </td>
+                                                    <td rowspan="1" colspan="1">
+                                                        NJOP (Rp/m2)
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <?php
+                                            $totalPembayaran = 0;
+                                            $counter = 1;
+                                            $t_totalspt = 0;
+                                            $t_nilaipembayaranspt = 0;
+                                            foreach ($this->data_Verifikasi as $k => $v) {
+                                                ?>
+                                                <tr>
+                                                    <td align="center">
+                                                        <?= $counter ?>
+                                                    </td>
+                                                    <td align="center">
+                                                        <?php
+                                                        $tanggal_bayar = explode('-', $v['t_tglverifikasispt']);
+                                                        $tahun = $tanggal_bayar[0];
+                                                        $bulan = $tanggal_bayar[1];
+                                                        $tanggal = $tanggal_bayar[2];
+                                                        ?>
+                                                        <?= str_pad($v['t_kohirspt'], 4, '0', STR_PAD_LEFT) ?>
+                                                    </td>
+                                        <!--            <td>
+                                                    <?= $v['t_nopbphtbsppt'] ?>
+                                                    </td>-->
+                                                    <td>
+                                                        <?= strtoupper($v['t_namawppembeli']) ?> 
+                                                    </td>
+                                                    <td>
+                                                        <?= $v['t_alamatwppembeli'] ?>
+                                                    </td>
+                                                    <td style="text-align: right">
+                                                        <?= number_format($v['t_nilaitransaksispt'], 0, ',', '.'); ?>
+                                                    </td>
+                                                    <td style="text-align: right">
+                                                        <?= $v['t_luastanah'] ?>
+                                                    </td>
+                                                    <td style="text-align: right">
+                                                        <?= number_format($v['t_njoptanah'], 0, ',', '.'); ?>
+                                                    </td>
+                                                    <td style="text-align: right">
+                                                        <?= $v['t_luasbangunan'] ?>
+                                                    </td>
+                                                    <td style="text-align: right">
+                                                        <?= number_format($v['t_njopbangunan'], 0, ',', '.'); ?>
+                                                    </td>
+                                                    <td style="text-align: right">
+                                                        <?= number_format($v['t_grandtotalnjop'], 0, ',', '.'); ?>
+                                                    </td>
+                                                    <td style="text-align: right">
+                                                        <?php
+                                                        $npop = $v['t_grandtotalnjop'] - $v['t_nilaipembayaranspt'];
+                                                        ?>
+                                                        <?= number_format($npop, 0, ',', '.'); ?>
+                                                    </td>
+                                                    <td style="text-align: right">
+                                                        <?= number_format($v['t_potonganspt'], 0, ',', '.') ?>
+                                                    </td>
+                                                    <td style="text-align: right">
+                                                        <?= number_format($v['t_totalspt'], 0, ',', '.'); ?>
+                                                        <?php $t_totalspt += $v['t_totalspt']; ?>
+                                                    </td>
+                                                    <td style="text-align: right">
+                                                        <?= number_format($v['t_nilaipembayaranspt'], 0, ',', '.'); ?>
+                                                        <?php $t_nilaipembayaranspt += $v['t_nilaipembayaranspt']; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                        if (!empty($v['t_tanggalpembayaran'])) {
+                                                            $tglbayar = date('d/m/Y', strtotime($v['t_tanggalpembayaran']));
+                                                        } else {
+                                                            $tglbayar = "";
+                                                        }
+                                                        ?>
+                                                        <?= $tglbayar; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?= $v['s_namanotaris'] ?>
+                                                    </td>
+                                                    <td align="center">
+                                                        <?= date('d/m/Y', strtotime($v['t_tglverifikasispt'])) ?>
+                                                    </td>
+                                                    <?php
+                                                    $counter++;
+                                                }
+                                                ?>
+                                            <tr>
+                                                <td colspan="8"></td>
+                                                <td colspan="5" style="text-align: right">
+                                                    <div style="float: left;">
+                                                        <b>BPHTB Terhutang : </b> 
+                                                    </div>
+                                                    <div style="float: right">
+                                                        <b> <?= number_format($t_totalspt, 0, ',', '.'); ?></b>
+                                                    </div>
+                                                </td>
+                                                <td colspan="3">
+                                                    <div style="float: left;">
+                                                        <b>Jumlah Pembayaran : </b> 
+                                                    </div>
+                                                    <div style="float: right">
+                                                        <b> <?= number_format($t_nilaipembayaranspt, 0, ',', '.'); ?></b>
+                                                    </div>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="8"></td>
+                                                <td colspan="8" style="text-align: right">
+                                                    <div style="float: left;">
+                                                        <b>Piutang BPHTB : </b> 
+                                                    </div>
+                                                    <div style="float: right">
+                                                        <b> <?= number_format($t_totalspt - $t_nilaipembayaranspt, 0, ',', '.'); ?></b>
+                                                    </div>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <div id="pageFooter"> </div>
+                                            <tfoot></tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    .font_sembilan {
+        font-size: 9pt;
+    }
+
+    table {
+        table-layout:fixed;
+        width:100%;
+        overflow:hidden;
+        border:1px solid #f00;
+        word-wrap:break-word;
+    }
+
+    #section-to-print, #section-to-print * {
+        font-size: 12px;
+    }
+
+    @media print {
+        @page { 
+            size: 210mm 297mm; /* landscape */
+            margin-top: 5mm;
+            max-width: 297mm;
+        }
+        body * {
+            visibility: hidden;
+        }
+        #section-to-print, #section-to-print * {
+            visibility: visible;
+            font-size: 12px;
+        }
+        #section-to-print {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        table { page-break-inside:auto }
+        tr    { page-break-inside:avoid; page-break-after:auto }
+        thead { display:table-header-group }
+        tfoot { display:table-footer-group }
+        #content {
+            display: table;
+        }
+
+        #pageFooter {
+            display: table-footer-group;
+        }
+
+        #pageFooter:after {    
+            counter-increment: page;
+            content:"Halaman : " counter(page);
+            left: 0; 
+            top: 100%;
+            white-space: nowrap; 
+            z-index: 20px;
+            -moz-border-radius: 5px; 
+            -moz-box-shadow: 0px 0px 4px #222;  
+            background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);  
+            background-image: -moz-linear-gradient(top, #eeeeee, #cccccc); 
+        }
+    }
+</style>

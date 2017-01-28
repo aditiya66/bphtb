@@ -1,0 +1,167 @@
+<html>
+    <body>
+        <?php
+        ini_set("max_execution_time", 5000);
+        ini_set('memory_limit', '1024M');
+        ?>
+        <div>
+            <div>
+                <div style='width: 10%; float: left;'>
+                </div>
+                <div style='width: 90%; float: right;'>
+                    <p style="text-align: center; font-size: 10pt; font-weight: BOLD;">
+                        PEMERINTAH <?= strtoupper($ar_pemda->s_namakabkot); ?>, <?= strtoupper($ar_pemda->s_namaprov); ?>
+                    </p>
+                    <p style="text-align: center; font-size: 12pt; font-weight: BOLD; line-height: 1px;">
+                        <?= strtoupper($ar_pemda->s_namainstansi); ?> (<?= strtoupper($ar_pemda->s_namasingkatinstansi); ?>)
+                    </p>
+                    <p style="text-align: center; font-size: 8pt; line-height: 5px">
+                        <?= strtoupper($ar_pemda->s_alamatinstansi); ?> Telp/Fax <?= $ar_pemda->s_notelinstansi ?>, <?= $ar_pemda->s_namaibukotakabkot ?> <?= $ar_pemda->s_kodepos ?>
+                    </p>
+                </div>
+                <div style='clear:both;'></div>
+            </div>
+            <hr style="line-height: 1px; color: black">
+            <h4 style="text-align: center">DAFTAR LAPORAN BPHTB (<?= strtoupper($jeniscetakan) ?>)</h4>
+            <p style="font-size: 10pt; line-height: 5px"> 
+                Tanggal <?= ucwords($jeniscetakan); ?> : <?= $tgl_cetak1 ?> s/d <?= $tgl_cetak2 ?>
+            </p>
+            <table width="100%" class="font_empatbelas">
+                <tr style="text-align: center">
+                    <td rowspan="2" class="border_atas border_bawah border_kanan border_kiri">
+                        No.
+                    </td>
+                    <td colspan="3">
+                        Informasi Pihak kedua(Penerima Hak)
+                    </td>
+                    <td colspan="2">
+                        Informasi Pihak Pertama(Pelepas Hak)
+                    </td>
+                    <td colspan="3">
+                        Informasi Objek Pajak
+                    </td>
+                    <td colspan="6">
+                        Informasi Transaksi
+                    </td>
+                </tr>
+                <tr style="text-align: center">
+                    <td>
+                        NIK
+                    </td>
+                    <td>
+                        Nama
+                    </td>
+                    <td>
+                        Alamat
+                    </td>
+                    <td>
+                        Nama
+                    </td>
+                    <td>
+                        Alamat
+                    </td>
+                    <td>
+                        NOP/Tahun SPPT
+                    </td>
+                    <td>
+                        Nama SPPT
+                    </td>
+                    <td>
+                        Letak Tanah / Bangunan
+                    </td>
+                    <td>
+                        Jenis Transaksi
+                    </td>
+                    <td>
+                        Nama Notaris/PPATS
+                    </td>
+                    <td>
+                        Tgl Pendaftaran
+                    </td>
+                    <td>
+                        Luas Tanah (Bumi)
+                    </td>
+                    <td>
+                        Luas Bangunan
+                    </td>
+                    <td>
+                        Harga Transaksi / Nilai Pasar
+                    </td>
+                </tr>
+                <?php
+                $totalPembayaran = 0;
+                $counter = 1;
+                $jumlahnilaitransaksi = 0;
+                foreach ($this->data_lapBphtb as $k => $v) {
+                    ?>
+                    <tr style="text-align: center">
+                        <td>
+                            <?= $counter ?>
+                        </td>
+                        <td>
+                            <?= $v['t_nikwppembeli'] ?>
+                        </td>
+                        <td align="left">
+                            <?= $v['t_namawppembeli'] ?>
+                        </td>
+                        <td align="left">
+                            Kel. <?= $v['t_kelurahanwppembeli'] ?> Kec. <?= $v['t_kecamatanwppembeli'] ?> Kab/kota <?= $v['t_kabkotawppembeli'] ?>
+                        </td>
+                        <td align="left">
+                            <?= $v['t_namawppenjual'] ?>
+                        </td>
+                        <td align="left">
+                            Kel. <?= $v['t_kelurahanwppenjual'] ?> Kec.  <?= $v['t_kecamatanwppenjual'] ?> Kab/kota <?= $v['t_kabkotawppenjual'] ?>
+                        </td>
+                        <td>
+                            <?= $v['t_nopbphtbsppt'] ?> - <?= $v['t_thnsppt'] ?>
+                        </td>
+                        <td align="left">
+                            <?= $v['t_namasppt'] ?>
+                        </td>
+                        <td align="left">
+                            <?= $v['t_alamatop'] ?>
+                        </td>
+                        <td>
+                            <?= $v['s_namajenistransaksi'] ?>
+                        </td>
+                        <td align="left">
+                            <?= $v['s_namanotaris'] ?>
+                        </td>
+                        <td>
+                            <?= date('d/m/Y', strtotime($v['t_tglprosesspt'])) ?>
+                        </td>
+                        <td>
+                            <?= $v['t_luastanah'] ?>
+                        </td>
+                        <td>
+                            <?= $v['t_luasbangunan'] ?>
+                        </td>
+                        <td align="right">
+                            <?= number_format($v['t_nilaitransaksispt'], 0, ',', '.') ?>
+                            <?php $jumlahnilaitransaksi += $v['t_nilaitransaksispt']; ?>
+                        </td>
+                    </tr>
+                    <?php
+                    $counter++;
+                }
+                ?>
+                <tr>
+                    <td colspan="16" style="text-align: right">
+                        <strong>Jumlah : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= number_format($jumlahnilaitransaksi, 0, ',', '.') ?></strong>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
+
+<style type="text/css" media="print">
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    .font_empatbelas {
+        font-size: 14pt;
+    }    
+</style>

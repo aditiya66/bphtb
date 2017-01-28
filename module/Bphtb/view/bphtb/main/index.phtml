@@ -1,0 +1,173 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            Dashboard
+            <small>Control panel</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <section class="col-lg-12 connectedSortable">
+                <div class="box box-info">
+                    <div class="box-header">
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="clearfix" align="center"> 
+                                    <img src="<?= $data_pemda->s_logo ?>" alt="" width="70%">
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="clearfix" align="center" >
+                                    <span style="font-size: 24px"><b>PEMERINTAH <?= strtoupper($data_pemda->s_namakabkot) ?>, <?= strtoupper($data_pemda->s_namaprov) ?></b></span>
+                                    <br>
+                                    <span style="font-size: 20px"><b><?= $data_pemda->s_namainstansi ?> (<?= $data_pemda->s_namasingkatinstansi ?>)</b></span>
+                                    <br>
+                                    <?= $data_pemda->s_alamatinstansi ?> Telp/Fax <?= $data_pemda->s_notelinstansi ?>, <?= $data_pemda->s_namaibukotakabkot ?> <?= $data_pemda->s_kodepos ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <?php if ($role_id == 6) {
+            
+        } else {
+            ?>
+            <div class="row">
+                <div class="col-lg-2 col-xs-4">
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3><?= $datapendataan ?></h3>
+                            <p>Pendaftaran</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion-android-home"></i>
+                        </div>
+                        <a href="<?= $this->url('pendataan_sspd') ?>" class="small-box-footer">Lihat Tabel <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-xs-4">
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3><?= $dataverifikasi ?></h3>
+                            <p>Validasi</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion-ios-book-outline"></i>
+                        </div>
+                        <?php if ($role_id == 3) { ?> 
+                            <span class="small-box-footer"><i class="fa"></i></span>
+                        <?php } else { ?>
+                            <a href="<?= $this->url('verifikasi_spt') ?>" class="small-box-footer">Lihat Tabel <i class="fa fa-arrow-circle-right"></i></a>
+    <?php } ?>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-xs-4">
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3><?= $datapembayaran ?></h3>
+                            <p>Pembayaran</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion-android-contacts"></i>
+                        </div>
+                        <?php if ($role_id == 3) { ?> 
+                            <span class="small-box-footer"><i class="fa"></i></span>
+                        <?php } else { ?>
+                            <a href="<?= $this->url('pembayaran_sptbphtb') ?>" class="small-box-footer">Lihat Tabel <i class="fa fa-arrow-circle-right"></i></a>
+    <?php } ?>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-xs-4">
+                    <div class="small-box bg-red">
+                        <br><br>
+                        <div class="inner">
+                            <h3></h3>
+                            <p>Pelaporan Notaris</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion-social-snapchat-outline"></i>
+                        </div>
+                        <a href="<?= $this->url('pelaporan_notaris') ?>" class="small-box-footer">Lihat Tabel <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-xs-4">
+                    <div class="small-box bg-olive">
+                        <br><br>
+                        <div class="inner">
+                            <h3></h3>
+                            <p>Informasi OP</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion-ribbon-b"></i>
+                        </div>
+                        <a href="<?= $this->url('pendataan_sspd') ?>/informasiop" class="small-box-footer">Cek OP <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <?php if ($role_id == 3) { ?> 
+    <?php } else { ?>
+                    <div class="col-lg-2 col-xs-4">
+                        <div class="small-box bg-primary">
+                            <div class="inner">
+                                <br><br>
+                                <h3></h3>
+                                <p>Cetak Laporan</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion-ios-glasses-outline"></i>
+                            </div>
+                            <a href="<?= $this->url('cetak_laporan') ?>" class="small-box-footer">Menu Cetak <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+            <?php } ?>
+            </div>
+<?php } ?>
+    </section>
+</div>
+<script type="text/javascript">
+    $("#rowcari").hide();
+    function cari() {
+        $("#rowcari").show();
+        var dTable;
+        // #Example adalah id pada table
+        $(document).ready(function () {
+            dTable = $('#example').DataTable({
+                "bProcessing": true,
+                "bServerSide": true,
+                "bJQueryUI": false,
+                "responsive": true,
+                "sAjaxSource": "<?= $this->url() ?>/dataGrid", // Load Data
+                "sServerMethod": "POST",
+                "columnDefs": [
+                    {"orderable": true, "targets": 0, "searchable": true},
+                    {"orderable": true, "targets": 1, "searchable": true},
+                    {"orderable": false, "targets": 2, "searchable": false},
+                    {"orderable": true, "targets": 3, "searchable": true},
+                    {"orderable": true, "targets": 4, "searchable": true}
+                ]
+            });
+            $('#example').removeClass('display').addClass('table table-striped table-bordered');
+            $('#example tfoot th').each(function () {
+                //Agar kolom Action Tidak Ada Tombol Pencarian
+//                if ($(this).text() != "") {
+//                    var title = $('#example thead th').eq($(this).index()).text();
+//                    $(this).html('<input type="text" placeholder="Cari ' + title + '" class="form-control" />');
+//                }
+            });
+            // Untuk Pencarian, di kolom paling bawah
+            dTable.columns().every(function () {
+                var that = this;
+                $('input', this.footer()).on('keyup change', function () {
+                    that.search(this.value).draw();
+                });
+            });
+        });
+    }
+</script>

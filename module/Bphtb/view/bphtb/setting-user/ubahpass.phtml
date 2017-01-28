@@ -1,0 +1,80 @@
+<?php
+$frm = $this->frm;
+$frm->setAttribute('action', $this->url() . '/ubahpass');
+$frm->prepare();
+?>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">UBAH PASSWORD</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row margin">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><h3 class="panel-title"><span style="font-size: 10pt">Ubah Password</span></h3></div>
+                                    <div class="panel-body">
+                                        <fieldset>
+                                            <legend>PENGGUNA</legend>                    
+                                            <?= $this->form()->openTag($frm) ?>
+                                            <div class="row-fluid">                      
+                                                <?= $this->formRow($frm->get('s_iduser')) ?>
+                                                <?= $this->formRow($frm->get('s_password')) ?>
+                                                <?= $this->formRow($frm->get('t_pass2')) ?>
+                                                <div align="right">
+                                                    <?= $this->formInput($frm->get('simpan')) ?>
+                                                </div>                    
+                                            </div>
+                                            <?= $this->form()->closeTag($frm) ?>
+                                        </fieldset>
+                                    </div>        
+                                </div>    
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+
+<style>
+    .radio_render{
+
+    }
+
+    .radio_render label {
+        width: 25%;
+        float: left;
+    }
+
+    .radio_render label input {        
+        vertical-align: top;
+
+    }
+
+</style>
+<script type="text/javascript">
+
+    $('#s_tipe_pejabat').on('change', function () {
+        //console.log(this.value);
+        $.post('<?= $this->url() ?>/getListPejabat', {s_tipe_pejabat: this.value}, function (data) {
+//            var dt = JSON.parse(data);
+//            var options = $("#s_list_pejabat");
+            $("#s_list_pejabat").html(data);
+//            options.find('option').remove().end().append($("<option />").val('').text('Silahkan Pilih'));
+//            for (var i = 0; i < dt.count; i++) {
+//                options.find('option').remove().end().append($("<option />").val(dt.id_pejabat).text(dt.nama_pejabat));
+//            }
+
+        });
+        if (this.value == '2') {
+            $("#s_akses").val("3");
+        } else {
+            $("#s_akses").val("");
+        }
+    });
+</script>

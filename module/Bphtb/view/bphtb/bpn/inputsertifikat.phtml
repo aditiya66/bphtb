@@ -1,0 +1,244 @@
+<?php
+$frm = $this->frm;
+$frm->setAttribute('action', $this->url() . '/updatesertifikat');
+$frm->setAttribute('id', "formtambah");
+$frm->prepare();
+?>
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-heading"><center><h3 class="panel-title"><span style="font-size:12pt">FORM INPUT DATA SERTIFIKAT BARU</span></h3></center></div>
+        <div class="panel-body">
+            <?= $this->form()->openTag($frm) ?>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-horizontal form-group col-md-12">
+                        <input type="hidden" name="t_iddetailsptbphtb" value="<?= $_GET['t_idspt'] ?>" />
+                        <input type="hidden" name="t_idspt" value="<?= $frm->get('t_idspt')->getValue(); ?>" />
+                        <label for="inputKey" class="col-md-4" style="text-align: left;">Nomor Sertifikat</label>
+                        <div class="col-md-4">
+                            <?= $this->formRow($frm->get('t_nosertifikatbaru')) ?>
+                        </div>
+                    </div>
+                    <div class="form-horizontal form-group col-md-12">
+                        <label for="inputValue" class="col-md-4">Tanggal Sertifikat</label>
+                        <div class="col-md-4">
+                            <?= $this->formRow($frm->get('t_tglsertifikatbaru')) ?>
+                        </div>
+                        <div class="col-md-2">
+                            <?php
+                            if (!empty($frm->get('t_nosertifikatbaru')->getValue()) && !empty($frm->get('t_tglsertifikatbaru')->getValue())) {
+                                
+                            } else {
+                                ?> 
+                                <input class="btn btn-success" type="submit" value="SIMPAN"/>
+                            <?php }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default" style="word-wrap: break-word">
+                        <div class="panel-heading panel-warning"><center><h3 class="panel-title"><span style="font-size:12pt">Informasi Tanah & Bangunan</span></h3></center></div>                        
+                        <div class="panel-body">
+                            <div class="form-horizontal form-group col-md-12">
+                                <label for="inputValue" class="col-md-4">Luas Tanah</label>
+                                <div class="col-md-3">
+                                    : <?= $frm->get('t_luastanahbpn')->getValue(); ?>
+                                </div>
+                                <label for="inputValue" class="col-md-2">NJOP</label>
+                                <div class="col-md-3">
+                                    : <?= $frm->get('t_njoptanah')->getValue(); ?>
+                                </div>
+                            </div> 
+                            <div class="form-horizontal form-group col-md-12">
+                                <label for="inputValue" class="col-md-4">Luas Bangunan</label>
+                                <div class="col-md-3">
+                                    : <?= $frm->get('t_luasbangunanbpn')->getValue(); ?>
+                                </div>
+                                <label for="inputValue" class="col-md-2">NJOP</label>
+                                <div class="col-md-3">
+                                    : <?= $frm->get('t_njopbangunan')->getValue(); ?>
+                                </div>
+                            </div>                              
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel panel-primary" style="word-wrap: break-word">
+                    <div class="panel-heading"><center><h3 class="panel-title"><span style="font-size:12pt">Informasi Wajib Pajak</span></h3></center></div>                        
+                    <table class="table">
+                        <tr>
+                            <td><span style="color: blue;"><b>Tgl Pendaftaran</b></span></td>
+                            <td> : <?= $frm->get('t_tglprosesspt')->getValue(); ?> </td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>NIK</b></span></td>
+                            <td> : <?= $frm->get('t_nikwppembeli')->getValue(); ?> </td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>NPWP</b></span></td>
+                            <td> : <?= $frm->get('t_npwpwppembeli')->getValue(); ?> </td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Nama</b></span></td>
+                            <td> : <?= $frm->get('t_namawppembeli')->getValue(); ?> </td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Alamat</b></span></td>
+                            <td> : <?= $frm->get('t_alamatwppembeli')->getValue(); ?> </td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>RT</b></span></td>
+                            <td> : <?= $frm->get('t_rtwppembeli')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>RW</b></span></td>
+                            <td> : <?= $frm->get('t_rwwppembeli')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Kelurahan / Desa</b></span></td>
+                            <td> : <?= $frm->get('t_kelurahanwppembeli')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Kecamatan</b></span></td>
+                            <td> : <?= $frm->get('t_kecamatanwppembeli')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Kabupaten / Kota</b></span></td>
+                            <td> : <?= $frm->get('t_kabkotawppembeli')->getValue(); ?> </td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Kode Pos</b></span></td>
+                            <td> : <?= $frm->get('t_kodeposwppembeli')->getValue(); ?> </td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>No Telp</b></span></td>
+                            <td> : <?= $frm->get('t_telponwppembeli')->getValue(); ?> </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><h3 class="panel-title"><span style="font-size:12pt">Informasi Objek Pajak</span></h3></center></div>
+                    <table class="table">
+                        <tr>
+                            <td><span style="color: blue;"><b>NOP/Thn SPPT</b></span></td>
+                            <td> : <?= $frm->get('t_nopbphtbsppt')->getValue(); ?><?= $frm->get('t_thnsppt')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Nama SPPT</b></span></td>
+                            <td> : <?= $frm->get('t_namasppt')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Letak</b></span></td>
+                            <td> : <?= $frm->get('t_alamatop')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>RT</b></span></td>
+                            <td> : <?= $frm->get('t_rtop')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>RW</b></span></td>
+                            <td> : <?= $frm->get('t_rwop')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Kelurahan / Desa</b></span></td>
+                            <td> : <?= $frm->get('t_kelurahanop')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Kecamatan</b></span></td>
+                            <td> : <?= $frm->get('t_kecamatanop')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Kabupaten / Kota</b></span></td>
+                            <td> : <?= $frm->get('t_kabkotawppembeli')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Jenis Transaksi</b></span></td>
+                            <td> : <?= $frm->get('s_namajenistransaksi')->getValue(); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>No Dok Tanah</b></span></td>
+                            <td> : <?= $frm->get('t_nosertifikathaktanah')->getValue(); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Tanggal AJB Lama</b></span></td>
+                            <td> : <?= $frm->get('t_tglajb')->getValue(); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Kepemilikan</b></span></td>
+                            <td> : <?= $frm->get('s_namahaktanah')->getValue(); ?>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><center><h3 class="panel-title"><span style="font-size:12pt">Informasi Penjual</span></h3></center></div>
+                    <table class="table">
+                        <tr>
+                            <td><span style="color: blue;"><b>Nama Penjual</b></span></td>
+                            <td> : <?= $frm->get('t_namawppenjual')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>NIK</b></span></td>
+                            <td> : <?= $frm->get('t_nikwppenjual')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>NPWP</b></span></td>
+                            <td> : <?= $frm->get('t_npwpwppenjual')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Alamat</b></span></td>
+                            <td> : <?= $frm->get('t_alamatwppenjual')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>RT</b></span></td>
+                            <td> : <?= $frm->get('t_rtwppenjual')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>RW</b></span></td>
+                            <td> : <?= $frm->get('t_rwwppenjual')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Kelurahan/Desa</b></span></td>
+                            <td> : <?= $frm->get('t_kelurahanwppenjual')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Kecamatan</b></span></td>
+                            <td> : <?= $frm->get('t_kecamatanwppenjual')->getValue(); ?> <?php $this->formRow($frm->get('t_kecamatanwppenjual')) ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Kab./Kota</b></span></td>
+                            <td> : <?= $frm->get('t_kabkotawppenjual')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>Kode Pos</b></span></td>
+                            <td> : <?= $frm->get('t_kodeposwppenjual')->getValue(); ?></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue;"><b>No Telp</b></span></td>
+                            <td> : <?= $frm->get('t_telponwppenjual')->getValue(); ?></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery("#t_tglsertifikatbaru").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id',
+        autoclose: true
+
+    });
+</script>

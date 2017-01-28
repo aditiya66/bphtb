@@ -1,0 +1,402 @@
+<html moznomarginboxes mozdisallowselectionprint>
+    <head>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+
+            .font_besar {
+                font-size: 12pt;
+            }
+
+            .font_kecil {
+                font-size: 10pt;
+            }
+
+            .font_lima {
+                font-size: 7pt;
+            }
+
+            .font_tujuh {
+                font-size: 7pt;
+            }  
+
+            .font_delapan {
+                font-size: 8pt;
+            }    
+
+            .font_sembilan {
+                font-size: 9pt;
+            }    
+        </style>
+    </head>
+    <body>
+        <?php
+        ini_set("max_execution_time", 5000);
+        ini_set('memory_limit', '1024M');
+        ?>
+        <div class="printarea">
+            <div>
+                <div id='outerdiv'>
+                    <div style='width: 10%; float: left;'>
+                        <img src="http://<?= $_SERVER['HTTP_HOST']; ?>/<?= $this->basePath(); ?>/<?= $ar_pemda->s_logo ?>"style="height: 75px;">
+                    </div>
+                    <div style='width: 90%; float: right;'>
+                        <p style="text-align: center; font-size: 10pt; font-weight: BOLD;">
+                            PEMERINTAH <?= strtoupper($ar_pemda->s_namakabkot); ?>, <?= strtoupper($ar_pemda->s_namaprov); ?>
+                        </p>
+                        <p style="text-align: center; font-size: 12pt; font-weight: BOLD; line-height: 1px;">
+                            <?= strtoupper($ar_pemda->s_namainstansi); ?> (<?= strtoupper($ar_pemda->s_namasingkatinstansi); ?>)
+                        </p>
+                        <p style="text-align: center; font-size: 8pt; line-height: 5px">
+                            <?= strtoupper($ar_pemda->s_alamatinstansi); ?> Telp/Fax <?= $ar_pemda->s_notelinstansi ?>, <?= $ar_pemda->s_namaibukotakabkot ?> <?= $ar_pemda->s_kodepos ?>
+                        </p>
+                    </div>
+                    <div style='clear:both;'></div>
+                </div>
+                <hr style="line-height: 1px; color: black">
+                <h2 style="text-align: center">DAFTAR DATA STATUS BERKAS</h2>
+                <div id='outerdiv'>
+                    <div style='width: 20%; float: left;'>
+                        Tanggal Cetak
+                    </div>
+                    <div style='width: 80%; float: right;'>
+                        : <?= $tgl_cetak ?>
+                    </div>
+                </div>
+                <div id='outerdiv'>
+                    <div style='width: 20%; float: left;'>
+                        Tanggal Pendaftaran
+                    </div>
+                    <div style='width: 80%; float: right;'>
+                        : <?= $tgl_pendaftaran1 ?> s/d <?= $tgl_pendaftaran2 ?>
+                    </div>
+                </div>
+                <table width="100%" class="font_tujuh">
+                    <tr style="text-align: center">
+                        <td rowspan="2">
+                            <b>No.</b>
+                        </td>
+                        <td rowspan="1" colspan="3">
+                            <b>Informasi Pihak Kedua (Penerima Hak)</b>
+                        </td>
+                        <td rowspan="1" colspan="2">
+                            <b>Syarat Pendaftaran</b>
+                        </td>
+                        <td rowspan="1" colspan="2">
+                            <b>Syarat Validasi</b>
+                        </td>
+                        <td rowspan="2" colspan="1">
+                            <b>Pembayaran</b>
+                        </td>
+                        <td rowspan="1" colspan="2">
+                            <b>Koreksi Luas BPN</b>
+                        </td>
+                        <td rowspan="1" colspan="2">
+                            <b>AJB
+                        </td>
+                        <td rowspan="2" colspan="1">
+                            <b> Dilaporkan Ke DISPENDA</b>
+                        </td>
+                        <td rowspan="1" colspan="2">
+                            <b>No Sertifikat</b>
+                        </td>
+                    </tr>
+                    <tr style="text-align: center">
+                        <td rowspan="1" colspan="1">
+                            <b>NIK</b>
+                        </td>
+                        <td rowspan="1" colspan="1">
+                            <b>Nama</b>
+                        </td>
+                        <td rowspan="1" colspan="1">
+                            <b>Alamat</b>
+                        </td>
+                        <td rowspan="1" colspan="1">
+                            <b>Belum Lengkap</b>
+                        </td>
+                        <td rowspan="1" colspan="1">
+                            <b>Sudah Lengkap</b>
+                        </td>
+                        <td rowspan="1" colspan="1">
+                            <b>Belum Lengkap</b>
+                        </td>
+                        <td rowspan="1" colspan="1">
+                            <b>Sudah Lengkap</b>
+                        </td>
+                        <td rowspan="1" colspan="1">
+                            <b>Luas SSPD</b>
+                        </td>
+                        <td rowspan="1" colspan="1">
+                            <b>Luas BPN</b>
+                        </td>
+                        <td rowspan="1" colspan="1">
+                            <b>No</b>
+                        </td>
+                        <td rowspan="1" colspan="1">
+                            <b>Tanggal</b>
+                        </td>
+                        <td rowspan="1" colspan="1">
+                            <b>No</b>
+                        </td>
+                        <td rowspan="1" colspan="1">
+                            <b>Tanggal</b>
+                        </td>
+                    </tr>
+                    <?php
+                    $totalPembayaran = 0;
+                    $counter = 1;
+                    foreach ($this->data_Verifikasi as $k => $v) {
+                        ?>
+                        <tr style="text-align: center">
+                            <td>
+                                <?= $counter ?>
+                            </td>
+                            <td>
+                                <?= $v['t_nikwppembeli'] ?>
+                            </td>
+                            <td align="left">
+                                <?= $v['t_namawppembeli'] ?>
+                            </td>
+                            <td align="left">
+                                <?= $v['t_alamatwppembeli'] ?> ,
+                                Kel. <?= $v['t_kelurahanwppembeli'] ?> Kec. <?= $v['t_kecamatanwppembeli'] ?> Kab/kota <?= $v['t_kabkotawppembeli'] ?></br>
+                            </td>
+                            <td>
+                                <?php
+                                if ($v['ceksyarat'] == 1) {
+                                    $centang = 'V';
+                                    $tdk_centang = '-';
+                                    @$total_syarat_centang += 1;
+                                    @$total_syarat_tdk_centang += 0;
+                                } else {
+                                    $centang = '-';
+                                    $tdk_centang = 'V';
+                                    @$total_syarat_centang += 0;
+                                    @$total_syarat_tdk_centang += 1;
+                                }
+                                ?>
+                                <?= $tdk_centang; ?>
+                            </td>
+                            <td>
+                                <?= $centang; ?>
+                            </td>
+                            <td>
+                                <?php
+                                if ($v['cekverifikasi'] == 1) {
+                                    $centang_verifikasi = 'V';
+                                    $tdk_centang_verifikasi = '-';
+
+                                    $jml_centang_verifikasi = 1;
+                                    $jml_tdk_centang_verifikasi = 0;
+
+                                    @$total_syarat_centang_verifikasi += $jml_centang_verifikasi;
+                                    @$total_syarat_tdk_centang_verifikasi += $jml_tdk_centang_verifikasi;
+                                } elseif ($v['cekverifikasi'] == 2) {
+                                    $centang_verifikasi = '-';
+                                    $tdk_centang_verifikasi = 'V';
+
+                                    $jml_centang_verifikasi = 0;
+                                    $jml_tdk_centang_verifikasi = 1;
+
+                                    @$total_syarat_centang_verifikasi += $jml_centang_verifikasi;
+                                    @$total_syarat_tdk_centang_verifikasi += $jml_tdk_centang_verifikasi;
+                                } elseif ($v['cekverifikasi'] == 3) {
+                                    $centang_verifikasi = '-';
+                                    $tdk_centang_verifikasi = '-';
+                                }
+                                ?>
+                                <?= $tdk_centang_verifikasi; ?>
+                            </td>
+                            <td>
+                                <?= $centang_verifikasi; ?>
+                            </td>
+                            <td>
+                                <?php
+                                if (!empty($v['t_tanggalpembayaran'])) {
+                                    $centang_pembayaran = 'v';
+
+                                    $jml_pembayaran = 1;
+
+                                    @$total_jml_pembayaran += $jml_pembayaran;
+                                } else {
+                                    $centang_pembayaran = '-';
+
+                                    @$total_jml_pembayaran += 0;
+                                }
+                                ?>
+                                <?= $centang_pembayaran; ?>
+                            </td>
+                            <td align="left">
+                                <?php
+                                if (!empty($v['t_luastanah'])) {
+                                    $luastanah = $v['t_luastanah'];
+                                } else {
+                                    $luastanah = '-';
+                                }
+
+                                if (!empty($v['t_luasbangunan'])) {
+                                    $luasbangunan = $v['t_luasbangunan'];
+                                } else {
+                                    $luasbangunan = '-';
+                                }
+                                ?>
+                                Tanah : <?= $luastanah; ?><br>
+                                Bangunan : <?= $luasbangunan; ?>
+                            </td>
+                            <td align="left">
+                                <?php
+                                if (!empty($v['t_luastanahbpn'])) {
+                                    $luastanahbpn = $v['t_luastanahbpn'];
+
+                                    @$total_jml_luas_bpn += 1;
+                                } else {
+                                    $luastanahbpn = '-';
+
+                                    @$total_jml_luas_bpn += 0;
+                                }
+
+                                if (!empty($v['t_luasbangunanbpn'])) {
+                                    $luasbangunanbpn = $v['t_luasbangunanbpn'];
+                                } else {
+                                    $luasbangunanbpn = '-';
+                                }
+                                ?>
+                                Tanah : <?= $luastanahbpn; ?><br>
+                                Bangunan : <?= $luasbangunanbpn; ?>
+                            </td>
+                            <td>
+                                <?php
+                                if (!empty($v['t_noajbbaru'])) {
+                                    $noajb = $v['t_noajbbaru'];
+
+                                    @$total_jml_ajb += 1;
+                                } else {
+                                    $noajb = '-';
+
+                                    @$total_jml_ajb += 0;
+                                }
+                                ?>
+                                <?= $noajb; ?>
+                            </td>
+                            <td>
+                                <?php
+                                if (!empty($v['t_tglajbbaru'])) {
+                                    $tglajb = $v['t_tglajbbaru'];
+                                } else {
+                                    $tglajb = '-';
+                                }
+                                ?>
+                                <?= $tglajb; ?>
+                            </td>
+                            <td>
+                                <?php
+                                if (!empty($v['t_statuspelaporannotaris'])) {
+                                    $tgllapor = date('d/m/Y', strtotime($v['t_statuspelaporannotaris']));
+                                    @$total_jml_lapor += 1;
+                                } else {
+                                    $tgllapor = '-';
+                                    @$total_jml_lapor += 0;
+                                }
+                                ?>
+                                <?= $tgllapor; ?>
+                            </td>
+                            <td>
+                                <?php
+                                if (!empty($v['t_nosertifikatbaru'])) {
+                                    $t_nosertifikatbaru = $v['t_nosertifikatbaru'];
+                                } else {
+                                    $t_nosertifikatbaru = '-';
+                                }
+                                ?>
+                                <?= $t_nosertifikatbaru; ?>
+                            </td>
+                            <td>
+                                <?php
+                                if (!empty($v['t_tglsertifikatbaru'])) {
+                                    $tglsertifikatbaru = date('d/m/Y', strtotime($v['t_tglsertifikatbaru']));
+                                    @$total_jml_sertifikatbaru += 1;
+                                } else {
+                                    $tglsertifikatbaru = '-';
+                                    @$total_jml_sertifikatbaru += 0;
+                                }
+                                ?>
+                                <?= $tglsertifikatbaru; ?>
+                            </td>
+
+                            <?php
+                            $counter++;
+                        }
+                        ?>
+                    <tr>
+                        <td rowspan="1" colspan="4" align="center">
+                            Jumlah
+                        </td>
+                        <td rowspan="1" colspan="1" align="center">
+                            <?= @$total_syarat_tdk_centang; ?>
+                        </td>
+                        <td rowspan="1" colspan="1" align="center">
+                            <?= @$total_syarat_centang; ?>
+                        </td>
+                        <td rowspan="1" colspan="1" align="center">
+                            <?= @$total_syarat_tdk_centang_verifikasi; ?>
+                        </td>
+                        <td rowspan="1" colspan="1" align="center">
+                            <?= @$total_syarat_centang_verifikasi; ?>
+                        </td>
+                        <td rowspan="1" colspan="1" align="center">
+                            <?= @$total_jml_pembayaran; ?>
+                        </td>
+                        <td rowspan="1" colspan="1" align="center">
+
+                        </td>
+                        <td rowspan="1" colspan="1" align="center">
+                            <?= @$total_jml_luas_bpn; ?>
+                        </td>
+                        <td rowspan="1" colspan="2" align="center">
+                            <?= @$total_jml_ajb; ?>
+                        </td>
+                        <td rowspan="1" colspan="1" align="center">
+                            <?= @$total_jml_lapor; ?>
+                        </td>
+                        <td rowspan="1" colspan="2" align="center">
+                            <?= @$total_jml_sertifikatbaru; ?>
+                        </td>
+                    </tr>    
+                </table>
+            </div>
+        </div>
+    </body>
+    <footer></footer>
+</html>
+<style type="text/css" media="print">
+    @media print {
+        @page { 
+            size: auto;  
+            margin-top: 5mm; 
+        }
+        body * {
+            visibility: hidden;
+        }
+        .printarea, .printarea * {
+            visibility: visible;
+        }
+        .printarea { /* aligning the printable area */
+            position: absolute;
+            margin-top: 0px;
+            margin-left:0px; 
+            margin-right:0px; 
+        }
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        window.print();
+        //        $("#bodynya").addClass("sidebar-mini sidebar-collapse");
+        //        $("#bodynya").removeClass("layout-top-nav");
+        $("title").html("");
+
+        //        $("#div_rekomendasi ol").attr("type", "a");
+    });
+</script>

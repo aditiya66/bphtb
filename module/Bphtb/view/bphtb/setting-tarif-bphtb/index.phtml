@@ -1,0 +1,131 @@
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">SETTING TARIF BPHTB</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row margin">
+                            <div class="col-sm-12">
+                                <a href="<?= $this->url() ?>/tambah" class="btn bg-purple btn-sm margin">Tambah</a>
+                                <div style=" overflow: auto;">
+                                    <div class="col-lg-12 col-sm12">
+                                        <table class="table table-hover table-bordered">
+                                            <thead style="font-size: 12px">
+                                                <tr class="bg-blue">
+                                                    <th class="text-center" style="width: 20%">
+                                                        Besar Tarif (%)
+                                                    </th>           
+                                                    <th class="text-center" style="width: 20%">
+                                                        Tahun
+                                                    </th> 
+                                                    <th class="text-center" style="width: 20%">
+                                                        Dasar Hukum
+                                                    </th> 
+                                                    <th class="text-center" style="width: 20%">
+                                                        Status
+                                                    </th>       
+                                                    <th class="text-center">
+                                                        Edit/Hapus
+                                                    </th>       
+                                                </tr>
+                                            </thead>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" id="s_tarifbphtb" name="s_tarifbphtb" class="form-control" onkeyup="calldatagrid()">
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="s_tanggaltarifbphtb" name="s_tanggaltarifbphtb" class="form-control" onkeyup="calldatagrid()">
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="s_dasarhukumtarifbphtb" name="s_dasarhukumtarifbphtb" class="form-control" onkeyup="calldatagrid()">
+                                                </td>
+                                                <td>
+                                                    <select class="form-control" id="s_statustarifbphtb">
+                                                        <option value="1">Aktif</option>
+                                                        <option value="0">Tidak Aktif</option>
+                                                    </select>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tbody id="body_grid">
+                                            </tbody>
+                                            <tfoot>              
+                                                <tr>
+                                                    <td colspan="12" class="text-center">
+                                                        <div class="row">
+                                                            <div class="col-sm-4 text-left">Jumlah Baris Ditampilkan: <input type="text" id="rows" style="width: 20%" class="text-center" value="10"></div>
+                                                            <div class="col-sm-3">
+                                                                <a href="#" onclick="calldatagrid(1);
+                                                                        return false;"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></a>
+
+                                                                <input type="text" id="page" value="1" style="width: 20%" class="text-center">
+
+                                                                <a href="#" onclick="calldatagrid(2);
+                                                                        return false;"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a>
+                                                            </div>
+                                                            <div class="col-sm-5 text-right">
+                                                                <p>Jumlah Data <span id="total_data"></span>&nbsp;Jumlah Halaman <span id="total_halaman"></span></p>                                    
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+<script type="text/javascript">
+    $(function () {
+        calldatagrid();
+    });
+
+    function hapus(a) {
+        var tanya = confirm("Hapus data ini?")
+        if (tanya) {
+            $.post('<?= $this->url() ?>/hapus/' + a);
+            calldatagrid();
+        }
+        calldatagrid();
+    }
+
+    function calldatagrid(direction) {
+        if ($("#s_tarifbphtb").val().length == 0)
+            par1 = undefined;
+        else
+            par1 = $("#s_tarifbphtb").val()
+        if ($("#s_tanggaltarifbphtb").val().length == 0)
+            par2 = undefined;
+        else
+            par2 = $("#s_tanggaltarifbphtb").val()
+        if ($("#s_dasarhukumtarifbphtb").val().length == 0)
+            par3 = undefined;
+        else
+            par3 = $("#s_dasarhukumtarifbphtb").val()
+        if ($("#s_statustarifbphtb").val().length == 0)
+            par4 = undefined;
+        else
+            par4 = $("#s_statustarifbphtb").val()
+        datagrid($("#page").val(), $("#rows").val(), direction, par1, par2, par3, par4);
+    }
+
+    function datagrid(page, row, direction, par1, par2, par3, par4) {
+        $.get('<?= $this->url() ?>/dataGrid/' + page + '/' + row + '/' + direction + '/' + par1 + '/' + par2 + '/' + par3 + '/' + par4, function (data) {
+            var aa = JSON.parse(data)
+            $("#body_grid").html(aa.grid);
+            $("#rows").val(aa.rows);
+            $("#page").val(aa.page);
+            $("#total_data").html(": " + aa.count);
+            $("#total_halaman").html(": " + aa.total_halaman);
+        });
+    }
+</script>

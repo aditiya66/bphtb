@@ -1,0 +1,193 @@
+<table width="100%" style="border-spacing: 0" class="font_sembilan">
+    <tr style="text-align: center;">
+        <td colspan="5">
+            <strong>LAPORAN REALISASI BPHTB</strong>
+            <br>
+            <?php
+            $tanggal_bayar = explode('-', $tgl_cetak);
+            $tahun = $tanggal_bayar[2];
+            $bulan = $tanggal_bayar[1];
+            $tanggal = $tanggal_bayar[0];
+            ?>
+            TAHUN <?= $tahun ?>
+            <br>
+        </td>
+    </tr>
+    <tr style="text-align: left;">
+        <td colspan="5">
+            Tanggal Cetak : <?= $tgl_cetak ?>
+        </td>
+    </tr>
+    <tr style="text-align: center">
+        <td class="border_atas border_bawah border_kanan border_kiri">
+            No.
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Jenis Transaksi
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            S/D BULAN LALU
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            BULAN INI
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            S/D BULAN INI
+        </td>
+    </tr>
+    <?php
+    $sdblnlalu = 0;
+    $blnini = 0;
+    $sdblnini = 0;
+    $counter = 1;
+    foreach ($this->data_Realisasi as $k => $v) {
+        ?>
+        <tr>
+            <td style="text-align: center; width: 10px" class="border_bawah border_kanan border_kiri">
+                <?= $counter ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= $v['s_namajenistransaksi'] ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['real_sd_bln_lalu'], 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['real_bln_ini'], 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['real_sd_bln_ini'], 0, ',', '.'); ?>
+            </td>
+        </tr>
+        <?php
+        $sdblnlalu = $v['real_sd_bln_lalu'] + $sdblnlalu;
+        $blnini = $v['real_bln_ini'] + $blnini;
+        $sdblnini = $v['real_sd_bln_ini'] + $sdblnini;
+        $counter++;
+    }
+    ?>
+    <tr>
+        <td style="text-align: center;" colspan="2" class="border_bawah border_kanan border_kiri">
+            Jumlah
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($sdblnlalu, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($blnini, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($sdblnini, 0, ',', '.'); ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;" colspan="4" class="border_bawah border_kanan border_kiri">
+            Target Anggaran&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td style="text-align: right;" class="border_bawah border_kanan">
+            <?= number_format($data_TargetAnggaran['target_anggaran'], 0, ',', '.') ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;" colspan="4" class="border_bawah border_kanan border_kiri">
+            Realisasi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($sdblnini, 0, ',', '.'); ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;" colspan="4" class="border_bawah border_kanan border_kiri">
+            Sisa&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($data_TargetAnggaran['target_anggaran'] - $sdblnini, 0, ',', '.'); ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;" colspan="4" class="border_bawah border_kanan border_kiri">
+            Presentase Realisasi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($sdblnini / $data_TargetAnggaran['target_anggaran'] * 100, 5, ',', '.'); ?> %
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;" colspan="4" class="border_bawah border_kanan border_kiri">
+            Presentase Kekurangan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format(100 - ($sdblnini / $data_TargetAnggaran['target_anggaran'] * 100), 5, ',', '.'); ?> %
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center; padding-top: 30px;">
+            Mengetahui,
+            <br>
+            <?= $data_mengetahui->s_jabatanpejabat ?>
+            <br><br><br><br>
+    <u><?= $data_mengetahui->s_namapejabat ?></u>
+    <br>
+    NIP. <?= $data_mengetahui->s_nippejabat ?>
+    </td>
+    <td></td>
+    <td colspan="2" style="text-align: center; padding-top: 30px;">
+        <?= $data_pemda->s_namakabkot ?>, <?= $tgl_cetak; ?>
+        <br>
+        <?= $data_pejabat->s_jabatanpejabat ?>
+        <br><br><br><br>
+    <u><?= $data_pejabat->s_namapejabat ?></u>
+    <br>
+    NIP. <?= $data_pejabat->s_nippejabat ?>
+    </td>
+    </tr>
+</table>
+
+<style type="text/css">
+
+    .border_atas {
+        border-top: 1px black solid;
+    }
+
+    .border_kiri {
+        border-left: 1px black solid;
+    }
+
+    .border_kanan {
+        border-right: 1px black solid;
+    }
+
+    .border_bawah {
+        border-bottom: 1px black solid;
+    }
+
+    .font_besar {
+        font-size: 12pt;
+    }
+
+    .font_kecil {
+        font-size: 10pt;
+    }
+
+    .font_lima {
+        font-size: 7pt;
+    }
+
+    .font_tujuh {
+        font-size: 7pt;
+    }  
+
+    .font_delapan {
+        font-size: 8pt;
+    }    
+
+    .font_sembilan {
+        font-size: 9pt;
+    }    
+
+
+    @page {
+        margin-top: 1.5em;  
+        margin-left: 3.8em;          
+    }
+</style>

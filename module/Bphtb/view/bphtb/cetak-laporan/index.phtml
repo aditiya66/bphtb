@@ -1,0 +1,530 @@
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Laporan BPHTB</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div id="accordion" class="box-group">
+                            <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                            <div class="panel box box-danger">
+                                <div class="box-header with-border">
+                                    <h6 class="box-title">
+                                        <a href="#collapseTwo" data-parent="#accordion" data-toggle="collapse" class="collapsed" aria-expanded="false">
+                                            Laporan Penerimaan Harian
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseTwo" aria-expanded="false" style="height: 0px;">
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Tanggal Pembayaran
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="tgl_cetaklapharian" value="<?= date('d-m-Y') ?>" readonly="true" style="width: 100px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Mengetahui
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select id="mengetahui" class="selectpicker" data-live-search="true">
+                                                        <?php foreach ($this->data_mengetahui as $k => $v) { ?>
+                                                            <option value="<?= $v['s_idpejabat'] ?>"><?= $v['s_namapejabat'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Pejabat
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select id="pejabat" class="selectpicker" data-live-search="true">
+                                                        <?php foreach ($this->data_pejabat as $k => $v) { ?>
+                                                            <option value="<?= $v['s_idpejabat'] ?>"><?= $v['s_namapejabat'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <button class="btn btn-success btn-flat btn-sm" onclick="cetakLapHarian();"><span class="glyphicon glyphicon-print"></span> Cetak Penerimaan Harian</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel box box-success">
+                                <div class="box-header with-border">
+                                    <h6 class="box-title">
+                                        <a href="#collapseThree" data-parent="#accordion" data-toggle="collapse" class="collapsed" aria-expanded="false">
+                                            Laporan Realisasi
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseThree" aria-expanded="false">
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Tahun Pajak
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="periode_sptrealisasi" value="<?= date('Y') ?>" readonly="true" style="width: 100px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Tanggal Cetak
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="tgl_cetakrealisasi" value="<?= date('d-m-Y') ?>" readonly="true" style="width: 100px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Pejabat
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select id="pejabatrealisasi" class="selectpicker" data-live-search="true">
+                                                        <?php foreach ($this->data_pejabatrealisasi as $k => $v) { ?>
+                                                            <option value="<?= $v['s_idpejabat'] ?>"><?= $v['s_namapejabat'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Mengetahui
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select id="mengetahuirealisasi" class="selectpicker" data-live-search="true">
+                                                        <?php foreach ($this->data_mengetahuirealisasi as $k => $v) { ?>
+                                                            <option value="<?= $v['s_idpejabat'] ?>"><?= $v['s_namapejabat'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <button class="btn btn-success btn-sm btn-flat" onclick="cetakRealisasiBphtb();"><span class="glyphicon glyphicon-print"></span> Cetak Realisasi</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel box box-success">
+                                <div class="box-header with-border">
+                                    <h6 class="box-title">
+                                        <a href="#collapseFive" data-parent="#accordion" data-toggle="collapse" class="collapsed" aria-expanded="false">
+                                            Laporan Realisasi Per-Tahun
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseFive" aria-expanded="false">
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Tahun Pajak
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="periode_pertahun" value="<?= date('Y') ?>" readonly="true" style="width: 100px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Tanggal Cetak
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="tgl_pertahun" value="<?= date('d-m-Y') ?>" readonly="true" style="width: 100px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Pejabat
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select id="pejabatpertahun" class="selectpicker" data-live-search="true">
+                                                        <?php foreach ($this->data_pejabatpertahun as $k => $v) { ?>
+                                                            <option value="<?= $v['s_idpejabat'] ?>"><?= $v['s_namapejabat'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Mengetahui
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select id="mengetahuipertahun" class="selectpicker" data-live-search="true">
+                                                        <?php foreach ($this->data_mengetahuipertahun as $k => $v) { ?>
+                                                            <option value="<?= $v['s_idpejabat'] ?>"><?= $v['s_namapejabat'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <button class="btn btn-success btn-sm btn-flat" onclick="cetakRealisasipertahun();"><span class="glyphicon glyphicon-print"></span> Cetak Realisasi Per-Tahun</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel box box-primary">
+                                <div class="box-header with-border">
+                                    <h6 class="box-title">
+                                        <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse" aria-expanded="false" class="collapsed">
+                                            Laporan Global
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseOne" aria-expanded="false" style="height: 0px;">
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Daftar Cetakan
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select name="daftar_cetakan" id="daftar_cetakan" class="form-control">
+                                                        <option value="pendaftaran">Pendaftaran</option>
+                                                        <option value="validasi">Validasi</option>
+                                                        <option value="pembayaran">Pembayaran</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Tanggal Cetak
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" class="form-control" id="tgl_cetakbphtb1" value="<?= date('d-m-Y') ?>" readonly="true" style="width: 100px;">
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    s/d
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" class="form-control" id="tgl_cetakbphtb2" value="<?= date('d-m-Y') ?>" readonly="true" style="width: 100px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Mengetahui
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select id="mengetahuibphtb" class="selectpicker" data-live-search="true">
+                                                        <?php foreach ($this->data_mengetahuibphtb as $k => $v) { ?>
+                                                            <option value="<?= $v['s_idpejabat'] ?>"><?= $v['s_namapejabat'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <button class="btn btn-primary btn-flat" onclick="cetakLapBphtb();">
+                                                        <span class="glyphicon glyphicon-print"></span> Cetak
+                                                    </button>
+                                                    <button class="btn btn-success btn-flat" onclick="cetaklapbphtbexcel();"><i class="fa fa-fw fa-file-excel-o"></i> Excel</button> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel box box-warning">
+                                <div class="box-header with-border">
+                                    <h6 class="box-title">
+                                        <a href="#collapseFour" data-parent="#accordion" data-toggle="collapse" class="collapsed" aria-expanded="false">
+                                            Laporan Per-Kecamatan
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseFour" aria-expanded="false">
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Nama Kecamatan
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select id="namakecamatan" class="selectpicker" data-live-search="true">
+                                                        <?php foreach ($this->data_kecamatan as $k => $v) { ?>
+                                                            <option value="<?= $v['s_kodekecamatan'] ?>"><?= $v['s_kodekecamatan'] ?> - <?= $v['s_namakecamatan'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Tanggal Pendaftaran
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" class="form-control" id="tgl_pendaftaranperkec1" value="<?= date('d-m-Y') ?>" readonly="true" style="width: 100px;">
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    s/d
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" class="form-control" id="tgl_pendaftaranperkec2" value="<?= date('d-m-Y') ?>" readonly="true" style="width: 100px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Mengetahui
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select id="mengetahuibphtbperkec" class="selectpicker select2" data-live-search="true">
+                                                        <?php foreach ($this->data_mengetahuibphtbkec as $k => $v) { ?>
+                                                            <option value="<?= $v['s_idpejabat'] ?>"><?= $v['s_namapejabat'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <button class="btn btn-primary btn-flat" onclick="cetaklapperkec();">
+                                                        <span class="glyphicon glyphicon-print"></span> Cetak
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel box box-warning">
+                                <div class="box-header with-border">
+                                    <h6 class="box-title">
+                                        <a href="#collapseSix" data-parent="#accordion" data-toggle="collapse" class="collapsed" aria-expanded="false">
+                                            Laporan Per-Kelurahan
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseSix" aria-expanded="false">
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Nama Kelurahan
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select id="namakelurahan" class="selectpicker" data-live-search="true">
+                                                        <?php foreach ($this->data_kelurahan as $k => $v) { ?>
+                                                            <option value="<?= $v['s_kodekelurahan'] ?>"><?= $v['s_kodekelurahan'] ?> - <?= $v['s_namakelurahan'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Tanggal Pendaftaran
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" class="form-control" id="tgl_pendaftaranperkel1" value="<?= date('d-m-Y') ?>" readonly="true" style="width: 100px;">
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    s/d
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="text" class="form-control" id="tgl_pendaftaranperkel2" value="<?= date('d-m-Y') ?>" readonly="true" style="width: 100px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                    Mengetahui
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select id="mengetahuibphtbperkel" class="selectpicker select2" data-live-search="true">
+                                                        <?php foreach ($this->data_mengetahuibphtbkel as $k => $v) { ?>
+                                                            <option value="<?= $v['s_idpejabat'] ?>"><?= $v['s_namapejabat'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-2">
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <button class="btn btn-primary btn-flat" onclick="cetaklapperkel();">
+                                                        <span class="glyphicon glyphicon-print"></span> Cetak
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+<script type="text/javascript">
+
+    $("#periode_sptrealisasi").datepicker({
+        format: 'yyyy',
+        viewMode: "years",
+        minViewMode: "years"
+    });
+    
+    $("#periode_pertahun").datepicker({
+        format: 'yyyy',
+        viewMode: "years",
+        minViewMode: "years"
+    });
+
+    $("#periode_skpdkb").datepicker({
+        format: 'yyyy',
+        viewMode: "years",
+        minViewMode: "years"
+    });
+
+    jQuery("#tgl_cetakverifikasi").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_verifikasi1").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_verifikasi2").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_cetaklapharian").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_cetakbphtb1").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_cetakbphtb2").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_cetakrealisasi").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_realisasi1").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_realisasi2").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_cetakskpdkb").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_pendaftaranperkec1").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_pendaftaranperkec2").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_pertahun").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+
+    function cetakDaftarVerifikasi() {
+        window.open('<?= $this->url('cetak_laporan') ?>/cetakdaftarverifikasi?periode_spt=' + $("#periode_sptverifikasi").val() + "&tgl_cetak=" + $("#tgl_cetakverifikasi").val() + "&tgl_verifikasi1=" + $("#tgl_verifikasi1").val() + "&tgl_verifikasi2=" + $("#tgl_verifikasi2").val());
+    }
+    function cetakLapHarian() {
+        window.open('<?= $this->url('cetak_laporan') ?>/cetaklapharian?tgl_cetak=' + $("#tgl_cetaklapharian").val() + "&pejabat=" + $("#pejabat").val() + "&mengetahui=" + $("#mengetahui").val());
+    }
+    function cetakLapBphtb() {
+        window.open('<?= $this->url('cetak_laporan') ?>/cetaklapbphtb?tgl_cetakbphtb1=' + $("#tgl_cetakbphtb1").val() + "&tgl_cetakbphtb2=" + $("#tgl_cetakbphtb2").val() + "&mengetahuibphtb=" + $("#mengetahuibphtb").val() + "&daftar_cetakan=" + $("#daftar_cetakan").val());
+    }
+    function cetaklapbphtbexcel() {
+        window.open('<?= $this->url('cetak_laporan') ?>/cetaklapbphtbexcel?tgl_cetakbphtb1=' + $("#tgl_cetakbphtb1").val() + "&tgl_cetakbphtb2=" + $("#tgl_cetakbphtb2").val() + "&mengetahuibphtb=" + $("#mengetahuibphtb").val() + "&daftar_cetakan=" + $("#daftar_cetakan").val());
+    }
+    function cetakRealisasiBphtb() {
+        window.open('<?= $this->url('cetak_laporan') ?>/cetakrealisasibphtb?periode_sptrealisasi=' + $("#periode_sptrealisasi").val() + "&tgl_cetakrealisasi=" + $("#tgl_cetakrealisasi").val() + "&pejabat=" + $("#pejabatrealisasi").val() + "&mengetahui=" + $("#mengetahuirealisasi").val());
+    }
+    function cetakRealisasipertahun() {
+        window.open('<?= $this->url('cetak_laporan') ?>/cetakrealisasipertahun?periode_pertahun=' + $("#periode_pertahun").val() + "&tgl_pertahun=" + $("#tgl_pertahun").val() + "&pejabatpertahun=" + $("#pejabatpertahun").val() + "&mengetahuipertahun=" + $("#mengetahuipertahun").val());
+    }
+//    function cetakSkpdkb() {
+//        window.open('<?= $this->url('cetak_laporan') ?>/cetakskpdkb?periode_skpdkb=' + $("#periode_skpdkb").val() + "&tgl_cetakskpdkb=" + $("#tgl_cetakskpdkb").val() + "&pejabatskpdkb=" + $("#pejabatskpdkb").val() + "&no_sspdbphtb1=" + $("#no_sspdbphtb1").val() + "&no_sspdbphtb2=" + $("#no_sspdbphtb2").val());
+//    }
+    function cetaklapperkec() {
+        window.open('<?= $this->url('cetak_laporan') ?>/cetaklapperkec?tgl_pendaftaranperkec1=' + $("#tgl_pendaftaranperkec1").val() + "&tgl_pendaftaranperkec2=" + $("#tgl_pendaftaranperkec2").val() + "&mengetahuibphtbperkec=" + $("#mengetahuibphtbperkec").val() + "&namakecamatan=" + $("#namakecamatan").val());
+    }
+    function cetaklapperkel() {
+        window.open('<?= $this->url('cetak_laporan') ?>/cetaklapperkel?tgl_pendaftaranperkel1=' + $("#tgl_pendaftaranperkel1").val() + "&tgl_pendaftaranperkel2=" + $("#tgl_pendaftaranperkel2").val() + "&mengetahuibphtbperkel=" + $("#mengetahuibphtbperkel").val() + "&namakelurahan=" + $("#namakelurahan").val());
+    }
+</script>

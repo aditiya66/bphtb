@@ -1,0 +1,80 @@
+<?php
+if ($this->side_pemda || $this->side_pejabat || $this->side_notaris || $this->side_jenis_transaksi || $this->side_npotkp || $this->side_tarifbphtb) {
+    $activated = 'active';
+} elseif ($this->side_haktanah || $this->side_persyaratan_transaksi || $this->side_dokumen_tanah || $this->side_harga_acuan || $this->side_pengguna || $this->side_password_pengguna || $this->side_kecamatan || $this->side_kelurahan || $this->side_target || $this->side_historylog) {
+    $activated = 'active';
+} else {
+    $activated = '';
+}
+if (@$role_id == 1) {
+    $leftmenu = '<li class="' . $this->menu_home . '"><a href="' . $this->url('main_bphtb') . '"><i class="fa fa-th-large text-yellow"></i><span>Dashboard</span></a></li> 
+                    <li class="' . $this->menu_pendataan . '"><a href="' . $this->url('pendataan_sspd') . '"><i class="fa fa-list text-green"></i><span>Pendaftaran</span></a></li>         
+                    <li class="' . $this->menu_verifikasi . '"><a href="' . $this->url('verifikasi_spt') . '"><i class="fa fa-check text-green"></i><span>Validasi</span></a></li>  
+                    <li class="' . $this->menu_pembayaran . '"><a href="' . $this->url('pembayaran_sptbphtb') . '"><i class="fa fa-money text-green"></i><span>Pembayaran</span></a></li>     
+                    <li class="' . $this->menu_koreksi . '"><a href="' . $this->url('koreksi') . '"><i class="glyphicon glyphicon-pencil text-green"></i><span>Koreksi</span></a></li>  
+                    <li class="' . $this->menu_bpn . '"><a href="' . $this->url('bpn_lihatdata') . '"><i class="fa fa-bank text-green"></i><span>BPN</span></a></li>  
+                    <li class="' . $this->menu_pelaporan . '"><a href="' . $this->url('pelaporan_notaris') . '"><i class="fa fa-book text-green"></i><span>Pelaporan Notaris</span></a></li> 
+                    <li class="' . $this->menu_sismiop . '"><a href="' . $this->url('pendataan_pbb') . '"><i class="fa fa-share text-green"></i><span>Sismiop</span></a></li> 
+                    <li class="' . $this->menu_informasiop . '"><a href="' . $this->url('pendataan_sspd') . '/informasiop"><i class="fa fa-info text-green"></i><span>Informasi OP</span></a></li>       
+                    <li class="' . $this->menu_cetaklaporan . '"><a href="' . $this->url('cetak_laporan') . '"><i class="fa fa-paperclip text-green"></i><span>Cetak Laporan</span></a></li> 
+                    <li class="' . $this->menu_monitoring . '"><a href="' . $this->url('monitoring') . '"><i class=" glyphicon glyphicon-blackboard text-green"></i><span>Monitoring Transaksi</span></a></li>';
+} elseif (@$role_id == 3) {
+    $leftmenu = '<li class="' . $this->menu_home . '"><a href="' . $this->url('main_bphtb') . '"><i class="fa fa-th-large text-yellow"></i><span>Dashboard</span></a></li> 
+                    <li class="' . $this->menu_pendataan . '"><a href="' . $this->url('pendataan_sspd') . '"><i class="fa fa-list text-green"></i><span>Pendaftaran</span></a></li>         
+                    <li class="' . $this->menu_pelaporan . '"><a href="' . $this->url('pelaporan_notaris') . '"><i class="fa fa-book text-green"></i><span>Pelaporan Notaris</span></a></li> 
+                    <li class="' . $this->menu_informasiop . '"><a href="' . $this->url('pendataan_sspd') . '/informasiop"><i class="fa fa-info text-green"></i><span>Informasi OP</span></a></li>       
+                    <li class="' . $this->side_password_pengguna . '"><a href="' . $this->url('setting_user_bphtb') . '/ubahpass"><i class="fa fa-circle text-orange"></i><span> Ubah Password</span></a></li>';
+} elseif (@$role_id == 2) {
+    $leftmenu = '<li class="' . $this->menu_home . '"><a href="' . $this->url('main_bphtb') . '"><i class="fa fa-th-large text-yellow"></i><span>Dashboard</span></a></li> 
+                    <li class="' . $this->menu_pendataan . '"><a href="' . $this->url('pendataan_sspd') . '"><i class="fa fa-list text-green"></i><span>Pendaftaran</span></a></li>         
+                    <li class="' . $this->menu_verifikasi . '"><a href="' . $this->url('verifikasi_spt') . '"><i class="fa fa-check text-green"></i><span>Validasi</span></a></li>  
+                    <li class="' . $this->menu_pembayaran . '"><a href="' . $this->url('pembayaran_sptbphtb') . '"><i class="fa fa-money text-green"></i><span>Pembayaran</span></a></li>     
+                    <li class="' . $this->menu_koreksi . '"><a href="' . $this->url('koreksi') . '"><i class="glyphicon glyphicon-pencil text-green"></i><span>Koreksi</span></a></li>  
+                    <li class="' . $this->menu_bpn . '"><a href="' . $this->url('bpn_lihatdata') . '"><i class="fa fa-bank text-green"></i><span>BPN</span></a></li>  
+                    <li class="' . $this->menu_pelaporan . '"><a href="' . $this->url('pelaporan_notaris') . '"><i class="fa fa-book text-green"></i><span>Pelaporan Notaris</span></a></li> 
+                    <li class="' . $this->menu_sismiop . '"><a href="' . $this->url('pendataan_pbb') . '"><i class="fa fa-share text-green"></i><span>Sismiop</span></a></li> 
+                    <li class="' . $this->menu_informasiop . '"><a href="' . $this->url('pendataan_sspd') . '/informasiop"><i class="fa fa-info text-green"></i><span>Informasi OP</span></a></li>       
+                    <li class="' . $this->menu_cetaklaporan . '"><a href="' . $this->url('cetak_laporan') . '"><i class="fa fa-paperclip text-green"></i><span>Cetak Laporan</span></a></li> 
+                    <li class="' . $this->side_password_pengguna . '"><a href="' . $this->url('setting_user_bphtb') . '/ubahpass"><i class="fa fa-circle text-orange"></i><span> Ubah Password</span></a></li>';
+} elseif (@$role_id == 4) {
+    $leftmenu = '<li class="' . $this->menu_home . '"><a href="' . $this->url('main_bphtb') . '"><i class="fa fa-th-large text-yellow"></i><span>Dashboard</span></a></li> 
+                   <li class="' . $this->menu_pembayaran . '"><a href="' . $this->url('pembayaran_sptbphtb') . '"><i class="fa fa-money text-green"></i><span>Pembayaran</span></a></li>     
+                    <li class="' . $this->side_password_pengguna . '"><a href="' . $this->url('setting_user_bphtb') . '/ubahpass"><i class="fa fa-circle text-orange"></i><span> Ubah Password</span></a></li>';
+} elseif (@$role_id == 5) {
+    $leftmenu = '<li class="' . $this->menu_home . '"><a href="' . $this->url('main_bphtb') . '"><i class="fa fa-th-large text-yellow"></i><span>Dashboard</span></a></li> 
+                    <li class="' . $this->menu_bpn . '"><a href="' . $this->url('bpn_lihatdata') . '"><i class="fa fa-bank text-green"></i><span>BPN</span></a></li>  
+                    <li class="' . $this->side_password_pengguna . '"><a href="' . $this->url('setting_user_bphtb') . '/ubahpass"><i class="fa fa-circle text-orange"></i><span> Ubah Password</span></a></li>';
+} elseif (@$role_id == 6) {
+    $leftmenu = '';
+} elseif (@$role_id == 7) {
+    $leftmenu = '<li class="' . $this->menu_home . '"><a href="' . $this->url('main_bphtb') . '"><i class="fa fa-th-large text-yellow"></i><span>Dashboard</span></a></li> 
+                    <li class="' . $this->menu_informasiop . '"><a href="' . $this->url('pendataan_sspd') . '/informasiop"><i class="fa fa-info text-green"></i><span>Informasi OP</span></a></li>       
+                    <li class="' . $this->menu_cetaklaporan . '"><a href="' . $this->url('cetak_laporan') . '"><i class="fa fa-paperclip text-green"></i><span>Cetak Laporan</span></a></li> 
+                    <li class="' . $this->menu_monitoring . '"><a href="' . $this->url('monitoring') . '"><i class=" glyphicon glyphicon-blackboard text-green"></i><span>Monitoring Transaksi</span></a></li> 
+                    <li class="treeview ' . $activated . '">
+                        <a href="#">
+                            <i class="fa fa-gears text-red"></i>
+                            <span>Setting</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="' . $this->side_historylog . '"><a href="' . $this->url('historylog') . '"><i class="fa fa-circle text-orange"></i><span> History Log</span></a></li>
+                            <li class="' . $this->side_password_pengguna . '"><a href="' . $this->url('setting_user_bphtb') . '/ubahpass"><i class="fa fa-circle text-orange"></i><span> Ubah Password</span></a></li>
+                        </ul>
+                    </li>';
+} else {
+    $leftmenu = '';
+}
+?>
+
+<!--<aside class="main-sidebar">-->
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="header">MENU ADMIN BPHTB</li>
+                <?= $leftmenu; ?>
+        </ul>
+    </section>
+</aside>
+
+

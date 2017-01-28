@@ -1,0 +1,1023 @@
+<?php
+$frm = $this->frm;
+$frm->setAttribute('action', $this->url() . '/tambah');
+$frm->setAttribute('id', "formtambah");
+$frm->prepare();
+?>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-default">
+                    <div class="box-header">
+                        <h3 class="box-title">Validasi SSPD BPHTB</h3>
+                    </div>
+                    <div class="box-body">
+                        <?= $this->form()->openTag($frm) ?>
+                        <div class="box box-primary">
+                            <div class="box-header"><h3 class="box-title">Informasi Wajib Pajak</h3></div>
+                            <div class="box-body">
+                                <div>&nbsp;&nbsp;</div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">No. Validasi</label>
+                                        <div class="col-sm-2" style="margin-left: -15px;">
+                                            <?= $this->formInput($frm->get('t_kohirketetapanspt')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Tanggal Validasi</label>
+                                        <div class="col-sm-2" style="margin-left: -15px;">
+                                            <?= $this->formInput($frm->get('t_tglverifikasispt')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="display: none;">Kode Bayar Bank</label>
+                                        <div class="col-sm-2" style="display: none;">
+                                            <?= $this->formRow($frm->get('t_kodebayarbanksppt')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">No. Pendaftaran</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_kohirpembayaran')) ?>
+                                            <?= $this->formInput($frm->get('t_idpembayaranspt')) ?>
+                                            <?= $this->formInput($frm->get('t_idspt')) ?>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <button type="button" class="btn btn-warning btn-sm btn-flat" data-toggle="modal" data-target="#ModalCari" onclick="calldatagride()">
+                                                <span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;Cari
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Nama Notaris</label>
+                                        <div class="col-sm-4">
+                                            <?= $this->formInput($frm->get('t_idnotarisspt')) ?>
+                                            <?= $this->formRow($frm->get('s_namanotaris')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">NIK</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('t_nikwppembeli')) ?>
+                                        </div>
+                                        <label  class="col-sm-1 control-label">NPWP</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('t_npwpwppembeli')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Nama WP</label>
+                                        <div class="col-sm-6">
+                                            <?= $this->formRow($frm->get('t_namawppembeli')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Alamat</label>
+                                        <div class="col-sm-6">
+                                            <?= $this->formRow($frm->get('t_alamatwppembeli')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">RT</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_rtwppembeli')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="text-align: left">RW</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_rwwppembeli')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Kelurahan/Desa</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_kelurahanwppembeli')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Kecamatan</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_kecamatanwppembeli')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Kabupaten/Kota</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_kabkotawppembeli')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Kode Pos</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_kodeposwppembeli')) ?>
+                                        </div>
+                                    </div>
+                                </div>                                
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="inputType" class="col-md-2">No. Telp.</label>
+                                        <div class="col-md-2">
+                                            <?= $this->formRow($frm->get('t_telponwppembeli')) ?>
+                                        </div>
+                                        <div class="col-md-8" style="text-align: right">
+
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+
+                        <div class="box box-success">
+                            <div class="box-header"><h3 class="box-title">Informasi Objek Pajak</h3></div>
+                            <div class="box-body">
+                                <div>&nbsp;&nbsp;</div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">NOP/Tahun SPPT</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('t_nopbphtbsppt')) ?>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <?= $this->formRow($frm->get('t_thnsppt')) ?>
+                                        </div>
+                                        <label  class="col-sm-3 control-label">Lakukan
+                                            Pemeriksaan OP</label>
+                                        <div class="col-sm-1">
+                                            <?= $this->formRow($frm->get('t_pemeriksaanop')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Letak Tanah/Bangunan</label>
+                                        <div class="col-sm-4">
+                                            <?= $this->formRow($frm->get('t_alamatop')) ?>
+                                        </div>
+                                    </div>
+                                </div>       
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">RT</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_rtop')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="text-align: left">RW</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_rwop')) ?>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Kelurahan/Desa</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_kelurahanop')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Kecamatan</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_kecamatanop')) ?>
+                                        </div>
+                                        <label  class="col-sm-1 control-label" style="text-align: left; margin-left: -5px;">Kabupaten</label>
+                                        <div class="col-sm-2" style="margin-left: 10px;">
+                                            <?php
+                                            $frm->get('t_kabupatenop')->setAttribute("style", "width:150%");
+                                            ?>
+                                            <?= $this->formRow($frm->get('t_kabupatenop')) ?>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Luas Tanah (Bumi)</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_luastanah')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="font-size: 13px">Nilai Pasar/NJOP (m2)</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_njoptanah')) ?>
+                                        </div>
+                                        <label  class="col-sm-1 control-label" style="text-align: left; margin-left: -5px;">Total</label>
+                                        <div class="col-sm-2" style="margin-left: 10px;">
+                                            <?php
+                                            $frm->get('t_totalnjoptanah')->setAttribute("style", "width:150%");
+                                            ?>
+                                            <?= $this->formRow($frm->get('t_totalnjoptanah')) ?>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Luas Bangunan</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_luasbangunan')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="font-size: 13px">Nilai Pasar/NJOP (m2)</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_njopbangunan')) ?>
+                                        </div>
+                                        <label  class="col-sm-1 control-label" style="text-align: left; margin-left: -5px;">Total</label>
+                                        <div class="col-sm-2" style="margin-left: 10px;">
+                                            <?php
+                                            $frm->get('t_totalnjopbangunan')->setAttribute("style", "width:150%");
+                                            ?>
+                                            <?= $this->formRow($frm->get('t_totalnjopbangunan')) ?>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-9 control-label" style="text-align: right;">NJOP PBB</label>
+                                        <div class="col-sm-2" style="margin-left: 5px;">
+                                            <?php
+                                            $frm->get('t_grandtotalnjop')->setAttribute("style", "width:150%");
+                                            ?>
+                                            <?= $this->formRow($frm->get('t_grandtotalnjop')) ?>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-9 control-label" style="text-align: right;">Harga Transaksi / Nilai Pasar</label>
+                                        <div class="col-sm-2" style="margin-left: 5px;">
+                                            <?php
+                                            $frm->get('t_nilaitransaksispt')->setAttribute("style", "width:150%");
+                                            ?>
+                                            <?= $this->formRow($frm->get('t_nilaitransaksispt')) ?>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Harga Acuan</label>
+                                        <div class="col-sm-3">       
+                                            <?= $this->formRow($frm->get('s_permetertanah')) ?>
+                                        </div>
+                                        <div id="analisishargaacuan"></div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">History NJOP Tanah</label>
+                                        <div class="col-sm-3">             
+                                            <?= $this->formRow($frm->get('historynjoptanah')) ?>
+                                        </div>
+                                        <div id="analisisharganjoptanah"></div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Jenis Transaksi</label>
+                                        <div class="col-sm-3">               
+                                            <?= $this->formRow($frm->get('s_namajenistransaksi')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Kepemilikan</label>
+                                        <div class="col-sm-3">               
+                                            <?= $this->formRow($frm->get('s_namahaktanah')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">No. Dokumen Peralihan Hak</label>
+                                        <div class="col-sm-3">               
+                                            <?= $this->formRow($frm->get('t_nosertifikathaktanah')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Tgl. Dokumen Peralihan Hak</label>
+                                        <div class="col-sm-3">               
+                                            <?= $this->formRow($frm->get('t_tglajb')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align:left">No. AJB (Baru)</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('t_noajbbaru')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="text-align:left">Tgl. AJB (Baru)</label>
+                                        <div class="col-sm-2">
+                                            <?php
+                                            $frm->get('t_tglajbbaru')->setAttribute('onchange', 'hitungBphtb()');
+                                            $frm->get('t_tglajbbaru')->setAttribute('onblur', 'hitungBphtb()');
+                                            $frm->get('t_tglajbbaru')->setAttribute('value', '');
+                                            ?>
+                                            <?= $this->formRow($frm->get('t_tglajbbaru')) ?>
+                                        </div>
+                                        <div class="col-sm-3" style="text-align: right">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+
+                        <div class="box box-info">
+                            <div class="box-header"><h3 class="box-title">Informasi Perhitungan BPHTB</h3></div>
+                            <div class="box-body">
+                                <div>&nbsp;&nbsp;</div>             
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">NPOP</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('t_npopspt')) ?>
+                                        </div>
+                                    </div>
+                                </div>             
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">NPOPTKP</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('t_potonganspt')) ?>
+                                        </div>
+                                    </div>
+                                </div>                    
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left;">NPOPKP</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('t_npopkpspt')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Tarif (%)</label>
+                                        <div class="col-sm-1">
+                                            <?= $this->formRow($frm->get('t_persenbphtb')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                        <label for="inputKey" class="col-md-2 control-label" style="text-align: left;">BPHTB yang harus dibayar</label>
+                                        <div class="col-md-3">
+                                            <?= $this->formRow($frm->get('t_totalspt')) ?>
+                                        </div>
+                                        <div class="col-md-6" style="text-align: right">                                                
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align:left;">Denda/Sanksi</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('t_dendaspt')) ?>
+                                            <?= $this->formRow($frm->get('t_bulandendaspt')) ?>
+                                        </div>
+                                        <div class="col-sm-6" style="text-align: right">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align:left;">TOTAL</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('t_grandtotalspt')) ?>                                            
+                                        </div>
+                                        <div class="col-sm-6" style="text-align: right">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box box-warning">
+                            <div class="box-header"><h3 class="box-title">Informasi Penjual</h3></div>
+                            <div class="box-body">
+                                <div>&nbsp;&nbsp;</div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">NIK</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('t_nikwppenjual')) ?>
+                                        </div>
+                                        <label  class="col-sm-1 control-label">NPWP</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('t_npwpwppenjual')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Nama Penjual</label>
+                                        <div class="col-sm-6">
+                                            <?= $this->formRow($frm->get('t_namawppenjual')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Alamat</label>
+                                        <div class="col-sm-6">
+                                            <?= $this->formRow($frm->get('t_alamatwppenjual')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">RT</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_rtwppenjual')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="text-align: left">RW</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_rwwppenjual')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Kelurahan/Desa</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_kelurahanwppenjual')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Kecamatan</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_kecamatanwppenjual')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Kabupaten/Kota</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_kabkotawppenjual')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Kode Pos</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('t_kodeposwppenjual')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-horizontal form-group col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="inputType" class="col-md-2">No. Telpon</label>
+                                            <div class="col-md-2">
+                                                <?= $this->formRow($frm->get('t_telponwppenjual')) ?>
+                                            </div>
+                                            <div class="col-md-8" style="text-align: right">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box box-danger" id="ObjekPemeriksaan">
+                            <div class="box-header"><h3 class="box-title">Informasi Objek Pajak <span class="badge bg-red-active">Pemeriksaan</span></h3></div>
+                            <div class="box-body">
+                                <div>&nbsp;&nbsp;</div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Luas Tanah (Bumi)</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('p_luastanah')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="font-size: 13px">Nilai Pasar/NJOP (m2)</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('p_njoptanah')) ?>
+                                        </div>
+                                        <label  class="col-sm-1 control-label">Total</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('p_totalnjoptanah')) ?>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">Luas Bangunan</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('p_luasbangunan')) ?>
+                                        </div>
+                                        <label  class="col-sm-2 control-label" style="font-size: 13px">Nilai Pasar/NJOP (m2)</label>
+                                        <div class="col-sm-2">
+                                            <?= $this->formRow($frm->get('p_njopbangunan')) ?>
+                                        </div>
+                                        <label  class="col-sm-1 control-label">Total</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('p_totalnjopbangunan')) ?>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-9 control-label" style="text-align: right;">NJOP PBB</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('p_grandtotalnjop')) ?>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-9 control-label" style="text-align: right;">Harga Transaksi / Nilai Pasar</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('p_nilaitransaksispt')) ?>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">NPOP</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('p_npop')) ?>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">NPOPTKP</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('p_potonganspt')) ?>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">NPOPKP</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('p_npopkp')) ?>
+                                        </div>
+                                        <label  class="col-sm-1 control-label">Tarif
+                                            (%)</label>
+                                        <div class="col-sm-1">
+                                            <?= $this->formRow($frm->get('p_persenbphtb')) ?>
+                                        </div>
+                                    </div>
+                                </div>                 
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label  class="col-sm-2 control-label" style="text-align: left">BPHTB Terhutang</label>
+                                        <div class="col-sm-3">
+                                            <?= $this->formRow($frm->get('p_totalspt')) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-horizontal form-group col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label for="inputKey" class="col-md-2 control-label"
+                                                   style="text-align: left;">Jenis Transaksi</label>
+                                            <div class="col-md-3">
+                                                <?= $this->formRow($frm->get('p_namajenistransaksi')) ?>
+                                            </div>
+                                            <label for="inputValue" class="col-md-2 control-label">Kepemilikan</label>
+                                            <div class="col-md-3">
+                                                <?= $this->formRow($frm->get('p_namahaktanah')) ?>
+                                            </div>
+                                            <div class="col-md-2" style="text-align: right">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box box-default">
+                            <div class="box-header"><h3 class="box-title">Persyaratan</h3></div>
+                            <div class="box-body">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <div id="persyaratannya">
+                                                <?= $this->formRow($frm->get('t_persyaratan')) ?>                                            
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div id="persyaratannyaverifikasi">
+                                                <?= $this->formRow($frm->get('t_persyaratanverifikasi')) ?>                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-horizontal form-group col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <div class="col-md-12" style="text-align: right">
+                                                <input type="submit" value="Proses" onclick="this.disabled = true" class="btn btn-success">  <a href="<?= $this->url('verifikasi_spt') ?>" class="btn btn-warning">Kembali</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?= $this->form()->closeTag($frm) ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Modal Cari -->
+<div class="modal fade" id="ModalCari" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Daftar Pendaftaran SSPD BPHTB</h4>
+            </div>
+            <div class="modal-body" id="dialog_pendataan"
+                 title="Daftar Pendataan">
+                <div>
+                    <table class="table table-bordered table-responsive table-striped table-hover" style="font-size: 12px">
+                        <thead>
+                            <tr class="bg-green">
+                                <th class="text-center">
+                                    No.<br/>Pendaftaran
+                                </th>
+                                <th class="text-center">
+                                    Tanggal<br/>Pendaftaran
+                                </th>
+                                <th class="text-center" style="vertical-align: middle">
+                                    NOP
+                                </th>
+                                <th class="text-center">
+                                    Nama Pembeli<br/>(Wajib Pajak)
+                                </th>
+                                <th class="text-center" style="vertical-align: middle">
+                                    Nama Penjual
+                                </th>
+                                <th class="text-center" style="vertical-align: middle">
+                                    Pilihan
+                                </th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>
+                                <input type="text" id="t_kohirsptcari" name="t_kohirsptcari" class="form-control input-sm" onkeyup="calldatagride()">
+                            </td>
+                            <td></td>
+                            <td>
+                                <input type="text" id="t_nopcari" name="t_nopcari" class="form-control input-sm" onkeyup="calldatagride()">
+                            </td>
+                            <td>
+                                <input type="text" id="t_namapembelicari" name="t_namapembelicari" class="form-control input-sm" onkeyup="calldatagride()">
+                            </td>
+                            <td>
+                                <input type="text" id="t_namapenjualcari" name="t_namapenjualcari" class="form-control input-sm" onkeyup="calldatagride()">
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tbody id="listpendataan">
+
+                        </tbody>
+                        <tfoot>              
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    <div class="row">
+                                        <div class="col-sm-4 text-left">Jumlah Baris Ditampilkan: <input type="text" id="rows" style="width: 20%" class="text-center" value="10"></div>
+                                        <div class="col-sm-3">
+                                            <a href="#" onclick="calldatagride(1);
+                                                    return false;"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></a>
+
+                                            <input type="text" id="page" value="1" style="width: 20%" class="text-center">
+
+                                            <a href="#" onclick="calldatagride(2);
+                                                    return false;"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a>
+                                        </div>
+                                        <div class="col-sm-5 text-right">
+                                            <p>Jumlah Data <span id="total_data"></span>&nbsp;Jumlah Halaman <span id="total_halaman"></span></p>                                    
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tunggakan PBB -->
+<div class="modal fade" id="ModalTunggakanPBB" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel" style="color: red"><b>Peringatan !!! PBB Belum Lunas</b></h4>
+            </div>
+            <div class="modal-body" id="dialog_pendataan" title="Daftar Pendataan">
+                <div id="datatunggakan"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="tutupmodaltunggakan()">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .form-group{
+        margin: 0px;
+    }
+</style>
+<script type="text/javascript">
+
+    jQuery("#t_tglverifikasispt").datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '01-01-2000',
+        endDate: '0d',
+        autoclose: true,
+        daysOfWeekDisabled: '06',
+        language: 'id'
+    });
+
+    $(function () {
+        
+    });
+
+    //Keterangan Waris
+    $("#ketwaris").hide();
+    function myFunction() {
+        $("#ketwaris").show();
+    }
+    function myFunction1() {
+        $("#ketwaris").hide();
+    }
+
+    //Form Pemeriksaan Objek Pajak
+    $("#ObjekPemeriksaan").hide();
+    function FungsiPemeriksaanOP() {
+        $("#ObjekPemeriksaan").show();
+        $('#p_luastanah').val($("#t_luastanah").val());
+        $('#p_njoptanah').val($("#t_njoptanah").val());
+        $('#p_totalnjoptanah').val($("#t_totalnjoptanah").val());
+        $('#p_luasbangunan').val($("#t_luasbangunan").val());
+        $('#p_njopbangunan').val($("#t_njopbangunan").val());
+        $('#p_totalnjopbangunan').val($("#t_totalnjopbangunan").val());
+        $('#p_grandtotalnjop').val($("#t_grandtotalnjop").val());
+        $('#p_nilaitransaksispt').val($("#t_nilaitransaksispt").val());
+        $('#p_namajenistransaksi').val($("#s_namajenistransaksi").val());
+        $('#p_namahaktanah').val($("#s_namahaktanah").val());
+        $('#p_npop').val($("#t_npopspt").val());
+        $('#p_potonganspt').val($("#t_potonganspt").val());
+        $('#p_npopkp').val($("#t_npopkpspt").val());
+        $('#p_persenbphtb').val($("#t_persenbphtb").val());
+        $('#p_totalspt').val($("#t_totalspt").val());
+    }
+    function FungsiPemeriksaanOP1() {
+        $("#ObjekPemeriksaan").hide();
+        $('#p_luastanah').val('');
+        $('#p_njoptanah').val('');
+        $('#p_totalnjoptanah').val('');
+        $('#p_luasbangunan').val('');
+        $('#p_njopbangunan').val('');
+        $('#p_totalnjopbangunan').val('');
+        $('#p_grandtotalnjop').val('');
+        $('#p_nilaitransaksispt').val('');
+        $('#p_namajenistransaksi').val('');
+        $('#p_namahaktanah').val('');
+        $('#p_terbukti').val('');
+        $('#p_ketwaris').val('');
+        $('#p_potonganspt').val('');
+        $('#p_totalspt').val('');
+    }
+
+    function next(a) {
+        jQuery('#tabs a[href=#' + a + ']').tab('show');
+    }
+
+    function cekvaliditassspd() {
+        $.post('<?= $this->url('pembayaran_sptbphtb') ?>/validitassspd', {t_kohirpembayaran: $('#t_kohirpembayaran').val(), t_tanggalpembayaran: $('#t_tglverifikasispt').val()}, function (data) {
+            var aa = JSON.parse(data);
+            if (!aa) {
+                alert("Batas waktu Verifikasi sudah habis untuk nomor SSPD " + $('#t_kohirpembayaran').val() + '!');
+                clearForm();
+            }
+        });
+    }
+
+    function cektunggakanpbb() {
+        $.post('<?= $this->url('verifikasi_spt') ?>/cektunggakanpbb', {t_nopbphtbsppt: $('#t_nopbphtbsppt').val()}, function (data) {
+            var aa = JSON.parse(data);
+            if (aa.PBB_YG_HARUS_DIBAYAR_SPPT != '') {
+                jQuery('#ModalTunggakanPBB').modal('show');
+                $('#datatunggakan').html(aa.datatunggakan);
+            } else {
+                alert('Tidak Ada Tunggakan');
+            }
+        });
+    }
+
+    function tutupmodaltunggakan() {
+        jQuery('#ModalTunggakanPBB').modal('hide');
+    }
+
+    function clearForm() {
+        $('#t_idspt').val("");
+        $('#t_kohirpembayaran').val("");
+        $('#s_namanotaris').val("");
+        $('#t_idnotarisspt').val("");
+        //data wp
+        $('#t_namawppembeli').val("");
+        $('#t_nikwppembeli').val("");
+        $('#t_npwpwppembeli').val("");
+        $('#t_alamatwppembeli').val("");
+        $('#t_rtwppembeli').val("");
+        $('#t_rwwppembeli').val("");
+        $('#t_kecamatanwppembeli').val("");
+        $('#t_kelurahanwppembeli').val("");
+        $('#t_kabkotawppembeli').val("");
+        $('#t_telponwppembeli').val("");
+        $('#t_kodeposwppembeli').val("");
+        //data nop 
+        $('#t_nopbphtbsppt').val("");
+        $('#t_thnsppt').val("");
+        $('#t_alamatop').val("");
+        $('#t_rtop').val("");
+        $('#t_rwop').val("");
+        $('#t_kelurahanop').val("");
+        $('#t_kecamatanop').val("");
+        $('#t_kabupatenop').val("");
+        $('#t_nosertifikathaktanah').val("");
+        $('#t_totalspt').val("");
+        $('#t_luastanah').val("");
+        $('#t_luasbangunan').val("");
+        $('#t_totalnjoptanah').val("");
+        $('#t_totalnjopbangunan').val("");
+        $('#t_njoptanah').val("");
+        $('#t_njopbangunan').val("");
+        $('#t_grandtotalnjop').val("");
+        $('#t_nilaitransaksispt').val("");
+        $('#t_idjenistransaksi').val("");
+        $('#t_idjenishaktanah').val("");
+        $('#t_potonganspt').val("");
+        $('#t_nilaipembayaranspt').val("");
+        //data penjual
+        $('#t_namawppenjual').val("");
+        $('#t_nikwppenjual').val("");
+        $('#t_npwpwppenjual').val("");
+        $('#t_alamatwppenjual').val("");
+        $('#t_rtwppenjual').val("");
+        $('#t_rwwppenjual').val("");
+        $('#t_kelurahanwppenjual').val("");
+        $('#t_kecamatanwppenjual').val("");
+        $('#t_kabkotawppenjual').val("");
+        $('#t_kodeposwppenjual').val("");
+        $('#t_telponwppenjual').val("");
+        //data pembayaran
+        $('#t_idpembayaranspt').val("");
+        $('#t_tanggalpembayaran').val("");
+        $('#t_statusbayarspt').val("");
+
+    }
+
+    function pilihPendataanSspdBphtb(a) {
+        $.post('<?= $this->url() ?>/pilihPendataanSspdBphtb', {t_idspt: a}, function (data) {
+            var aa = JSON.parse(data);
+            $('#t_idspt').val(aa.t_idspt);
+            $('#t_idnotarisspt').val(aa.t_idnotarisspt);
+            $('#t_kohirpembayaran').val(aa.t_kohirspt);
+            $('#s_namanotaris').val(aa.s_namanotaris);
+            //data wp
+            $('#t_namawppembeli').val(aa.t_namawppembeli);
+            $('#t_nikwppembeli').val(aa.t_nikwppembeli);
+            $('#t_npwpwppembeli').val(aa.t_npwpwppembeli);
+            $('#t_alamatwppembeli').val(aa.t_alamatwppembeli);
+            $('#t_rtwppembeli').val(aa.t_rtwppembeli);
+            $('#t_rwwppembeli').val(aa.t_rwwppembeli);
+            $('#t_kecamatanwppembeli').val(aa.t_kecamatanwppembeli);
+            $('#t_kelurahanwppembeli').val(aa.t_kelurahanwppembeli);
+            $('#t_kabkotawppembeli').val(aa.t_kabkotawppembeli);
+            $('#t_telponwppembeli').val(aa.t_telponwppembeli);
+            $('#t_kodeposwppembeli').val(aa.t_kodeposwppembeli);
+            //data nop 
+            $('#t_nopbphtbsppt').val(aa.t_nopbphtbsppt);
+            $('#t_thnsppt').val(aa.t_thnsppt);
+            $('#t_alamatop').val(aa.t_alamatop);
+            $('#t_rtop').val(aa.t_rtop);
+            $('#t_rwop').val(aa.t_rwop);
+            $('#t_kelurahanop').val(aa.t_kelurahanop);
+            $('#t_kecamatanop').val(aa.t_kecamatanop);
+            $('#t_kabupatenop').val(aa.t_kabupatenop);
+            $('#t_luastanah').val(aa.t_luastanah);
+            $('#t_njoptanah').val(aa.t_njoptanah);
+            $('#t_totalnjoptanah').val(aa.t_totalnjoptanah);
+            $('#t_luasbangunan').val(aa.t_luasbangunan);
+            $('#t_njopbangunan').val(aa.t_njopbangunan);
+            $('#t_totalnjopbangunan').val(aa.t_totalnjopbangunan);
+            $('#t_grandtotalnjop').val(aa.t_grandtotalnjop);
+            $('#t_nilaitransaksispt').val(aa.t_nilaitransaksispt);
+            $('#s_permetertanah').val(aa.s_permetertanah);
+            $('#s_namajenistransaksi').val(aa.s_namajenistransaksi);
+            $('#s_namahaktanah').val(aa.s_namahaktanah);
+            $('#t_nosertifikathaktanah').val(aa.t_nosertifikathaktanah);
+            $("#t_tglajb").val(aa.t_tglajb);
+            $("#t_tglajbbaru").val(aa.t_tglajbbaru);
+            $("#t_noajbbaru").val(aa.t_noajbbaru);
+            //data perhitungan bphtb            
+            //var npopkp = aa.t_totalspt / 5 * 100;
+            $('#t_npopspt').val(aa.npop);
+            $('#t_potonganspt').val(aa.t_potonganspt);
+            $('#t_npopkpspt').val(aa.npopkp);
+            $('#t_totalspt').val(aa.t_totalspt);
+            $("#t_dendaspt").val(aa.t_dendaspt);
+            $("#t_bulandendaspt").val(aa.t_bulandendaspt);
+            $("#t_grandtotalspt").val(aa.grand_total_pajak);
+            //data penjual
+            $('#t_namawppenjual').val(aa.t_namawppenjual);
+            $('#t_nikwppenjual').val(aa.t_nikwppenjual);
+            $('#t_npwpwppenjual').val(aa.t_npwpwppenjual);
+            $('#t_alamatwppenjual').val(aa.t_alamatwppenjual);
+            $('#t_rtwppenjual').val(aa.t_rtwppenjual);
+            $('#t_rwwppenjual').val(aa.t_rwwppenjual);
+            $('#t_kelurahanwppenjual').val(aa.t_kelurahanwppenjual);
+            $('#t_kecamatanwppenjual').val(aa.t_kecamatanwppenjual);
+            $('#t_kabkotawppenjual').val(aa.t_kabkotawppenjual);
+            $('#t_kodeposwppenjual').val(aa.t_kodeposwppenjual);
+            $('#t_telponwppenjual').val(aa.t_telponwppenjual);
+            //data pembayaran
+            $('#t_idpembayaranspt').val(aa.t_idpembayaranspt);
+            //data persyaratan            
+            $('#persyaratannya').html(aa.t_persyaratan);
+            $('#persyaratannyaverifikasi').html(aa.t_persyaratanverifikasi);
+            $('#analisishargaacuan').html(aa.analisishargaacuan);
+            $('#historynjoptanah').val(aa.historynjoptanah);
+            $('#analisisharganjoptanah').html(aa.analisisharganjoptanah);
+            if (aa.t_tanggalpembayaran) {
+                $('#t_tanggalpembayaran').val(xx);
+            } else {
+                $('#t_tanggalpembayaran').val("-");
+            }
+
+            if (aa.t_statusbayarspt == true) {
+                $('#t_statusbayarspt').val("Sudah Dibayarkan");
+            } else {
+                $('#t_statusbayarspt').val("Belum Dibayarkan");
+            }
+            cektunggakanpbb();
+            jQuery('#ModalCari').modal('hide');
+//            cekvaliditassspd();
+        });
+    }
+
+    function hitungnjop() {
+        $.post('<?= $this->url() ?>/hitungnjop', {
+            p_luastanah: $('#p_luastanah').val(), p_luasbangunan: $('#p_luasbangunan').val(), p_njoptanah: $('#p_njoptanah').val(),
+            p_njopbangunan: $('#p_njopbangunan').val(), p_nilaitransaksispt: $('#p_nilaitransaksispt').val(), p_potonganspt: $('#p_potonganspt').val()
+            , p_persenbphtb: $('#p_persenbphtb').val()
+        }, function (data) {
+            var aa = JSON.parse(data);
+            $("#p_totalnjoptanah").val(currencyFormatDE(aa.p_totalnjoptanah * 1));
+            $('#p_totalnjopbangunan').val(currencyFormatDE(aa.p_totalnjopbangunan * 1));
+            $('#p_grandtotalnjop').val(currencyFormatDE(aa.p_grandtotalnjop * 1));
+            $('#p_npop').val(currencyFormatDE(aa.p_npop * 1));
+            $('#p_potonganspt').val(currencyFormatDE(aa.p_potonganspt * 1));
+            $('#p_npopkp').val(currencyFormatDE(aa.p_npopkp * 1));
+            $('#p_totalspt').val(currencyFormatDE(aa.p_totalspt * 1));
+        });
+    }
+
+    function calldatagride(direction) {
+        datagride($("#page").val(), $("#rows").val(), direction);
+    }
+
+    function datagride(page, row, direction) {
+        $.get('<?= $this->url() ?>/dataGridPendataanBphtb/' + page + '/' + row + '/' + direction + '?t_kohirsptcari=' + $("#t_kohirsptcari").val() + "&t_nopcari=" + $("#t_nopcari").val() + "&t_namapembelicari=" + $("#t_namapembelicari").val() + "&t_namapenjualcari=" + $("#t_namapenjualcari").val(), function (data) {
+            var aa = JSON.parse(data)
+            $("#listpendataan").html(aa.grid);
+            $("#rows").val(aa.rows);
+            $("#page").val(aa.page);
+            $("#total_data").html(": " + aa.count);
+            $("#total_halaman").html(": " + aa.total_halaman);
+        });
+    }
+
+//  centang semua
+    function modify_boxes(total_boxes) {
+        if (document.forms[0].CheckAll.checked) {
+            to_be_checked = true;
+        } else {
+            to_be_checked = false;
+        }
+        for (i = 0; i < total_boxes; i++) {
+            if (to_be_checked) {
+                document.forms[0].t_persyaratanverifikasi[i].checked = true;
+            }
+            else {
+
+                document.forms[0].t_persyaratanverifikasi[i].checked = false;
+            }
+        }
+    }
+</script>

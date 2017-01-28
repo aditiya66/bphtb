@@ -1,0 +1,198 @@
+<?php
+if (!function_exists('kekata')) {
+
+    function kekata($x) {
+        $x = abs($x);
+        $angka = array(
+            "",
+            "Satu",
+            "Dua",
+            "Tiga",
+            "Empat",
+            "Lima",
+            "Enam",
+            "Tujuh",
+            "Delapan",
+            "Sembilan",
+            "Sepuluh",
+            "Sebelas"
+        );
+        $temp = "";
+        if ($x < 12) {
+            $temp = " " . $angka[$x];
+        } else
+        if ($x < 20) {
+            $temp = kekata($x - 10) . " Belas";
+        } else
+        if ($x < 100) {
+            $temp = kekata($x / 10) . " Puluh" . kekata($x % 10);
+        } else
+        if ($x < 200) {
+            $temp = " Seratus" . kekata($x - 100);
+        } else
+        if ($x < 1000) {
+            $temp = kekata($x / 100) . " Ratus" . kekata($x % 100);
+        } else
+        if ($x < 2000) {
+            $temp = " Seribu" . kekata($x - 1000);
+        } else
+        if ($x < 1000000) {
+            $temp = kekata($x / 1000) . " Ribu" . kekata($x % 1000);
+        } else
+        if ($x < 1000000000) {
+            $temp = kekata($x / 1000000) . " Juta" . kekata($x % 1000000);
+        } else
+        if ($x < 1000000000000) {
+            $temp = kekata($x / 1000000000) . " Milyar" . kekata(fmod($x, 1000000000));
+        } else
+        if ($x < 1000000000000000) {
+            $temp = kekata($x / 1000000000000) . " Trilyun" . kekata(fmod($x, 1000000000000));
+        }
+        return $temp;
+    }
+
+}
+
+function terbilang($x, $style = 4) {
+    if ($x < 0) {
+        $hasil = "MINUS " . trim(kekata($x));
+    } else {
+        $hasil = trim(kekata($x));
+    }
+    switch ($style) {
+        case 1:
+            $hasil = strtoupper($hasil);
+            break;
+        case 2:
+            $hasil = strtolower($hasil);
+            break;
+        case 3:
+            $hasil = ucwords($hasil);
+            break;
+        default:
+            $hasil = ucfirst($hasil);
+            break;
+    }
+    return $hasil;
+}
+
+foreach ($this->datapembayaran as $k => $v) {
+    ?>
+    <div style="font-size: 12px;">
+        <table>
+            <tr>
+                <td style="width: 500px"><?= strtoupper($ar_pemda->s_namabank) ?></td>
+                <td>Tanggal Cetak : <?= date('d/m/Y') ?></td>
+            </tr>
+            <tr>
+                <td>CABANG : <?= strtoupper($ar_pemda->s_kodecabang) ?></td>
+                <td>Jam Cetak : <?= date('h:i:s') ?></td>
+            </tr>
+            <tr>
+                <td colspan="2">CABANG <?= strtoupper($ar_pemda->s_namacabang) ?><br>
+                    <br> <br> <br> <br></td>
+            </tr>
+        </table>
+    </div>
+    <div style="font-size: 12px;">
+        <table>
+            <tr>
+                <td colspan="2">BUKTI PEMBAYARAN/SETORAN BPHTB</td>
+            </tr>
+            <tr>
+                <td colspan="2">PEMKAB <?= strtoupper($ar_pemda->s_namakabkot) ?><br>
+                    <br></td>
+            </tr>
+        </table>
+    </div>
+    <div style="font-size: 12px;">
+        <table>
+            <tr>
+                <td>TANGGAL TRANSAKSI</td>
+                <td> : <?= date('d/m/Y', strtotime($v['t_tanggalpembayaran'])) ?></td>
+                <td>Jam Transaksi</td>
+                <td> : -</td>
+            </tr>
+            <tr>
+                <td>NOMOR TRANSAKSI</td>
+                <td> : T.<?= str_pad($v['t_kohirketetapanspt'], 4, '0', STR_PAD_LEFT) ?>/<?= $v['t_periodespt'] ?></td>
+                <td>Nomor Sequence</td>
+                <td> : -</td>
+            </tr>
+            <tr>
+                <td>JENIS TRANSAKSI</td>
+                <td colspan="3"> : <?= strtoupper($v['s_namajenistransaksi']) ?></td>
+            </tr>
+            <tr>
+                <td>NOP</td>
+                <td> : <?= $v['t_nopbphtbsppt'] ?></td>
+            </tr>
+            <tr>
+                <td>KELURAHAN</td>
+                <td colspan="3"> : <?= strtoupper($v['t_kelurahanop']) ?></td>
+            </tr>
+            <tr>
+                <td>KECAMATAN</td>
+                <td colspan="3"> : <?= strtoupper($v['t_kecamatanop']) ?></td>
+            </tr>
+            <tr>
+                <td>LUAS TANAH</td>
+                <td> : <?= number_format($v['t_luastanah'], 0, ',', '.') ?> M<sup>2</sup></td>
+            </tr>
+            <tr>
+                <td>LUAS BANGUNAN</td>
+                <td colspan="3"> : <?= number_format($v['t_luasbangunan'], 0, ',', '.') ?> M<sup>2</sup></td>
+            </tr>
+            <tr>
+                <td>NPOP</td>
+                <?php
+                if ($v['t_nilaitransaksispt'] >= $v['t_grandtotalnjop']) {
+                    $npop = $v['t_nilaitransaksispt'] - $v['t_potonganspt'];
+                } else {
+                    $npop = $v['t_grandtotalnjop'];
+                }
+                if($v['t_idjenistransaksi'] == '8'){
+                    $npop = $v['t_nilaitransaksispt'] - $v['t_potonganspt'];
+                }
+                ?>
+                <td> : Rp. <?= number_format($npop, 2, ',', '.') ?></td>
+            </tr>
+            <tr>
+                <td>DENDA</td>
+                <td colspan="3">: Rp. <?= number_format($v['t_dendaspt'], 2, ',', '.') ?></td>
+            </tr>
+            <tr>
+                <td>BPHTB</td>
+                <td colspan="3"> : Rp. <?= number_format($v['t_nilaipembayaranspt'], 2, ',', '.') ?></td>
+            </tr>
+            <tr>
+                <td>TOTAL DIBAYAR</td>
+                <?php
+                $total = $v['t_nilaipembayaranspt'] + $v['t_dendaspt'];
+                ?>
+                <td colspan="3"> : Rp. <?= number_format($total, 2, ',', '.') ?></td>
+            </tr>
+            <tr>
+                <td>TERBILANG<br> <br> <br></td>
+                <td colspan="3"> : <?= strtoupper(terbilang($total)) ?><br> <br>
+                    <br></td>
+            </tr>
+            <tr>
+                <td>NAMA WAJIB PAJAK</td>
+                <td colspan="3"> : <?= strtoupper($v['t_namawppembeli']) ?> </td>
+            </tr>
+            <tr>
+                <td>ALAMAT WAJIB PAJAK</td>
+                <td colspan="3"> : <?= strtoupper($v['t_alamatwppembeli']) ?>, <?= strtoupper($v['t_kelurahanwppembeli']) ?>, <?= strtoupper($v['t_kecamatanwppembeli']) ?> </td>
+            </tr>
+            <tr>
+                <td>KTP/NIK<br> <br></td>
+                <td colspan="3"> : <?= strtoupper($v['t_nikwppembeli']) ?> <br> <br></td>
+            </tr>
+            <tr>
+                <td colspan="4">Resi ini harap disimpan sebagai bukti pembayaran yang
+                    sah.</td>
+            </tr>
+        </table>
+    </div>
+<?php } ?>

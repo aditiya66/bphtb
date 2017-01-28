@@ -1,0 +1,1029 @@
+<style type="text/css">
+
+    .border_putus {
+        border-top: 1px black dashed;
+    }
+
+    .border_atas {
+        border-top: 1px black solid;
+    }
+
+    .border_kiri {
+        border-left: 1px black solid;
+    }
+
+    .border_kanan {
+        border-right: 1px black solid;
+    }
+
+    .border_bawah {
+        border-bottom: 1px black solid;
+    }
+
+    .font_besar {
+        font-size: 12pt;
+    }
+
+    .font_kecil {
+        font-size: 10pt;
+    }
+
+    .font_lima {
+        font-size: 8pt;
+    }
+
+    .font_tujuh {
+        font-size: 8pt;
+    }  
+
+    .font_delapan {
+        font-size: 8pt;
+    }    
+
+    .font_sembilan {
+        font-size: 9pt;
+    }    
+
+
+    @page {
+        margin-top: 1.5em;  
+        /*        margin-left: 3.8em;          */
+        margin-left: 0.25em;
+        margin-right: 0.25em;
+    }
+</style>
+<?php
+ini_set("max_execution_time", 500);
+if (!function_exists('kekata')) {
+
+    function kekata($x) {
+        $x = abs($x);
+        $angka = array("", "Satu", "Dua", "Tiga", "Empat", "Lima",
+            "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas");
+        $temp = "";
+        if ($x < 12) {
+            $temp = " " . $angka[$x];
+        } else if ($x < 20) {
+            $temp = kekata($x - 10) . " Belas";
+        } else if ($x < 100) {
+            $temp = kekata($x / 10) . " Puluh" . kekata($x % 10);
+        } else if ($x < 200) {
+            $temp = " Seratus" . kekata($x - 100);
+        } else if ($x < 1000) {
+            $temp = kekata($x / 100) . " Ratus" . kekata($x % 100);
+        } else if ($x < 2000) {
+            $temp = " Seribu" . kekata($x - 1000);
+        } else if ($x < 1000000) {
+            $temp = kekata($x / 1000) . " Ribu" . kekata($x % 1000);
+        } else if ($x < 1000000000) {
+            $temp = kekata($x / 1000000) . " Juta" . kekata($x % 1000000);
+        } else if ($x < 1000000000000) {
+            $temp = kekata($x / 1000000000) . " Milyar" . kekata(fmod($x, 1000000000));
+        } else if ($x < 1000000000000000) {
+            $temp = kekata($x / 1000000000000) . " Trilyun" . kekata(fmod($x, 1000000000000));
+        }
+        return $temp;
+    }
+
+}
+
+function terbilang($x, $style = 4) {
+    if ($x < 0) {
+        $hasil = "MINUS " . trim(kekata($x));
+    } else {
+        $hasil = trim(kekata($x));
+    }
+    switch ($style) {
+        case 1:
+            $hasil = strtoupper($hasil);
+            break;
+        case 2:
+            $hasil = strtolower($hasil);
+            break;
+        case 3:
+            $hasil = ucwords($hasil);
+            break;
+        default:
+            $hasil = ucfirst($hasil);
+            break;
+    }
+    return $hasil;
+}
+
+foreach ($this->data_sspd as $row) {
+    for ($lmbr = 1; $lmbr <= 6; $lmbr++) {
+        $data_pemda = $this->data_pemda;
+        ?>
+        <div style="page-break-after: always;width: 100%;">
+            <table width="100%" class="border_atas border_bawah border_kanan border_kiri font_kecil" style="padding:0;border-spacing:0px;">
+                <tr>
+                    <td class="border_kanan border_bawah">
+                        <table align="center">
+                            <tr>
+                                <td align="center">
+                                    <?php $gambar = "/var/www/html" . $this->basePath() . "/" . $data_pemda->s_logo; ?>                                    
+                                    <img src="<?= $gambar ?>" style="width:75px;"  />                                                                        
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td colspan="2" class="border_kanan border_bawah">
+                        <table width="100%" style="padding:0;border-spacing:0px;">
+                            <tr>
+                                <td align="center" class="border_bawah font_kecil">
+                                    SURAT SETORAN PAJAK DAERAH
+                                    <br/>
+                                    BEA PEROLEHAN HAK ATAS TANAH DAN BANGUNAN
+                                    <br/>
+                                    <strong>( SSPD-BPHTB )</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" class="font_sembilan">
+                                    BERFUNGSI SEBAGAI SURAT PEMBERITAHUAN OBJEK PAJAK
+                                    <br/>
+                                    PAJAK BUMI DAN BANGUNAN (SPOP PBB)
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="border_bawah">
+                        <table width="100%" style="border-spacing: 0; padding: 0; margin: 0;">
+                            <tr>
+                                <td class="font_sembilan">
+                            <center>Lembar <?= $lmbr ?>
+                                <br>
+                                <?php if ($lmbr == 1) { ?>
+                                    Untuk Wajib Pajak<br>sebagai bukti pembayaran
+                                <?php } elseif ($lmbr == 2) { ?>
+                                    Untuk PPAT / KPKNL
+                                <?php } elseif ($lmbr == 3) { ?>
+                                    Untuk Kantor BPN <br><?= $data_pemda->s_namakabkot ?>
+                                <?php } elseif ($lmbr == 4) { ?>
+                                    Untuk Bank/Bendaharawan<br> Penerimaan <?= $data_pemda->s_namasingkatinstansi ?> <br><?= $data_pemda->s_namakabkot ?>
+                                <?php } elseif ($lmbr == 5) { ?>
+                                    Untuk Pemegang Kas
+                                <?php } elseif ($lmbr == 6) { ?>
+                                    Untuk Bidang<br>Pendapatan <?= $data_pemda->s_namasingkatinstansi ?>
+                                <?php } ?>
+                            </center>
+                            <br><br>No. Reg : <?= $row['t_kodebayarbanksppt'] ?>
+                            </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="border_bawah font_delapan" style="padding: 10px 0px 10px 0px;">
+                        <table width="100%"  style="border-spacing: 0px;">
+                            <tr>
+                                <td align="center" style="width: 5%; padding:0;">
+                                    A.
+                                </td>
+                                <td>
+                                    <table width="95%" style="border-spacing: 0px;">
+                                        <tr>
+                                            <td style="width: 20%;height: 25px;">
+                                                1. Nama Wajib Pajak :
+                                            </td>
+                                            <td>
+                                                <?= strtoupper($row['t_namawppembeli']) ?> 
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <table width="95%" style="border-spacing: 0px;">
+                                        <tr>
+                                            <td style="width: 20%;height: 25px;">
+                                                2. NPWP :
+                                            </td>
+                                            <td colspan="30">
+                                                <?= $row['t_npwpwppembeli'] ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border_bawah" style="height: 25px;">
+                                                3. Alamat Wajib Pajak : 
+                                            </td>
+                                            <td colspan="20" class="border_bawah">
+                                                <?= strtoupper($row["t_alamatwppembeli"]) ?>
+                                            </td>
+                                            <td colspan="10" class="border_bawah">
+                                                Blok/Kav/Nomor :
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border_bawah" style="height: 25px;">
+                                                4. Kelurahan/Desa :
+                                            </td>
+                                            <td colspan="10" class="border_bawah">
+                                                <?= strtoupper($row["t_kelurahanwppembeli"]) ?>
+                                            </td>
+                                            <td colspan="10" class="border_bawah">
+                                                5. RT/RW :
+                                                <?= strtoupper($row["t_rtwppembeli"]) ?> / <?= strtoupper($row["t_rwwppembeli"]) ?>
+                                            </td>
+                                            <td colspan="10" class="border_bawah">
+                                                6. Kecamatan : <?= strtoupper($row["t_kecamatanwppembeli"]) ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border_bawah" style="height: 25px;">
+                                                7. Kabupaten/Kota :
+                                            </td>
+                                            <td colspan="20" class="border_bawah">
+                                                <?= strtoupper($row["t_kabkotawppembeli"]) ?>
+                                            </td>
+                                            <td colspan="10" class="border_bawah">
+                                                8. Kode Pos : <?= $row["t_kodeposwppembeli"] ?>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br/><br/>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="border_bawah font_delapan" style="padding: 10px 0px 10px 0px;">
+                        <table width="100%"  style="border-spacing: 0px;">
+                            <tr>
+                                <td align="center" style="width: 5%; padding-top: -85px;">
+                                    B.
+                                </td>
+                                <td>
+                                    <table width="95%" style="border-spacing: 0px;">
+                                        <tr>
+                                            <td style="width: 30%;height: 25px;">
+                                                1. Nomor Objek Pajak (NOP) PBB :
+                                            </td>
+                                            <?php for ($i = 0; $i <= 1; $i++) { ?>
+                                                <td style="height: 8px; text-align: center;" class="border_atas border_bawah border_kiri">
+                                                    <?= $row['t_nopbphtbsppt'][$i] ?>
+                                                </td>
+                                                <?php } ?>
+                                                <td class="border_kiri">
+                                                </td>
+                                                <?php for ($i = 3; $i <= 4; $i++) { ?>
+                                                    <td style="text-align: center;" class="border_atas border_bawah border_kiri">
+                                                        <?= $row['t_nopbphtbsppt'][$i] ?>
+                                                    </td>
+                                                    <?php } ?>
+                                                    <td class="border_kiri">
+                                                    </td>
+                                                    <?php for ($i = 6; $i <= 8; $i++) { ?>
+                                                        <td style="text-align: center;" class="border_atas border_bawah border_kiri">
+                                                            <?= $row['t_nopbphtbsppt'][$i] ?>
+                                                        </td>
+                                                        <?php } ?>
+                                                        <td class="border_kiri">
+                                                        </td>
+                                                        <?php for ($i = 10; $i <= 12; $i++) { ?>
+                                                            <td style="text-align: center;" class="border_atas border_bawah border_kiri">
+                                                                <?= $row['t_nopbphtbsppt'][$i] ?>
+                                                            </td>
+                                                            <?php } ?>
+                                                            <td class="border_kiri">
+                                                            </td>
+                                                            <?php for ($i = 14; $i <= 16; $i++) { ?>
+                                                                <td style="text-align: center;" class="border_atas border_bawah border_kiri">
+                                                                    <?= $row['t_nopbphtbsppt'][$i] ?>
+                                                                </td>
+                                                                <?php } ?>
+                                                                <td class="border_kiri">
+                                                                </td>
+                                                                <?php for ($i = 18; $i <= 21; $i++) { ?>
+                                                                    <td style="text-align: center;" class="border_atas border_bawah border_kiri">
+                                                                        <?= $row['t_nopbphtbsppt'][$i] ?>
+                                                                    </td>
+                                                                    <?php } ?>
+                                                                    <td class="border_kiri">
+                                                                    </td>
+                                                                    <td class="border_atas border_bawah border_kiri border_kanan" style="text-align: center;">
+                                                                        <?= $row['t_nopbphtbsppt'][23] ?>
+                                                                    </td>
+                                                                    <td colspan="5">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="border_bawah" style="height: 25px;">
+                                                                        2. Lokasi Objek Pajak :
+                                                                    </td>
+                                                                    <td colspan="13" class="border_bawah">
+                                                                        <?= strtoupper($row["t_alamatop"]) ?>
+                                                                    </td>
+                                                                    <td colspan="15" class="border_bawah">
+                                                                        Blok/Kav/Nomor : 
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="7" class="border_bawah" style="height: 25px;">
+                                                                        3. Kelurahan/Desa : <?= $row["t_kelurahanop"] ?>
+                                                                    </td>
+                                                                    <td colspan="7" class="border_bawah">
+                                                                        4. RT/RW :
+                                                                        <?= strtoupper($row["t_rtop"]) ?> / <?= strtoupper($row["t_rwop"]) ?>
+                                                                    </td>
+                                                                    <td colspan="15" class="border_bawah">
+                                                                        5. Kecamatan : <?= $row["t_kecamatanop"] ?>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="14" class="border_bawah" style="height: 25px;">
+                                                                        6. Kabupaten/Kota : <?= $data_pemda->s_namakabkot ?>
+                                                                    </td>
+                                                                    <td colspan="16" class="border_bawah">
+                                                                        Kode Pos : <?= $data_pemda->s_kodepos ?>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+
+                                                        </td>
+                                                        <td class="font_delapan" style="height: 25px;">
+                                                            Penghitungan NJOP PBB
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td> 
+                                                        </td>
+                                                        <td class="font_delapan">
+                                                            <table width="95%" style="border-spacing: 0px;">
+                                                                <tr>
+                                                                    <td class="border_atas border_bawah border_kiri border_kanan" style="text-align: center;height: 40px;">                                                
+                                                                        Objek Pajak                                                
+                                                                    </td>
+                                                                    <td colspan="2" class="border_atas border_bawah border_kanan" style="text-align: center;">
+                                                                        <p style="size: 2px; margin: 0;">Diisi luas tanah dan atau bangunan yang haknya diperoleh</p>
+                                                                    </td>
+                                                                    <td colspan="2" class="border_atas border_bawah border_kanan" style="text-align: center;">
+                                                                        <p style="size: 2px; margin: 0;">Diisi berdasarkan SPPT PBB tahun terjadinya perolehan hak/Tahun......</p>
+                                                                    </td>
+                                                                    <td colspan="2" class="border_atas border_bawah border_kanan" style="text-align: center;">
+                                                                        Luas x NJOP PBB / m<sup>2</sup>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="border_bawah border_kiri border_kanan" style="height: 25px;">
+                                                                        Tanah (Bumi)
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan" style="width: 10px; text-align: center;">
+                                                                        7
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan" style="text-align: right">
+                                                                        <?php
+                                                                        if (!empty($row['p_luastanah'])) {
+                                                                            $luastanah = $row['p_luastanah'];
+                                                                        } else {
+                                                                            $luastanah = $row["t_luastanah"];
+                                                                        }
+                                                                        ?>
+                                                                        <?= number_format($luastanah, 0, ',', '.') ?> m<sup>2</sup>
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan" style="width: 3px; text-align: center;">
+                                                                        9
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan" style="text-align: right">
+                                                                        <?php
+                                                                        if (!empty($row['p_njoptanah'])) {
+                                                                            $njoptanah = $row['p_njoptanah'];
+                                                                        } else {
+                                                                            $njoptanah = $row["t_njoptanah"];
+                                                                        }
+                                                                        ?>
+                                                                        <?= number_format($njoptanah, 0, ',', '.') ?>
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan" style="width: 10px; text-align: center;">
+                                                                        11
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan" style="text-align: right">
+                                                                        <?php
+                                                                        if (!empty($row['p_totalnjoptanah'])) {
+                                                                            $totalnjoptanah = $row['p_totalnjoptanah'];
+                                                                        } else {
+                                                                            $totalnjoptanah = $row["t_totalnjoptanah"];
+                                                                        }
+                                                                        ?>
+                                                                        <?= number_format($totalnjoptanah, 2, ',', '.') ?>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="border_bawah border_kiri border_kanan" style="height: 25px;">
+                                                                        Bangunan
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan" style="text-align: center;">
+                                                                        8
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan" style="text-align: right">
+                                                                        <?php
+                                                                        if (!empty($row['p_luasbangunan'])) {
+                                                                            $luasbangunan = $row['p_luasbangunan'];
+                                                                        } else {
+                                                                            $luasbangunan = $row["t_luasbangunan"];
+                                                                        }
+                                                                        ?>
+                                                                        <?= number_format($luasbangunan, 0, ',', '.') ?> m<sup>2</sup>
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan"  style="text-align: center;">
+                                                                        10
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan" style="text-align: right">
+                                                                        <?php
+                                                                        if (!empty($row['p_njopbangunan'])) {
+                                                                            $njopbangunan = $row['p_njopbangunan'];
+                                                                        } else {
+                                                                            $njopbangunan = $row["t_njopbangunan"];
+                                                                        }
+                                                                        ?>
+                                                                        <?= number_format($njopbangunan, 0, ',', '.') ?>
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan"  style="text-align: center;">
+                                                                        12
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan" style="text-align: right">
+                                                                        <?php
+                                                                        if (!empty($row['p_totalnjopbangunan'])) {
+                                                                            $totalnjopbangunan = $row['p_totalnjopbangunan'];
+                                                                        } else {
+                                                                            $totalnjopbangunan = $row["t_totalnjopbangunan"];
+                                                                        }
+                                                                        ?>
+                                                                        <?= number_format($totalnjopbangunan, 2, ',', '.') ?>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="5" class="border_kanan" align="right" style="height: 25px;">
+                                                                        NJOP PBB : &nbsp; &nbsp; &nbsp;
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan" style="text-align: center;">
+                                                                        13
+                                                                    </td>
+                                                                    <td class="border_bawah border_kanan" style="text-align: right">
+                                                                        <?php
+                                                                        if (!empty($row['p_grandtotalnjop'])) {
+                                                                            $grandnjop = $row['p_grandtotalnjop'];
+                                                                        } else {
+                                                                            $grandnjop = $row["t_grandtotalnjop"];
+                                                                        }
+                                                                        ?>
+                                                                        <?= number_format($grandnjop, 2, ',', '.') ?>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+
+                                                        </td>
+                                                        <td class="font_delapan">
+                                                            <table width="100%" style="border-spacing: 0px;">
+                                                                <tr>
+                                                                    <td style="width: 71.5%;height: 25px;">
+                                                                        14. Harga transaksi yang terjadi pada perolehan hak atas tanah dan/atau bangunan / Nilai pasar
+                                                                    </td>
+                                                                    <td class="border_atas border_bawah border_kanan border_kiri" style="text-align:right;">
+                                                                        <?php
+                                                                        if (!empty($row['p_nilaitransaksispt'])) {
+                                                                            $nilaitransaksispt = $row['p_nilaitransaksispt'];
+                                                                        } else {
+                                                                            $nilaitransaksispt = $row["t_nilaitransaksispt"];
+                                                                        }
+                                                                        ?>
+                                                                        Rp. <?= number_format($nilaitransaksispt, 2, ',', '.') ?>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                            <table width="100%" style="border-spacing: 0px;">
+                                                                <tr>
+                                                                    <td style="width: 71%;height: 25px;">
+                                                                        15. Jenis perolehan hak atas tanah dan/atau bangunan :
+                                                                    </td>
+                                                                    <?php
+                                                                    if ($row["t_idjenistransaksi"] >= 1 && $row["t_idjenistransaksi"] <= 9) {
+                                                                        $transaksi = "0" . $row["t_idjenistransaksi"];
+                                                                    } else {
+                                                                        $transaksi = $row["t_idjenistransaksi"];
+                                                                    }
+                                                                    ?>
+                                                                    <td style="width: 2%; text-align: center;" class="border_atas border_bawah border_kanan border_kiri">
+                                                                        <?= $transaksi[0] ?>
+                                                                    </td>
+                                                                    <td style="width: 2%; text-align: center;" class="border_atas border_bawah border_kanan">
+                                                                        <?= $transaksi[1] ?>
+                                                                    </td>
+                                                                    <td>Diisi sesuai petunjuk pengisian SSB</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+
+                                                        </td>
+                                                        <td class="font_delapan" style="height: 25px;">
+                                                            16. Nomor Sertifikat Tanah : <?= $row["t_nosertifikathaktanah"] ?>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="font_delapan border_bawah">
+                                                <table width="100%" style="border-spacing: 0">
+                                                    <tr>
+                                                        <td class="border_bawah" colspan="5" style="height: 25px;">
+                                                            &nbsp;&nbsp;C. PENGHITUNGAN BPHTB (Hanya diisi berdasarkan penghitungan Wajib Pajak)
+                                                            <?php
+                                                            // Untuk Perhitungan NPOP
+                                                            if ($nilaitransaksispt >= $grandnjop) {
+                                                                $npop = $nilaitransaksispt;
+                                                            } else {
+                                                                $npop = $grandnjop;
+                                                            }
+
+                                                            if ($row['t_idjenistransaksi'] == '8') {
+                                                                $npop = $nilaitransaksispt;
+                                                            }
+
+                                                            // Untuk Potongan (NPOPTKP)
+                                                            $potonganspt = $row["t_potonganspt"];
+
+                                                            // Untuk Perhitungan NPOPKP
+                                                            if ($npop < $row["t_potonganspt"]) {
+                                                                $npopkp = 0;
+                                                            } else {
+                                                                $npopkp = $npop - $row["t_potonganspt"];
+                                                            }
+
+                                                            // Untuk Perhitungan Pajak BPHTB
+                                                            if ($npopkp == 0) {
+                                                                $totalpajak = 0;
+                                                            } else {
+                                                                $totalpajak = $npopkp * 5 / 100;
+                                                            }
+
+                                                            // Untuk Nilai Pembayaran Yang Pernah Dibayarkan
+                                                            if (!empty($dataidsptsebelum['t_idsptsebelumnya'])) {
+                                                                $nilaipembayaranspt = $ar_sebelum['t_nilaipembayaranspt'] + $row['t_nilaipembayaranspt'];
+                                                            } else {
+                                                                $nilaipembayaranspt = $row['t_nilaipembayaranspt'];
+                                                            }
+
+                                                            // Untuk Total Yang Masih Harus Dibayarkan 
+                                                            $harus_dibayar = $totalpajak;// - $nilaipembayaranspt;
+                                                            ?>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2" class=" border_bawah" style="height: 25px;">
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nilai Perolehan Objek Pajak (NPOP)
+                                                        </td>
+                                                        <td class="border_kanan border_kiri border_bawah" style="width: 20px; text-align: center;">
+                                                            1
+                                                        </td>
+                                                        <td class=" border_bawah" style="width: 10px;">
+                                                            Rp.
+                                                        </td>
+                                                        <td class=" border_bawah" style="text-align: right;">
+                                                            <?= number_format($npop, 2, ',', '.'); ?>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2" class=" border_bawah" style="height: 25px;">
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nilai Perolehan Objek Pajak Tidak Kena Pajak (NPOPTKP)
+                                                        </td>
+                                                        <td class="border_kanan border_kiri border_bawah" style="text-align: center;">
+                                                            2
+                                                        </td>
+                                                        <td class=" border_bawah">
+                                                            Rp.
+                                                        </td>
+                                                        <td class=" border_bawah" style="text-align: right;">
+                                                            <?= number_format($potonganspt, 2, ',', '.') ?>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class=" border_bawah" style="width: 450px;height: 25px;">
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nilai Perolehan Objek Pajak Kena Pajak (NPOPKP)
+                                                        </td>
+                                                        <td class="border_kiri border_bawah" style="width: 80px; text-align: center;">
+                                                            angka 1-angka 2
+                                                        </td>
+                                                        <td class="border_kanan border_kiri border_bawah" style="text-align: center;">
+                                                            3
+                                                        </td>
+                                                        <td class=" border_bawah">
+                                                            Rp. 
+                                                        </td>
+                                                        <td class=" border_bawah" style="text-align: right;">
+                                                            <?= number_format($npopkp, 2, ',', '.') ?>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class=" border_bawah" style="height: 25px;">
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bea Perolehan Hak atas Tanah dan Bangunan yang terutang
+                                                        </td>
+                                                        <td class="border_kiri border_bawah" style="width: 80px; text-align: center;">
+                                                            5% x angka 3
+                                                        </td>
+                                                        <td class="border_kanan border_kiri border_bawah" style="text-align: center;">
+                                                            4
+                                                        </td>
+                                                        <td class=" border_bawah">
+                                                            Rp.
+                                                        </td>
+                                                        <td class=" border_bawah" style="text-align: right;">
+                                                            <?= number_format($totalpajak, 2, ',', '.') ?>
+                                                        </td>
+                                                    </tr>
+
+                                                    <?php
+                                                    if (!empty($ar_sebelum['t_totalspt'])) {
+                                                        ?>
+                                                        <tr>
+                                                            <td class=" border_bawah" style="height: 25px;">
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bea Perolehan Hak atas Tanah dan Bangunan yang sudah dibayar
+                                                            </td>
+                                                            <td class="border_kiri border_bawah" style="width: 80px; text-align: center;">
+                                                                angka 4 - angka 5
+                                                            </td>
+                                                            <td class="border_kanan border_kiri border_bawah" style="text-align: center;">
+                                                                5
+                                                            </td>
+                                                            <td class=" border_bawah">
+                                                                Rp.
+                                                            </td>
+                                                            <td class=" border_bawah" style="text-align: right;">
+                                                                <?= number_format($ar_sebelum['t_totalspt'], 2, ',', '.') ?>
+                                                                <?php
+                                                                $harus_dibayar = $harus_dibayar - $ar_sebelum['t_totalspt'];
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                    <?php
+                                                    if ($row['t_dendaspt'] > 0) {
+                                                        ?>
+                                                        <tr>
+                                                            <td class=" border_bawah" style="height: 25px;">
+                                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sanksi Administrasi (<?= number_format($totalpajak, 2, ',', '.') ?> x 2% x <?= $row['t_bulandendaspt'] ?> Bulan) 
+                                                            </td>
+                                                            <td class="border_bawah" style="width: 80px; text-align: center;">
+
+                                                            </td>
+                                                            <td class="border_kanan border_bawah" style="text-align: center;">
+
+                                                            </td>
+                                                            <td class=" border_bawah">
+                                                                Rp.
+                                                            </td>
+                                                            <td class=" border_bawah" style="text-align: right;">
+                                                                <?= number_format($row['t_dendaspt'], 2, ',', '.') ?>
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                        $harus_dibayar = $totalpajak + $row['t_dendaspt'];
+                                                    }
+                                                    ?>
+                                                    <tr>
+                                                        <td colspan="2" class=" border_bawah" style="height: 25px;">
+                                                            <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bea Perolehan Hak atas Tanah dan Bangunan yang harus dibayar</b>
+                                                        </td>
+                                                        <td class="border_kanan border_kiri border_bawah" style="text-align: center;">
+                                                            <?php
+                                                            if (empty($ar_sebelum['t_totalspt'])) {
+                                                                $noo = 5;
+                                                            } else {
+                                                                $noo = 6;
+                                                            }
+                                                            ?>
+                                                            <b><?= $noo ?></b>
+                                                        </td>
+                                                        <td class=" border_bawah">
+                                                            <b>Rp. </b>
+                                                        </td>
+                                                        <td class=" border_bawah" style="text-align: right;">
+                                                            <b><?= number_format($harus_dibayar, 2, ',', '.') ?></b>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" class="font_delapan border_bawah">
+                                                <table width="100%" style="border-spacing: 5px">
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            D. Jumlah Setoran berdasarkan : (Beri tanda silang "X" pda kotak yang sesuai)
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 5px; height: 5px; margin-left: 10px" class="border_atas border_bawah border_kanan border_kiri">
+
+                                                        </td>
+                                                        <td colspan="2">
+                                                            a. Penghitungan Wajib Pajak
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 5px; height: 5px; margin-left: 10px" class="border_atas border_bawah border_kanan border_kiri">
+
+                                                        </td>
+                                                        <td>
+                                                            b. STB / SKPDKB / SKPDKBT *)
+                                                        </td>
+                                                        <td>
+                                                            <table width="100%" style="border-spacing: 0;">
+                                                                <tr>
+                                                                    <td class="border_bawah" style="width: 50%;">
+                                                                        Nomor.
+                                                                    </td>
+                                                                    <td class="border_bawah">
+                                                                        Tanggal
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 5px; height: 5px; margin-left: 10px" class="border_atas border_bawah border_kanan border_kiri">
+
+                                                        </td>
+                                                        <td>
+                                                            c. Pengurangan dihitung sendiri menjadi 
+                                                        </td>
+                                                        <td>
+                                                            <table width="100%" style="border-spacing: 0;">
+                                                                <tr>
+                                                                    <td style="width: 5px; height: 5px;" class="border_atas border_bawah border_kanan border_kiri">
+
+                                                                    </td>
+                                                                    <td style="width: 5px; height: 5px;" class="border_atas border_bawah border_kanan">
+
+                                                                    </td>
+                                                                    <td>
+                                                                        % berdasarkan Peraturan Kepala Daerah Nomor ..................................
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 5px; height: 5px; margin-left: 10px" class="border_atas border_bawah border_kanan border_kiri">
+
+                                                        </td>
+                                                        <td colspan="2">
+                                                            d. ..........................
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            <i>*) Coret yang tidak perlu</i>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" class="border_bawah border_kanan font_lima" style="border-spacing: 10px">
+                                                <b>JUMLAH Pembayaran : Rp. <?= number_format($harus_dibayar, 2, ',', '.'); ?> <br/>                       
+                                                    Terbilang<br>
+                                                    <?php
+                                                    if ($harus_dibayar == 0) {
+                                                        echo"Nihil";
+                                                    } else {
+                                                        ?>
+                                                        <?=
+                                                        ucwords(strtolower(terbilang($harus_dibayar) . " Rupiah"));
+                                                    }
+                                                    ?>
+                                                </b>
+                                            </td>
+                                            <td colspan="2" class="border_bawah border_kanan font_lima" style="text-align: center;">
+                                                Untuk disetorkan ke Rekening Kas Daerah<br>
+                                                Kode Rekening<br>
+                                                <?= $data_pemda->s_norekbank ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border_kanan font_tujuh" style="text-align: center;vertical-align: top">
+                                                <?= $data_pemda->s_namaibukotakabkot ?>, tgl ........................
+                                                <br>
+                                                WAJIB PAJAK / PENYETOR
+                                                <br><br><br><br><br><br><br/>
+                                            </td>
+                                            <td width="27%" class="border_kanan" style="text-align: center; font-size: 6pt;vertical-align: top">
+                                                MENGETAHUI :
+                                                <br>
+                                                PPAT/NOTARIS/KEPALA KANTOR LELANG/<br>
+                                                PEJABAT LELANG/KEPALA KANTOR LELANG<br>
+                                                PERTANAHAN KABUPATEN/KOTA *)
+                                                <br><br><br><br><br><br/><br/>
+                                                <?= strtoupper($row['s_namanotaris']) ?>
+                                            </td>
+                                            <td width="27%" class="border_kanan font_tujuh" style="text-align: center;vertical-align: top">
+                                                DITERIMA OLEH :
+                                                <br>
+                                                TEMPAT PEMBAYARAN BPHTB
+                                                <br>
+                                                Tanggal : 
+                                                <b>
+                                                    <?php
+                                                    if ($row['t_tanggalpembayaran'] != null) {
+                                                        echo date('d-m-Y', strtotime($row['t_tanggalpembayaran']))
+                                                        ?>
+                                                        <?php
+                                                    } else {
+                                                        echo "";
+                                                    }
+                                                    ?>
+                                                </b>
+                                                <br><br><br><br><br>
+                                            </td>
+                                            <td width="24%" class="font_tujuh" style="text-align: center;vertical-align: top;">
+                                                telah diverifikasi : 
+                                                <b>
+                                                    <?php
+                                                    if ($row['t_tglverifikasispt'] != null) {
+                                                        echo date('d-m-Y', strtotime($row['t_tglverifikasispt']))
+                                                        ?>
+                                                        <?php
+                                                    } else {
+                                                        echo "";
+                                                    }
+                                                    ?>
+                                                </b>
+                                                <br>
+                                                <?= strtoupper($data_pemda->s_namainstansi) ?>
+                                                <br><br><br><br><br>
+                                                <?= strtoupper($row['s_namapejabat']) ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border_bawah border_kanan border_atas font_lima" style="text-align: center; border-spacing: 10px">
+                                                Nama Lengkap dan tanda tangan
+                                            </td>
+                                            <td class="border_bawah border_kanan border_atas font_lima" style="text-align: center;">
+                                                Nama Lengkap, Stempel dan tanda tangan
+                                            </td>
+                                            <td class="border_bawah border_kanan border_atas font_lima" style="text-align: center;">
+                                                Nama Lengkap, Stempel dan tanda tangan
+                                            </td>
+                                            <td class="border_bawah font_lima border_atas" style="text-align: center;">
+                                                Nama Lengkap, Stempel dan tanda tangan
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">
+                                                <table width="100%" style="border-spacing: 0">
+                                                    <tr>
+                                                        <td class="font_lima border_kanan" style="text-align: center; width: 15%">
+                                                            Hanya diisi oleh <br>petugas <?= $data_pemda->s_namasingkatinstansi ?>
+                                                        </td>
+                                                        <td>
+                                                            <table width="100%" style="border-spacing: 0; margin: 10px">
+                                                                <tr>
+                                                                    <td width="20%">
+                                                                        Nomor Dokumen :
+                                                                    </td>
+                                                                    <td style="height: 8px; text-align: center;" class="border_atas border_bawah border_kiri">
+                                                                        <?php
+                                                                        $tgl = explode('-', $row['t_tglprosesspt']);
+                                                                        $tahun = $tgl[0];
+                                                                        $bulan = $tgl[1];
+                                                                        $hari = $tgl[2];
+                                                                        ?>
+                                                                        <?= $hari[0] ?>
+                                                                    </td>
+                                                                    <td style="text-align: center;" class="border_atas border_bawah border_kiri border_kanan">
+                                                                        <?= $hari[1] ?>
+                                                                    </td>
+                                                                    <td>
+                                                                    </td>
+                                                                    <td style="text-align: center;" class="border_atas border_bawah border_kiri">
+                                                                        <?= $bulan[0] ?>
+                                                                    </td>
+                                                                    <td style="text-align: center;" class="border_atas border_bawah border_kiri border_kanan">
+                                                                        <?= $bulan[1] ?>
+                                                                    </td>
+                                                                    <td>
+                                                                    </td>
+                                                                    <td style="text-align: center;" class="border_atas border_bawah border_kiri">
+                                                                        <?= $tahun[0] ?>
+                                                                    </td>
+                                                                    <td style="text-align: center;" class="border_atas border_bawah border_kiri">
+                                                                        <?= $tahun[1] ?>
+                                                                    </td>
+                                                                    <td style="text-align: center;" class="border_atas border_bawah border_kiri">
+                                                                        <?= $tahun[2] ?>
+                                                                    </td>
+                                                                    <td style="text-align: center;" class="border_atas border_bawah border_kiri border_kanan">
+                                                                        <?= $tahun[3] ?>
+                                                                    </td>
+                                                                    <td class="border_bawah">
+                                                                    </td>
+                                                                    <?php
+                                                                    $nosspd = str_pad($row['t_kohirketetapanspt'], 4, '0', STR_PAD_LEFT);
+                                                                    ?>
+                                                                    <td style="text-align: center;" class="border_atas border_bawah border_kiri">
+                                                                        <?= $nosspd[0] ?>
+                                                                    </td>
+                                                                    <td style="text-align: center;" class="border_atas border_bawah border_kiri">
+                                                                        <?= $nosspd[1] ?>
+                                                                    </td>
+                                                                    <td style="text-align: center;" class="border_atas border_bawah border_kiri">
+                                                                        <?= $nosspd[2] ?>
+                                                                    </td>
+                                                                    <td style="text-align: center;" class="border_atas border_bawah border_kiri border_kanan">
+                                                                        <?= $nosspd[3] ?>
+                                                                    </td>
+                                                                    <td class="border_bawah">
+                                                                    </td>
+                                                                    <td class="border_atas border_bawah border_kiri">
+                                                                    </td>
+                                                                    <td class="border_atas border_bawah border_kiri">
+                                                                    </td>
+                                                                    <td class="border_atas border_bawah border_kiri border_kanan">
+                                                                    </td>
+                                                                    <td colspan="10">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        NOP PBB Baru :
+                                                                    </td>
+                                                                    <td style="height: 8px;" class="border_bawah border_kiri">
+                                                                    </td>
+                                                                    <td class="border_bawah border_kiri border_kanan">
+                                                                    </td>
+                                                                    <td>
+                                                                    </td>
+                                                                    <td class="border_bawah border_kiri">
+                                                                    </td>
+                                                                    <td class="border_bawah border_kiri border_kanan">
+                                                                    </td>
+                                                                    <td>
+                                                                    </td>
+                                                                    <td class="border_bawah border_kiri">
+                                                                    </td>
+                                                                    <td class="border_bawah border_kiri">
+                                                                    </td>
+                                                                    <td class="border_bawah border_kiri">
+                                                                    </td>
+                                                                    <td class="border_kanan border_kiri">
+                                                                    </td>
+                                                                    <td class="border_bawah">
+                                                                    </td>
+                                                                    <td class="border_bawah border_kiri">
+                                                                    </td>
+                                                                    <td class="border_bawah border_kiri">
+                                                                    </td>
+                                                                    <td class="border_kiri">
+                                                                    </td>
+                                                                    <td class="border_bawah border_kiri border_kanan">
+                                                                    </td>
+                                                                    <td class="border_bawah">
+                                                                    </td>
+                                                                    <td class="border_bawah border_kiri">
+                                                                    </td>
+                                                                    <td class="border_kiri">
+                                                                    </td>
+                                                                    <td class="border_bawah border_kiri border_kanan">
+                                                                    </td>
+                                                                    <td class="border_atas border_bawah">
+                                                                    </td>
+                                                                    <td class="border_atas border_bawah border_kiri">
+                                                                    </td>
+                                                                    <td class="border_atas border_bawah border_kiri border_kanan">
+                                                                    </td>
+                                                                    <td>
+                                                                    </td>
+                                                                    <td class="border_atas border_bawah border_kiri border_kanan">
+                                                                    </td>
+                                                                    <td colspan="5">
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>

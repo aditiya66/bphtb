@@ -1,0 +1,109 @@
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span style="font-size: 15px">MENU HISTORY LOG</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <select class="form-control" name='combone' id='combone' onchange="ShowHidekolom()">
+                                            <option value="hislog_opr_namacombo">Nama Pengguna</option>
+                                            <option value="hislog_actioncombo">Aktifitas</option>
+                                            <option value="hislog_timecombo">Tanggal History Log</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3" id="var_nama">
+                                        <input type="text" name="hislog_opr_nama" id="hislog_opr_nama" class="form-control" placeholder="Ketik Nama..">
+                                    </div>
+                                    <div class="col-sm-3" id="var_action">
+                                        <input type="text" name="hislog_action" id="hislog_action" class="form-control" placeholder="Ketik Aktifitas..">
+                                    </div>
+                                    <div class="col-sm-3" id="var_time">
+                                        <input type="text" name="hislog_time" id="hislog_time" class="form-control" placeholder="Ketik Tanggal..">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="form-control btn-sm btn-flat btn-success" onclick="carihistorylog();"><span class="glyphicon glyphicon-search"> </span> Cari History Log</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="datahistorynama"></div>
+                <div id="datahistoryaktifitas"></div>
+                <div id="datahistorytime"></div>
+            </div>
+        </div>
+    </section>
+</div>
+<script type="text/javascript">
+    jQuery("#hislog_time").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+
+    $('#hislog_time').attr('readonly', 'readonly');
+    function carihistorylog() {
+        if (document.getElementById("var_nama").style.display == 'block' && document.getElementById("var_action").style.display == 'none' && document.getElementById("var_time").style.display == 'none') { // per nop
+            $.post('<?= $this->url() ?>/carihistorylognama', {hislog_opr_nama: $("#hislog_opr_nama").val()}, function (data) {
+                var aa = JSON.parse(data);
+                $('#datahistorynama').show();
+                $('#datahistorynama').html(aa.datahistorynama);
+                $('#datahistoryaktifitas').hide();
+                $('#datahistorytime').hide();
+            });
+        }
+
+        if (document.getElementById("var_nama").style.display == 'none' && document.getElementById("var_action").style.display == 'block' && document.getElementById("var_time").style.display == 'none') { // per nop
+            $.post('<?= $this->url() ?>/carihistorylogaktifitas', {hislog_action: $("#hislog_action").val()}, function (data) {
+                var aa = JSON.parse(data);
+                $('#datahistoryaktifitas').show();
+                $('#datahistoryaktifitas').html(aa.datahistoryaktifitas);
+                $('#datahistorynama').hide();
+                $('#datahistorytime').hide();
+            });
+        }
+
+        if (document.getElementById("var_nama").style.display == 'none' && document.getElementById("var_action").style.display == 'none' && document.getElementById("var_time").style.display == 'block') { // per nop
+            $.post('<?= $this->url() ?>/carihistorylogtime', {hislog_time: $("#hislog_time").val()}, function (data) {
+                var aa = JSON.parse(data);
+                $('#datahistorytime').show();
+                $('#datahistorytime').html(aa.datahistorytime);
+                $('#datahistoryaktifitas').hide();
+                $('#datahistorynama').hide();
+            });
+        }
+
+    }
+
+    document.getElementById("var_nama").style.display = 'block';
+    document.getElementById("var_action").style.display = 'none';
+    document.getElementById("var_time").style.display = 'none';
+
+    function ShowHidekolom() {
+        if ($('#combone').val() == "hislog_opr_namacombo") {
+            document.getElementById("var_nama").style.display = 'block';
+            document.getElementById("var_action").style.display = 'none';
+            document.getElementById("var_time").style.display = 'none';
+        } else if ($('#combone').val() == "hislog_actioncombo") {
+            document.getElementById("var_nama").style.display = 'none';
+            document.getElementById("var_action").style.display = 'block';
+            document.getElementById("var_time").style.display = 'none';
+        } else if ($('#combone').val() == "hislog_timecombo") {
+            document.getElementById("var_nama").style.display = 'none';
+            document.getElementById("var_action").style.display = 'none';
+            document.getElementById("var_time").style.display = 'block';
+        }
+    }
+</script>

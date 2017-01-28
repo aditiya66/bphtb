@@ -1,0 +1,111 @@
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url());
+$form->setAttribute("id", "frm-horizontal");
+$form->setAttribute("class", "form-signin");
+$form->prepare();
+?>
+<br/><br/>
+<div class="col-sm-6 col-md-4 col-md-offset-4">
+    <div class="panel panel-primary">        
+        <div class="account-wall">
+            <center><b style="font-size: 17px">PEMERINTAH <?= strtoupper($data_pemda->s_namakabkot) ?><br/> PROVINSI <?= strtoupper($data_pemda->s_namaprov) ?></b></center>
+            <center><b style="font-size: 15px"><?= $data_pemda->s_namainstansi ?> <br/>(<?= $data_pemda->s_namasingkatinstansi ?>)</b></center>
+            <div class='text-center'>
+                <br/>
+                <img src="<?= $data_pemda->s_logo ?>" alt="" width="50%">
+                <br/><br/>
+            </div>            
+            <?= $this->form()->openTag($form) ?>
+            <?= $this->formtext($form->get("s_username")) ?>
+            <?= $this->formpassword($form->get("s_password")) ?>
+            <?= $this->formsubmit($form->get("Loginsubmit")) ?>            
+            <?= $this->form()->closeTag($form) ?>  
+        </div>
+    </div>
+</div>
+<script>
+    function searchep() {
+        if ($("#s_username").val() == '') {
+            alert("Tolong Isi Username");
+        }
+    }
+</script>
+<style>
+
+    .form-signin
+    {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+    .form-signin .form-signin-heading, .form-signin .checkbox
+    {
+        margin-bottom: 10px;
+    }
+    .form-signin .checkbox
+    {
+        font-weight: normal;
+    }
+    .form-signin .form-control
+    {
+        position: relative;
+        font-size: 16px;
+        height: auto;
+        padding: 10px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .form-signin .form-control:focus
+    {
+        z-index: 2;
+    }
+    .form-signin input[type="text"]
+    {
+        margin-bottom: -1px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .form-signin input[type="password"]
+    {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+    .account-wall
+    {
+        margin-top: 20px;
+        padding: 10px 0px 10px 0px;
+        background-color: #f7f7f7;
+        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    }
+    .login-title
+    {
+        color: #555;
+        font-size: 18px;
+        font-weight: 400;
+        display: block;
+    }
+    .profile-img
+    {
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 10px;
+        display: block;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+    .need-help
+    {
+        margin-top: 10px;
+    }
+    .new-account
+    {
+        display: block;
+        margin-top: 10px;
+    }
+</style>    

@@ -1,0 +1,288 @@
+<table width="100%" style="border-spacing: 0" class="font_sembilan">
+    <tr>
+        <td style="width:10%">
+            Nama PPAT/PPATS 
+        </td>
+        <td>
+            : <?= $data_notaris['s_namanotaris'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td> 
+            Alamat
+        </td>
+        <td>
+            : <?= $data_notaris['s_alamatnotaris'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            NPWP
+        </td>
+        <td>
+            :
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Daerah Kerja
+        </td>
+        <td>
+            :
+        </td>
+    </tr>
+</table>
+<table width="100%" style="border-spacing: 0" class="font_sembilan">
+    <tr style="text-align: center;">
+        <td colspan="19">
+            <strong>LAPORAN BULANAN PEMBUATAN AKTA OLEH PPAT/PPATS</strong><br>
+            <?php
+            if ($bulanpelaporan == 1) {
+                $bulannya = "Januari";
+            }elseif ($bulanpelaporan == 2) {
+                $bulannya = "Februari";
+            }elseif ($bulanpelaporan == 3) {
+                $bulannya = "Maret";
+            }elseif ($bulanpelaporan == 4) {
+                $bulannya = "April";
+            }elseif ($bulanpelaporan == 5) {
+                $bulannya = "Mei";
+            }elseif ($bulanpelaporan == 6) {
+                $bulannya = "Juni";
+            }elseif ($bulanpelaporan == 7) {
+                $bulannya = "Juli";
+            }elseif ($bulanpelaporan == 8) {
+                $bulannya = "Agustus";
+            }elseif ($bulanpelaporan == 9) {
+                $bulannya = "September";
+            }elseif ($bulanpelaporan == 10) {
+                $bulannya = "Oktober";
+            }elseif ($bulanpelaporan == 11) {
+                $bulannya = "Nopember";
+            }elseif ($bulanpelaporan == 12) {
+                $bulannya = "Desember";
+            }
+            ?>
+            BULAN <?= strtoupper($bulannya); ?>
+            <br>
+        </td>
+    </tr>
+    <tr style="text-align: center">
+        <td rowspan="2" class="border_atas border_bawah border_kanan border_kiri">
+            No.
+        </td>
+        <td rowspan="1" colspan="2" class="border_atas border_bawah border_kanan">
+            AKTA
+        </td>
+        <td rowspan="2" class="border_atas border_bawah border_kanan">
+            BENTUK PERBUATAN HUKUM
+        </td>
+        <td rowspan="1" colspan="2" class="border_atas border_bawah border_kanan">
+            NAMA, ALAMAT DAN NPWP 
+        </td>
+        <td rowspan="2" class="border_atas border_bawah border_kanan">
+            JENIS DAN NOMOR HAK
+        </td>
+        <td rowspan="2" class="border_atas border_bawah border_kanan">
+            LETAK TANAH DAN BANGUNAN
+        </td>
+        <td rowspan="1" colspan="2" class="border_atas border_bawah border_kanan">
+            LUAS
+        </td>
+        <td rowspan="2" class="border_atas border_bawah border_kanan">
+            HARGA TRANSAKSI PEROLEHAN/PENGALIHAN HAK
+        </td>
+        <td rowspan="1" colspan="2" class="border_atas border_bawah border_kanan">
+            SPPT PBB
+        </td>
+        <td rowspan="1" colspan="2" class="border_atas border_bawah border_kanan">
+            SSPD
+        </td>
+        <td rowspan="1" colspan="2" class="border_atas border_bawah border_kanan">
+            PPH
+        </td>
+        <td rowspan="2" class="border_atas border_bawah border_kanan">
+            KET
+        </td>
+    </tr>
+    <tr style="text-align: center">
+        <td rowspan="1" colspan="1" class="border_bawah border_kanan">
+            Nomor
+        </td>
+        <td rowspan="1" colspan="1" class="border_bawah border_kanan">
+            tanggal
+        </td>
+        <td rowspan="1" colspan="1" class="border_bawah border_kanan">
+            PIHAK YANG MENGALIHKAN
+        </td>
+        <td rowspan="1" colspan="1" class="border_bawah border_kanan">
+            PIHAK YANG MENERIMA
+        </td>
+        <td rowspan="1" colspan="1" class="border_bawah border_kanan">
+            TANAH
+        </td>
+        <td rowspan="1" colspan="1" class="border_bawah border_kanan">
+            BGN
+        </td>
+        <td rowspan="1" colspan="1" class="border_bawah border_kanan">
+            NOP/TAHUN
+        </td>
+        <td rowspan="1" colspan="1" class="border_bawah border_kanan">
+            NJOP
+        </td>
+        <td rowspan="1" colspan="1" class="border_bawah border_kanan">
+            TANGGAL
+        </td>
+        <td rowspan="1" colspan="1" class="border_bawah border_kanan">
+            NILAI
+        </td>
+        <td rowspan="1" colspan="1" class="border_bawah border_kanan">
+            TANGGAL
+        </td>
+        <td rowspan="1" colspan="1" class="border_bawah border_kanan">
+            NILAI
+        </td>
+    </tr>
+    <?php
+    $totalPembayaran = 0;
+    $counter = 1;
+    foreach ($this->data_lapBulananBphtb as $k => $v) {
+        ?>
+        <tr style="text-align: center">
+            <td class="border_kiri border_bawah border_kanan">
+                <?= $counter ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?php
+                $tanggal_bayar = explode('-', $v['t_tglajbbaru']);
+                $tahun = $tanggal_bayar[0];
+                $bulan = $tanggal_bayar[1];
+                $tanggal = $tanggal_bayar[2];
+                ?>
+                <?= $v['t_noajbbaru'] ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= $tanggal . "-" . $bulan . "-" . $tahun ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= $v['s_namajenistransaksi'] ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= strtoupper($v['t_namawppenjual']) ?> / <br> <?= strtoupper($v['t_alamatwppenjual']) ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= strtoupper($v['t_namawppembeli']) ?> / <br> <?= strtoupper($v['t_alamatwppembeli']) ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= $v['t_nosertifikathaktanah'] ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= strtoupper($v['t_alamatop']) ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= $v['t_luastanah'] ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= $v['t_luasbangunan'] ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= number_format($v['t_nilaitransaksispt'], 0, ',', '.') ?> / <br> <?= $v['s_namahaktanah'] ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= $v['t_nopbphtbsppt'] ?> / <br> <?= $v['t_periodespt'] ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= number_format($v['t_grandtotalnjop'], 0, ',', '.'); ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= date('d-m-Y',  strtotime($v['t_tanggalpembayaran'])); ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= number_format($v['t_nilaipembayaranspt'], 0, ',', '.'); ?>
+            </td>
+            <td class="border_bawah border_kanan">
+            </td>
+            <td class="border_bawah border_kanan">
+            </td>
+            <td class="border_bawah border_kanan">
+            </td>
+            <?php
+            $counter++;
+        }
+        ?>
+    <tr>
+        <td colspan="12">
+
+        </td>
+        <td style="text-align: center" colspan="6">
+            <br><br>
+            <?= $data_pemda->s_namakabkot ?>  , <?= $tgl_cetak ?>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="12">
+
+        </td>
+        <td style="text-align: center" colspan="6">
+            Pejabat Pembuat Akta Tanah/PPATS
+            <br><br><br><br><br>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="12">
+
+        </td>
+        <td style="text-align: center" colspan="6">
+            (  <?= $data_notaris['s_namanotaris'] ?>  )
+        </td>
+    </tr>
+</table>
+
+<style type="text/css">
+
+    .border_atas {
+        border-top: 1px black solid;
+    }
+
+    .border_kiri {
+        border-left: 1px black solid;
+    }
+
+    .border_kanan {
+        border-right: 1px black solid;
+    }
+
+    .border_bawah {
+        border-bottom: 1px black solid;
+    }
+
+    .font_besar {
+        font-size: 12pt;
+    }
+
+    .font_kecil {
+        font-size: 10pt;
+    }
+
+    .font_lima {
+        font-size: 7pt;
+    }
+
+    .font_tujuh {
+        font-size: 7pt;
+    }  
+
+    .font_delapan {
+        font-size: 8pt;
+    }    
+
+    .font_sembilan {
+        font-size: 9pt;
+    }    
+
+
+    @page {
+        margin-top: 1.5em;  
+        margin-left: 3.8em;          
+    }
+</style>

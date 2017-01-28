@@ -1,0 +1,296 @@
+<style type="text/css">
+    .kotak{
+        border: 1px black solid;
+    }
+    .tengah {
+        float: none;
+        margin: 0 auto;
+    }
+    .radio_render{
+        margin-top: -2.5px;
+        margin-left: 17%;
+    }
+    .radio_render label {
+        width: 75%;
+        float: left;
+    }
+</style>
+<?php
+ini_set("max_execution_time", 500);
+foreach ($this->data_sspd as $row) {
+    $data_pemda = $this->data_pemda;
+    ?>
+    <div style="page-break-after: always;width: 100%;">
+        <table>
+            <tr>
+                <td width="100px">
+                    <img width="50" title="LOGO <?= $data_pemda->s_namakabkot; ?>" align="left" src="/var/www/html/<?= $this->basePath(); ?>/<?= $data_pemda->s_logo ?>"/>
+                </td>
+                <td style="text-align: center">
+                    <b>PEMERINTAH <?= strtoupper($data_pemda->s_namakabkot); ?>, <?= strtoupper($data_pemda->s_namaprov); ?></b><br>
+                    <b><?= strtoupper($data_pemda->s_namainstansi); ?> (<?= strtoupper($data_pemda->s_namasingkatinstansi); ?>)</b><br>
+                    <b style="font-size: 12px"><?= strtoupper($data_pemda->s_alamatinstansi); ?> Telp/Fax <?= $data_pemda->s_notelinstansi ?>, <?= $data_pemda->s_namaibukotakabkot ?> <?= $data_pemda->s_kodepos ?></b>
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <center><b style="font-size: 15px">FORMULIR PERMOHONAN PENELITIAN SSPD-BPHTB</b></center>
+        <hr>
+        <table width="100%" style="border-spacing: 0px;" style="font-size: 12px">
+            <tr>
+                <td width="150px">
+                    Lampiran
+                </td>
+                <td>
+                    : 1 (satu) set
+                </td>   
+            </tr>
+            <tr>
+                <td>
+                    Hal
+                </td>
+                <td>
+                    : Penyampaian SSPD BPHTB untuk diteliti 
+                </td>   
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <b><?= ucwords($data_pemda->s_namainstansi); ?></b>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    Pemerintah <?= ucwords($data_pemda->s_namakabkot); ?>
+                </td>
+            <br>
+            </tr>
+        </table>
+        <table width="100%" style="border-spacing: 0px;">
+            <tr>
+                <td colspan="2" style="font-size: 14px">
+                    Yang bertanda tangan dibawah ini :
+                </td>
+            </tr>
+            <tr>
+                <td width="200px" style="font-size: 14px">
+                    Nama Wajib Pajak
+                </td>
+                <td style="font-size: 14px">
+                    : <?= strtoupper($row['t_namawppembeli']) ?> 
+                </td>   
+            </tr>
+            <tr>
+                <td style="font-size: 14px">
+                    NPWP
+                </td>
+                <td style="font-size: 14px">
+                    : <?= $row['t_npwpwppembeli'] ?>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size: 14px">
+                    Alamat
+                </td>
+                <td style="font-size: 14px">
+                    : <?= strtoupper($row["t_alamatwppembeli"]) ?>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" style="border-spacing: 0px;">
+            <tr>
+                <td colspan="2" style="font-size: 14px">
+                    Bersama ini menyampaikan SSPD-BPHTB untuk diteliti atas perolehan hak atas tanah dan/atau bangunan sebagai berikut
+                </td>
+            </tr>
+            <tr>
+                <td width="200px" style="font-size: 14px">
+                    NOP
+                </td>
+                <td style="font-size: 14px">
+                    : <?= $row['t_nopbphtbsppt'] ?> 
+                </td>   
+            </tr>
+            <tr>
+                <td style="font-size: 14px">
+                    Alamat
+                </td>
+                <td style="font-size: 14px">
+                    : <?= strtoupper($row['t_alamatop']) ?>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size: 14px">
+                    Desa/Kelurahan
+                </td>
+                <td style="font-size: 14px">
+                    : <?= strtoupper($row["t_kelurahanop"]) ?>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size: 14px">
+                    Kabupaten/Kota
+                </td>
+                <td style="font-size: 14px">
+                    : <?= strtoupper($data_pemda->s_namakabkot) ?>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" style="border-spacing: 0px;">
+            <tr>
+                <td colspan="2" style="font-size: 14px">
+                    Terlampir dokumen sebagai berikut :
+                </td>
+            </tr>
+            <tr>
+                <td width="10px" style="margin-top: 0px">
+                    (1)
+                </td>
+                <td style="font-size: 13px">
+                    SSPD-BPHTB Tertera Nomor Transaksi Penerimaan Daerah (NTPD) / SSPD-BPHTB disertai bukti Penerimaan Daerah (BPD)*) 
+                </td>   
+            </tr>
+            <tr>
+                <td>
+                    (2)
+                </td>
+                <td style="font-size: 14px">
+                    Fotokopi SPT atau STTS/Struk ATM bukti pembayaran PBB/Bukti Pembayaran PBB lainnya Tahun ........*)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    (3)
+                </td>
+                <td style="font-size: 14px">
+                    Fotokopi Identitas Wajib Pajak berupa ................
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    (4)
+                </td>
+                <td style="font-size: 14px">
+                    Surat Kuasa dari Wajib Pajak **)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    (5)
+                </td>
+                <td style="font-size: 14px">
+                    Fotokopi identitas Kuasa Wajib Pajak **)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    (6)
+                </td>
+                <td style="font-size: 14px">
+                    Fotokopi Kartu NPWP
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    (7)
+                </td>
+                <td style="font-size: 14px">
+                    ................................................................
+                </td>
+            </tr>
+        </table>
+        <table width="100%" style="border-spacing: 0px;">
+            <tr>
+                <td style="font-size: 14px">
+                    Demikian disampaikan untuk dapat dilakukan penelitian SSPD-BPHTB
+                </td>
+            </tr>
+        </table>
+        <table width="100%">
+            <tr>
+                <td colspan="2" style="font-size: 14px">
+                    Keterangan
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 60%" style="font-size: 14px">
+                    *) coret yang tidak perlu
+                </td>
+                <td style="font-size: 14px">
+                    Tanggal Terima, <?= date('d-m-Y', strtotime($tgl_cetak)) ?>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size: 14px">
+                    **) dalam hal dikusasakan
+                    <br><br><br>
+                    <br><br>
+                </td>
+                <td style="font-size: 14px">
+                    Wajib pajak/Kuasa Wajib Pajak *)
+                    <br><br><br>
+                    <br>
+                    (.......................................................)
+                </td>
+            </tr>
+        </table> 
+        <hr>
+        <center><b style="font-size: 14px">PENELITIAN</b></center>
+        <hr>
+        <table width="100%" style="border-spacing: 0px;">
+            <tr>
+                <td style="font-size: 14px">
+                    Setelah melakukan pemeriksaan dan penelaahan SSPD-BPHTB dan dokumen pendukung dari Wajib Pajak, dengan ini kami menyatakan bahwa<br>
+                    <table>
+                        <tr>
+                            <td style="font-size: 14px">
+                                -Data objek pajak yang tercantum dalam SSPD-BPHTB telah sesuai
+                            </td>
+                            <td class="kotak" style="width: 50px">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 14px">
+                                -Nilai BPHTB terhutang yang tercantum dalam SSPD-BPHTB telah sesuai
+                            </td>
+                            <td class="kotak" style="width: 50px">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 14px">
+                                -Dokumen pendukung perolehan hak atas tanah/dan bangunan telah lengkap
+                            </td>
+                            <td class="kotak" style="width: 50px">
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table width="100%">
+            <tr>
+                <td style="width: 60%">
+                </td>
+                <td style="font-size: 14px">
+                    Tanggal Terima, <?= date('d-m-Y', strtotime($tgl_cetak)) ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <br><br><br>
+                    <br><br>
+                </td>
+                <td style="font-size: 14px">
+                    Fungsi Pelayanan
+                    <br><br><br>
+                    <br><br>
+                    (.......................................................)
+                </td>
+            </tr>
+        </table> 
+    </div>
+    <?php
+}
+?>

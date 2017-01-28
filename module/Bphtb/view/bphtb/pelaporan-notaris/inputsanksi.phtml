@@ -1,0 +1,355 @@
+<?php
+$frm = $this->frm;
+$frm->setAttribute('action', $this->url() . '/InputSanksiNotaris');
+$frm->setAttribute('id', "formtambah");
+$frm->prepare();
+?>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">PENDAFTARAN SSPD BPHTB</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row margin">
+                            <div class="col-xs-6">
+                                <div class="panel panel-default" style="height: 400px;">
+                                    <div class="panel-heading">
+                                        <center><h3 class="panel-title"><span style="font-size: 11pt"><b>FORM INPUT SANKSI NOTARIS</b></span></h3></center>
+                                    </div>
+                                    <div class="panel-body">                  
+                                        <div class="row">
+                                            <?= $this->form()->openTag($frm) ?>
+                                            <div class="form-horizontal form-group col-md-12">
+                                                <label for="inputType" class="col-md-6">Tanggal Pendataan</label>
+                                                <div class="col-md-4">
+                                                    <?= $this->formRow($frm->get('t_idspt')->setValue($t_idspt)) ?>
+                                                    <?= $this->formRow($frm->get('t_tglprosesds')) ?>
+                                                </div>
+                                            </div>    
+                                            <div class="form-horizontal form-group col-md-12">
+                                                <label for="inputType" class="col-md-6">Periode</label>
+                                                <div class="col-md-4">
+                                                    <?= $this->formRow($frm->get('t_periodeds')) ?>
+                                                </div>
+                                            </div>    
+                                            <div class="form-horizontal form-group col-md-12">
+                                                <label for="inputType" class="col-md-6">Sanksi No/Tgl AJB</label>
+                                                <div class="col-md-2">
+                                                    <?= $this->formRow($frm->get('t_noajbbaru')->setValue($no_ajb)) ?>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <?= $this->formRow($frm->get('t_tglajbbaru')->setValue(date('d-m-Y', strtotime($tgl_ajb)))) ?>
+                                                </div>
+                                            </div>
+                                            <div class="form-horizontal form-group col-md-12">
+                                                <label for="inputType" class="col-md-6">Notaris</label>
+                                                <div class="col-md-6">
+                                                    <?= $this->formRow($frm->get('t_idnotaris1')->setValue($idnotaris)) ?>
+                                                    <?= $this->formRow($frm->get('t_namanotaris')->setValue($namanotaris)) ?>
+                                                </div>
+                                            </div>                
+                                            <div class="form-horizontal form-group col-md-12">
+                                                <label for="inputType" class="col-md-6">Jumlah Sanksi</label>
+                                                <div class="col-md-6">
+                                                    <?= $this->formRow($frm->get('t_jumlahds')->setValue('7.500.000')) ?>
+                                                </div>
+                                            </div>                
+                                            <div class="form-horizontal form-group col-md-12">
+                                                <div class="col-md-12" style="text-align: right">
+                                                    <?php if (empty($pendataansanksi['t_kodebayards'])) { ?>
+                                                        <?= $this->formInput($frm->get('simpan')) ?>
+                                                    <?php } ?>                        
+                                                    <a href="<?= $this->url('pelaporan_notaris') ?>" class="btn btn-success">Kembali</a>
+                                                </div>
+                                            </div>
+                                            <?= $this->form()->closeTag($frm) ?>                                            
+                                        </div>
+                                    </div>        
+                                </div>    
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="panel panel-default" style="height: 400px;">
+                                    <div class="panel-heading">
+                                        <center><h3 class="panel-title"><span style="font-size: 11pt"><b>DAFTAR SANKSI NOTARIS</b></span></h3></center>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div style=" overflow: auto">
+                                            <table class="table table-bordered table-striped table-hover table-responsive">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">
+                                                            #
+                                                        </th>
+                                                        <th class="text-center">
+                                                            Tanggal Pendataan
+                                                        </th>
+                                                        <th class="text-center">
+                                                            Periode
+                                                        </th>
+                                                        <th class="text-center">
+                                                            No. AJB
+                                                        </th>
+                                                        <th class="text-center">
+                                                            Tgl. AJB
+                                                        </th>
+                                                        <th class="text-center">
+                                                            No. STS
+                                                        </th>
+                                                        <th class="text-center">
+                                                            Kode Bayar
+                                                        </th>
+                                                        <th class="text-center">
+                                                            Jumlah Sanksi
+                                                        </th>
+                                                        <th class="text-center">
+                                                            Nama Notaris
+                                                        </th>
+                                                        <th class="text-center">
+                                                            Pilihan
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="listsanksi">
+
+                                                </tbody>
+                                                <tfoot>              
+                                                    <tr>
+                                                        <td colspan="10" class="text-center">
+                                                            <div class="row">
+                                                                <div class="col-sm-4 text-left">Jumlah Baris Ditampilkan: <input type="text" id="rows" style="width: 20%" class="text-center" value="10"></div>
+                                                                <div class="col-sm-3">
+                                                                    <a href="#" onclick="calldatagrid(1);
+                                                                            return false;"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></a>
+
+                                                                    <input type="text" id="page" value="1" style="width: 20%" class="text-center">
+
+                                                                    <a href="#" onclick="calldatagrid(2);
+                                                                            return false;"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a>
+                                                                </div>
+                                                                <div class="col-sm-5 text-right">
+                                                                    <p>Jumlah Data <span id="total_data"></span>&nbsp;Jumlah Halaman <span id="total_halaman"></span></p>                                    
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                            <!--<table id="listsanksi"></table>-->
+                                        </div>
+                                    </div>   
+                                </div>    
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+
+<div class="modal fade" id="modalcetakstsnya" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">CETAK STS</h4>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td style="width: 40%">Tahun Denda</td>
+                        <td><input type="text" id="periode_spt_bukti1"
+                                   value="<?= date('Y') ?>" style="width: 30%"></td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Cetak</td>
+                        <td><input type="text" name="tgl_cetak_bukti1" id="tgl_cetak_bukti1"
+                                   value="<?= date('d-m-Y') ?>" style="width: 55%"></td>
+                    </tr>
+                    <tr>
+                        <td>No. Urut Denda</td>
+                        <td><input type="text" id="t_kohirds1" style="width: 30%"></td>
+                    </tr>
+                    <tr>
+                        <td>Mengetahui 1</td>
+                        <td><select id="mengetahuists1" class="selectpicker"
+                                    data-live-search="true">
+                                        <?php foreach ($this->data_mengetahuists1 as $y) { ?>
+                                    <option
+                                        value="<?= $y['s_idpejabat'] ?>"><?= $y['s_namapejabat'] ?> - <?= $y['s_jabatanpejabat'] ?></option>
+                                    <?php } ?>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td>Mengetahui 2</td>
+                            <td><select id="mengetahuists2" class="selectpicker"
+                                        data-live-search="true">
+                                            <?php foreach ($this->data_mengetahuists2 as $y) { ?>
+                                        <option
+                                            value="<?= $y['s_idpejabat'] ?>"><?= $y['s_namapejabat'] ?> - <?= $y['s_jabatanpejabat'] ?></option>
+                                        <?php } ?>
+                                    </select></td>
+                            </tr>
+                        </table>
+                        <div align="right">
+                            <button class="btn btn-success" onclick="cetaksts();">Cetak</button>
+                            <button class="btn btn-success" onclick="tutupSTS()">Tutup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="cetakbuktipenerimaan" tabindex="-1"
+             role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">CETAK SURAT PEMBERITAHUAN
+                            DENDA</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <td style="width: 40%">Tahun Denda</td>
+                                <td><input type="text" id="periode_spt_bukti"
+                                           value="<?= date('Y') ?>" style="width: 30%"></td>
+                            </tr>
+                            <tr>
+                                <td>Tanggal Cetak</td>
+                                <td><input type="text" name="tgl_cetak_bukti" id="tgl_cetak_bukti"
+                                           value="<?= date('d-m-Y') ?>" style="width: 55%"></td>
+                            </tr>
+                            <tr>
+                                <td>No. Urut Denda</td>
+                                <td><input type="text" id="t_kohirds" style="width: 30%"></td>
+                            </tr>
+                            <tr>
+                                <td>Mengetahui</td>
+                                <td><select id="mengetahuibphtb" class="selectpicker"
+                                            data-live-search="true">
+                                                <?php foreach ($this->data_mengetahuibphtb as $k => $v) { ?>
+                                            <option
+                                                value="<?= $v['s_idpejabat'] ?>"><?= $v['s_namapejabat'] ?> - <?= $v['s_jabatanpejabat'] ?></option>
+                                            <?php } ?>
+                                        </select></td>
+                                </tr>
+                            </table>
+                            <div align="right">
+                                <button class="btn btn-success"
+                                        onclick="cetaksuratpemberitahuan();">Cetak</button>
+                                <button class="btn btn-success" onclick="tutupbukti()">Tutup</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                jQuery("#t_tanggalpembayaran").datepicker({
+                    format: 'dd-mm-yyyy',
+                    endDate: '0d',
+                    startDate: '01-05-2015',
+                    language: 'id',
+                    autoclose: true
+                });
+
+                function hapus(a) {
+                    var aa = confirm('Hapus data ini?');
+                    if (aa) {
+                        $.post('<?= $this->url('pelaporan_notaris') ?>/Hapus', {t_idds: a}, function (data) {
+                            jQuery("#listsanksi").flexigrid().flexReload();
+                        });
+                    }
+                }
+
+                $(function () {
+                    calldatagrid();
+            //        jQuery("#listsanksi").flexigrid({
+            //            url: '<?= $this->url() ?>/dataGridSanksiNotaris',
+            //            colModel: [
+            //                {display: "#", name: "#", align: 'center', formatter: 'button', sortable: false, width: 110},
+            //                {display: "Tgl Pendataan", name: "t_tglprosesds", align: 'center', width: 70, sortable: true},
+            //                {display: "Periode", name: "t_periodeds", align: 'center', width: 45, sortable: true},
+            //                {display: "No AJB", name: "t_noajbbaru", align: 'center', width: 40, sortable: true},
+            //                {display: "Tgl AJB", name: "t_tglajbbaru", align: 'center', width: 70, sortable: true},
+            //                {display: "No STS", name: "t_kohirds", align: 'center', width: 40, sortable: true},
+            //                {display: "Kode Bayar", name: "t_kodebayards", align: 'center', width: 70, sortable: true},
+            //                {display: "Jumlah Sanksi", name: "t_jumlahds", align: 'right', width: 80, sortable: true},
+            //                {display: "Nama Notaris", name: "s_namanotaris", align: 'left', width: 110, sortable: true},
+            //                {display: "Pilihan", name: "Pilihan", align: 'center', formatter: 'button', sortable: false, width: 80}
+            //            ],
+            //            searchitems: [
+            //                {display: 'Tgl Pendataan', name: 't_tglprosesds'},
+            //                {display: 'Nama Notaris', name: 's_namanotaris'}
+            //            ],
+            //            sortname: "t_idds",
+            //            sortorder: "desc",
+            //            singleSelect: true,
+            //            usepager: true,
+            //            /*title: 'DAFTAR PEMBAYARAN SANKSI NOTARIS',*/
+            //            useRp: true,
+            //            rp: 10,
+            //            showTableToggleBtn: false,
+            //            height: 269,
+            //            width: '100%',
+            //            pagetext: 'Hal ',
+            //            outof: 's.d'
+            //        });
+                });
+
+                function openCetakSTS(a) {
+                    jQuery('#modalcetakstsnya').modal('show');
+                    jQuery("#t_kohirds1").val(a);
+                }
+
+                function tutupSTS() {
+                    jQuery('#modalcetakstsnya').modal('hide');
+                    jQuery("#t_kohirds1").val('');
+                }
+
+                function cetaksts() {
+                    window.open('<?= $this->url('pelaporan_notaris') ?>/cetaksts?t_kohirds=' + $("#t_kohirds1").val() + "&periode_spt=" + $("#periode_spt_bukti1").val() + "&t_objekspt=1" + "&tgl_cetak=" + $("#tgl_cetak_bukti1").val() + "&mengetahuists1=" + $("#mengetahuists1").val() + "&mengetahuists2=" + $("#mengetahuists2").val())
+                }
+
+                function openCetakBukti(a) {
+                    jQuery('#cetakbuktipenerimaan').modal('show');
+                    jQuery("#t_kohirds").val(a);
+                }
+
+                function tutupbukti() {
+                    jQuery('#cetakbuktipenerimaan').modal('hide');
+                    jQuery("#t_kohirds").val('');
+                }
+
+                function cetaksuratpemberitahuan() {
+                    window.open('<?= $this->url('pelaporan_notaris') ?>/cetakpemberitahuandenda?t_kohirds=' + $("#t_kohirds").val() + "&periode_spt=" + $("#periode_spt_bukti").val() + "&t_objekspt=1" + "&tgl_cetak=" + $("#tgl_cetak_bukti").val() + "&mengetahuibphtb=" + $("#mengetahuibphtb").val())
+    }
+    
+    function calldatagrid(direction) {        
+        datagrid($("#page").val(), $("#rows").val(), direction);
+    }
+
+    function datagrid(page, row, direction) {
+        $.get('<?= $this->url() ?>/dataGridSanksiNotaris/' + page + '/' + row + '/' + direction, function (data) {
+            var aa = JSON.parse(data)
+            $("#listsanksi").html(aa.grid);
+            $("#rows").val(aa.rows);
+            $("#page").val(aa.page);
+            $("#total_data").html(": " + aa.count);
+            $("#total_halaman").html(": " + aa.total_halaman);
+        });
+    }
+
+</script>

@@ -1,0 +1,156 @@
+RINCIAN KEKURANGAN PEMBAYARAN
+<br>
+===================================================================================
+<table width="100%" style="border-spacing: 0px;">
+    <tr>
+        <td style="font-size: 14px" style="width: 10%">
+            Tanggal
+        </td>
+        <td style="font-size: 14px">
+            : <?= date('d-m-Y') ?>
+        </td>   
+    </tr>
+    <tr>
+        <td style="font-size: 14px">
+            Nama WP
+        </td>
+        <td style="font-size: 14px">
+            : <?= $datapbb['NM_WP_SPPT'] ?>
+        </td>   
+    </tr>
+    <tr>
+        <td style="font-size: 14px">
+            Alamat WP
+        </td>
+        <td style="font-size: 14px">
+            : <?= "Jl. " . strtoupper($datapbb['JLN_WP_SPPT']) . " Rt/Rw. " . $datapbb['RT_WP_SPPT'] . " / " . $datapbb['RW_WP_SPPT'] . " Kel. " . strtoupper($datapbb['KELURAHAN_WP_SPPT']) . " Kab. " . strtoupper($datapbb['KOTA_WP_SPPT']) ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="font-size: 14px">
+            NOP
+        </td>
+        <td style="font-size: 14px">
+            : <?= $nop ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="font-size: 14px">
+            Alamat OP
+        </td>
+        <td style="font-size: 14px">
+            : <?= "Jl. " . strtoupper($datapbb['JALAN_OP']) . " Rt/Rw. " . $datapbb['RT_OP'] . " / " . $datapbb['RW_OP'] . " Kel. " . strtoupper($datapbb['NM_KELURAHAN']) . " Kec. " . strtoupper($datapbb['NM_KECAMATAN']) ?>
+        </td>
+    </tr>
+</table>
+<br><br><br>
+===================================================================================
+<table width="100%" style="border-spacing: 0px;">
+    <tr>
+        <td style="width: 5%">
+            No.
+        </td>
+        <td style="width: 7%">
+            Tahun
+        </td>
+        <td>
+            PBB Terhutang
+        </td>
+        <td style="width: 15%">
+    <center>Tanggal<br>Jatuh Tempo</center>
+</td>
+<td>
+<center>Denda Administrasi<br>
+    2% Sebulan (Rp.)</center>
+</td>
+<td>
+<center>Jumlah s.d<br>
+    Hari Ini (Rp.)</center>
+</td>
+</tr>
+</table>
+===================================================================================
+<table width="100%" style="border-spacing: 0px;">
+    <?php
+    $terhutang = 0;
+    $jumlah_denda = 0;
+    $jumlah_tunggakan = 0;
+    ?>
+    <?php foreach ($data_tunggakan as $row) { ?>
+        <tr>
+            <td style="width: 5%">
+
+            </td>
+            <td style="width: 7%">
+                <?= $row['THN_PAJAK_SPPT'] ?>
+            </td>
+            <td>
+                <div style="text-align: right"><?= number_format($row['PBB_YG_HARUS_DIBAYAR_SPPT'], 0, ',', '.') ?></div>
+            </td>
+            <td style="width: 15%">
+        <center><?= $row['JATUH_TEMPO'] ?></center>
+    </td>
+    <td>
+        <?php
+        $dat1 = date('Y-m-d', strtotime($row['JATUH_TEMPO']));
+        $dat2 = date('Y-m-d');
+        $date1 = new \DateTime($dat1);
+        $date2 = new \DateTime($dat2);
+        $interval = $date1->diff($date2);
+        $bedanya = $interval->m + ($interval->y * 12);
+        if ($bedanya > 24) {
+            $beda = 24;
+        } else {
+            $beda = $bedanya;
+        }
+        $denda = 0;
+        if ($dat2 < $dat1) {
+            $denda = 0;
+            ?>
+            <div style="text-align: right"></div>
+        <?php
+        } else {
+            $denda = $beda * $row['PBB_YG_HARUS_DIBAYAR_SPPT'] * 2 / 100;
+            ?> 
+            <div style="text-align: right"><?= number_format($denda, 0, ',', '.') ?></div>
+            <?php
+        }
+        ?>
+    </td>
+    <td>
+        <div style="text-align: right"><?= number_format($denda + $row['PBB_YG_HARUS_DIBAYAR_SPPT'], 0, ',', '.') ?></div>
+    </td>
+    </tr>
+    <?php
+    $terhutang = $terhutang + $row['PBB_YG_HARUS_DIBAYAR_SPPT'];
+    $jumlah_denda = $jumlah_denda + $denda;
+    $jumlah_tunggakan = $jumlah_tunggakan + $denda + $row['PBB_YG_HARUS_DIBAYAR_SPPT'];
+    ?>
+<?php } ?>
+</table>
+===================================================================================
+<table width="100%" style="border-spacing: 0px;">
+    <tr>
+        <td style="width: 12%"><center>Jumlah : </center></td>
+<td><div style="text-align: right"><?= number_format($terhutang, 0, ',', '.') ?></div></td>
+<td style="width: 15%"></td>
+<td><div style="text-align: right"><?= number_format($jumlah_denda, 0, ',', '.') ?></div></td>
+<td><div style="text-align: right"><?= number_format($jumlah_tunggakan, 0, ',', '.') ?></div></td>
+</tr>
+</table>
+===================================================================================
+<br>
+<table width="100%" style="border-spacing: 0px;">
+    <tr>
+        <td style="width: 60%"></td>
+        <td>Dicetak oleh :<br><br><br><br></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><?= $Pencetak->s_namapejabat ?></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>NIP. <?= $Pencetak->s_nippejabat ?></td>
+    </tr>
+</table>

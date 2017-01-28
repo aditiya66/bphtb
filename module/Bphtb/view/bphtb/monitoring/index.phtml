@@ -1,0 +1,124 @@
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span style="font-size: 15px">MENU MONITORING</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <select class="form-control" name='combone' id='combone' onchange="ShowHidekolom()">
+                                            <option value="nop">NOP</option>
+                                            <option value="tgl">Tanggal Transaksi</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3" id="var_nop">
+                                        <input type="text" name="nopcari" id="nopcari" class="form-control" placeholder="__.__.___.___.___" data-mask="1" data-inputmask="'mask': '99.99.999.999.999'">
+                                    </div>
+                                    <div class="col-sm-3" id="var_tgl">
+                                        <input type="text" name="tglcari" id="tglcari" class="form-control" placeholder="Ketik tgl..">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button class="form-control btn-sm btn-flat btn-success" onclick="caritransaksimonitoring();"><span class="glyphicon glyphicon-search"> </span> Cari Transaksi</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div id="datatransaksinop"></div>
+                        <div id="datatransaksitgl"></div>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+
+
+<div class="modal fade" id="MyModalMonitoring" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">DETAIL PERHITUNGAN KEWAJARAN</h4>
+            </div>
+            <div class="modal-body">
+                <div id="datadetailmonitoring">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-sm-12"> 
+                    <button class="btn btn-primary btn-sm btn-flat" onclick="tutupDetailmonitoring()"><i class="glyphicon glyphicon-circle-arrow-left"></i> Tutup</button>
+                </div>              
+            </div>            
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("[data-mask]").inputmask();
+    jQuery("#tglcari").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+
+    $('#tglcari').attr('readonly', 'readonly');
+    function caritransaksimonitoring() {
+        
+        if (document.getElementById("var_nop").style.display = 'block' && document.getElementById("var_nop").style.display != 'none') { // per nop
+            $.post('<?= $this->url() ?>/caritransaksimonitoringnop', {nopcari: $("#nopcari").val()}, function (data) {
+                var aa = JSON.parse(data);
+                $('#datatransaksinop').show();
+                $('#datatransaksinop').html(aa.datatransaksinop);
+                $('#datatransaksitgl').hide();
+            });
+        }
+        
+        if (document.getElementById("var_tgl").style.display = 'block' && document.getElementById("var_tgl").style.display != 'none') { // per tgl
+            $.post('<?= $this->url() ?>/caritransaksimonitoringtgl', {tglcari: $("#tglcari").val()}, function (data) {
+                var aa = JSON.parse(data);
+                $('#datatransaksitgl').show();
+                $('#datatransaksitgl').html(aa.datatransaksitgl);
+                $('#datatransaksinop').hide();
+            });
+        }
+
+    }
+
+    function openDetailmonitoring(a) {
+        jQuery('#MyModalMonitoring').modal('show');
+        $.post('<?= $this->url() ?>/openDetailmonitoring', {idsptnya: a}, function (data) {
+            var aa = JSON.parse(data);
+            $('#datadetailmonitoring').html(aa.datadetailmonitoring);
+        });
+    }
+
+    function tutupDetailmonitoring() {
+        jQuery('#MyModalMonitoring').modal('hide');
+    }
+
+    document.getElementById("var_nop").style.display = 'block';
+    document.getElementById("var_tgl").style.display = 'none';
+
+    function ShowHidekolom() {
+        if ($('#combone').val() == "nop") {
+            document.getElementById("var_nop").style.display = 'block';
+            document.getElementById("var_tgl").style.display = 'none';
+        } else if ($('#combone').val() == "tgl") {
+            document.getElementById("var_nop").style.display = 'none';
+            document.getElementById("var_tgl").style.display = 'block';
+        }
+    }
+</script>

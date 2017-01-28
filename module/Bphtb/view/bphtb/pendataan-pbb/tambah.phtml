@@ -1,0 +1,75 @@
+<?php
+$frm_subjek_wp = $this->frm_subjek_wp;
+$frm_subjek_wp->setAttribute('action', $this->url() . '/tambah/' . $this->params);
+$frm_subjek_wp->setAttribute('id', "formtambah");
+$frm_subjek_wp->prepare();
+?>
+
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">PENDAFTARAN SSPD BPHTB</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row margin"> 
+                            <div class="col-md-12">
+                                <?= $this->form()->openTag($frm_subjek_wp) ?>        
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <h3 class="panel-title">
+                                                    <span style="font-size: 11pt">PENDATAAN SISMIOP PBB</span>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <fieldset>
+                                            <legend>Data Subjek Pajak (MUTASI PENUH)</legend>
+                                            <div class="col-sm-6">
+                                                <?= $this->formrow($frm_subjek_wp->get("ID_SPT_BPHTB")) ?>
+                                                <?= $this->formrow($frm_subjek_wp->get("NOP")) ?>
+                                                <?= $this->formrow($frm_subjek_wp->get("SUBJEK_PAJAK_ID")) ?>                
+                                                <?= $this->formrow($frm_subjek_wp->get("NM_WP")) ?>
+                                                <?= $this->formrow($frm_subjek_wp->get("JALAN_WP")) ?>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <?= $this->formrow($frm_subjek_wp->get("BLOK_KAV_NO_WP")) ?>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <?= $this->formrow($frm_subjek_wp->get("RW_WP")) ?>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <?= $this->formrow($frm_subjek_wp->get("RT_WP")) ?>
+                                                    </div>
+                                                </div>
+                                                <?= $this->formrow($frm_subjek_wp->get("KELURAHAN_WP")) ?>
+                                            </div>
+                                            <div class="col-sm-6">				 				
+                                                <?= $this->formrow($frm_subjek_wp->get("KOTA_WP")) ?>
+                                                <?= $this->formrow($frm_subjek_wp->get("KD_POS_WP")) ?>
+                                                <?= $this->formrow($frm_subjek_wp->get("TELP_WP")) ?>
+                                                <?= $this->formrow($frm_subjek_wp->get("NPWP")) ?>
+                                                <?= $this->formrow($frm_subjek_wp->get("STATUS_PEKERJAAN_WP")) ?>                
+
+                                            </div>
+                                        </fieldset>
+                                        <div class="row text-center">
+                                            <br /> <input type="submit" class="btn btn-primary" value="Simpan" />
+                                            <a href="<?= $this->url("pendataan_pbb") ?>" class="btn btn-primary">Kembali</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?= $this->form()->closeTag($frm_subjek_wp) ?>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->   

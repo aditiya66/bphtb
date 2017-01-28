@@ -1,0 +1,170 @@
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url());
+$form->setAttribute("id", "frm-horizontal");
+$form->setAttribute("class", "form-signin");
+$form->prepare();
+?>
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img src="<?= $data_pemda->s_logo ?>" alt="" width="8%" style="margin-top: 10px; margin-left: 5px; margin-right: 5px" class="pull-left">
+            <a class="navbar-brand page-scroll" href="#page-top">E-BPHTB</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="page-scroll" href="#page-top">Home</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#about">Tentang Kami</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#login">Login</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#contact">Kontak Kami</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header>
+    <div class="header-content">
+        <div class="header-content-inner">
+            <h1 style="color: red">E-BPHTB</h1>
+            <h3 style="color: red">Sumedang</h3>
+            <hr class="light">
+            <p style="color: white; text-shadow: 0 2px 3px red">Aplikasi Administrasi Bea Perolehan Hak atas Tanah dan Bangunan.</p>
+            <a href="#login" class="btn btn-warning btn-xl page-scroll">Login</a>
+        </div>
+    </div>
+</header>
+
+<section class="bg-primary" id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <h2 class="section-heading">Apakah E-BPHTB?</h2>
+                <hr class="light">
+                <p class="text-faded">Merupakan aplikasi yang digunakan untuk Notaris atau Wajib Pajak melaporkan transaksi peralihan hak atas tanah dan bangunan.</p>
+            </div>  
+        </div>
+    </div>
+</section>
+
+<section id="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Login</h2>
+                <hr class="primary">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 text-center">
+                <div class="service-box">
+                    <?= $this->form()->openTag($form) ?>
+                    <?= $this->formtext($form->get("s_username")) ?>
+                    <?= $this->formpassword($form->get("s_password")) ?>
+                    <?= $this->formsubmit($form->get("Loginsubmit")) ?>            
+                    <?= $this->form()->closeTag($form) ?>  
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <h2 class="section-heading">Kontak Kami!</h2>
+                <hr class="primary">
+                <p>Apakah anda memperoleh peralihak hak atas Tanah dan atau Bangunan?Segera hubungi kami untuk proses pajak BPHTB.</p>
+                <!--<p>Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>-->
+            </div>
+            <div class="col-lg-4 col-lg-offset-2 text-center">
+                <i class="fa fa-phone fa-3x wow bounceIn"></i>
+            </div>
+            <div class="col-lg-4 text-center">
+                <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+                <p></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<aside class="bg-dark">
+    <div class="container text-center">
+        <div class="call-to-action">
+            <!--<h2>Free Download at Start Bootstrap!</h2>-->
+            <!--<a href="#" class="btn btn-default btn-xl wow tada">Download Now!</a>-->
+        </div>
+    </div>
+</aside>
+
+<!-- jQuery -->
+<script src="<?= $this->basePath() ?>/public/creative/js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="<?= $this->basePath() ?>/public/creative/js/bootstrap.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="<?= $this->basePath() ?>/public/creative/js/jquery.easing.min.js"></script>
+<script src="<?= $this->basePath() ?>/public/creative/js/jquery.fittext.js"></script>
+<script src="<?= $this->basePath() ?>/public/creative/js/wow.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="<?= $this->basePath() ?>/public/creative/js/creative.js"></script>
+<style type="text/css">
+    .form-signin
+    {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+    .form-signin .form-signin-heading, .form-signin .checkbox
+    {
+        margin-bottom: 10px;
+    }
+    .form-signin .checkbox
+    {
+        font-weight: normal;
+    }
+    .form-signin .form-control
+    {
+        position: relative;
+        font-size: 16px;
+        height: auto;
+        padding: 10px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .form-signin .form-control:focus
+    {
+        z-index: 2;
+    }
+    .form-signin input[type="text"]
+    {
+        margin-bottom: -1px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .form-signin input[type="password"]
+    {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+</style>

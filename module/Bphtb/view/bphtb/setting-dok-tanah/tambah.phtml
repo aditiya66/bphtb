@@ -1,0 +1,43 @@
+<?php
+$frm = $this->frm;
+$frm->setAttribute('action', $this->url() . '/tambah');
+$frm->setAttribute('id', "formtambah");
+$frm->prepare();
+?>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">SETTING TIPE DOKUMEN TANAH</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row margin">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><h3 class="panel-title"><span style="font-size: 10pt">Setting Dokumen Tanah</span></h3></div>
+                                    <div class="panel-body">
+                                        <fieldset>
+                                            <legend>DOKUMEN TANAH</legend>                    
+                                            <div>
+                                                <?= $this->form()->openTag($frm) ?>
+                                                <?= $this->formHidden($frm->get('s_iddoktanah')) ?>  
+                                                <?= $this->formRow($frm->get('s_namadoktanah')) ?>
+                                                <br/>
+                                                <div align="right">
+                                                    <?= $this->formInput($frm->get('simpan')) ?> <a href="<?= $this->url('setting_dokumen_tanah_bphtb') ?>" class="btn btn-success">Kembali</a>
+                                                </div>
+                                                <?= $this->form()->closeTag($frm) ?>
+                                            </div>
+                                        </fieldset>
+                                    </div>        
+                                </div>    
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->

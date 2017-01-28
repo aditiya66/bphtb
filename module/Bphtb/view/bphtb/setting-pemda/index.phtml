@@ -1,0 +1,60 @@
+<?php
+$frm = $this->frm;
+$frm->setAttribute('action', $this->url() . '/tambah');
+$frm->prepare();
+?>
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">SETTING DATA PEMDA</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row margin">
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"><h3 class="panel-title"><span style="font-size: 10pt">Setting Pemerintah Daerah</span></h3></div>
+                                    <div class="panel-body">
+                                        <fieldset>
+                                            <legend>Pemerintah Daerah</legend>                
+                                            <?= $this->form()->openTag($frm) ?>  
+                                            <?= $this->formHidden($frm->get('s_idpemda')) ?>                
+                                            <?= $this->formRow($frm->get('s_namaprov')) ?>
+                                            <?= $this->formRow($frm->get('s_namakabkot')) ?>
+                                            <?= $this->formRow($frm->get('s_namaibukotakabkot')) ?>
+                                            <?= $this->formRow($frm->get('s_kodeprovinsi')) ?>
+                                            <?= $this->formRow($frm->get('s_kodekabkot')) ?>
+                                            <?= $this->formRow($frm->get('s_namainstansi')) ?>
+                                            <?= $this->formRow($frm->get('s_namasingkatinstansi')) ?>
+                                            <?= $this->formRow($frm->get('s_alamatinstansi')) ?>
+                                            <?= $this->formRow($frm->get('s_notelinstansi')) ?>
+                                            <?= $this->formRow($frm->get('s_namabank')) ?>
+                                            <?= $this->formRow($frm->get('s_norekbank')) ?>
+                                            <?= $this->formRow($frm->get('s_logofile')) ?>    
+                                            <br/>
+                                            <div align="center">
+                                                <?= $this->formRow($frm->get('s_logo')) ?>
+                                            </div>
+                                            <br/>
+                                            <table width="100%">
+                                                <tr>
+                                                    <td align="right">
+                                                        <input type="submit" value="Simpan" class="btn btn-success" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <?= $this->form()->closeTag($frm) ?>
+
+                                        </fieldset>
+                                    </div>        
+                                </div>    
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->

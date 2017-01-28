@@ -1,0 +1,349 @@
+<style type="text/css">
+    .kotak{
+        border-bottom: 1px black solid;
+    }
+
+    .tengah {
+        float: none;
+        margin: 0 auto;
+    }
+
+    .border_putus {
+        border-top: 1px black dashed;
+    }
+
+    .border_atas {
+        border-top: 1px black solid;
+    }
+
+    .border_kiri {
+        border-left: 1px black solid;
+    }
+
+    .border_kanan {
+        border-right: 1px black solid;
+    }
+
+    .border_bawah {
+        border-bottom: 1px black solid;
+    }
+
+    .font_besar {
+        font-size: 12pt;
+    }
+
+    .font_kecil {
+        font-size: 10pt;
+    }
+
+    .font_lima {
+        font-size: 7pt;
+    }
+
+    .font_tujuh {
+        font-size: 7pt;
+    }  
+
+    .font_delapan {
+        font-size: 8pt;
+    }    
+
+    .font_sembilan {
+        font-size: 9pt;
+    }    
+
+</style>
+<?php
+ini_set("max_execution_time", 500);
+if (!function_exists('kekata')) {
+
+    function kekata($x) {
+        $x = abs($x);
+        $angka = array("", "Satu", "Dua", "Tiga", "Empat", "Lima",
+            "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas");
+        $temp = "";
+        if ($x < 12) {
+            $temp = " " . $angka[$x];
+        } else if ($x < 20) {
+            $temp = kekata($x - 10) . " Belas";
+        } else if ($x < 100) {
+            $temp = kekata($x / 10) . " Puluh" . kekata($x % 10);
+        } else if ($x < 200) {
+            $temp = " Seratus" . kekata($x - 100);
+        } else if ($x < 1000) {
+            $temp = kekata($x / 100) . " Ratus" . kekata($x % 100);
+        } else if ($x < 2000) {
+            $temp = " Seribu" . kekata($x - 1000);
+        } else if ($x < 1000000) {
+            $temp = kekata($x / 1000) . " Ribu" . kekata($x % 1000);
+        } else if ($x < 1000000000) {
+            $temp = kekata($x / 1000000) . " Juta" . kekata($x % 1000000);
+        } else if ($x < 1000000000000) {
+            $temp = kekata($x / 1000000000) . " Milyar" . kekata(fmod($x, 1000000000));
+        } else if ($x < 1000000000000000) {
+            $temp = kekata($x / 1000000000000) . " Trilyun" . kekata(fmod($x, 1000000000000));
+        }
+        return $temp;
+    }
+
+}
+
+function terbilang($x, $style = 4) {
+    if ($x < 0) {
+        $hasil = "MINUS " . trim(kekata($x));
+    } else {
+        $hasil = trim(kekata($x));
+    }
+    switch ($style) {
+        case 1:
+            $hasil = strtoupper($hasil);
+            break;
+        case 2:
+            $hasil = strtolower($hasil);
+            break;
+        case 3:
+            $hasil = ucwords($hasil);
+            break;
+        default:
+            $hasil = ucfirst($hasil);
+            break;
+    }
+    return $hasil;
+}
+?>
+<div style="page-break-after: always;width: 100%;">
+    <table width="100%" class="border_atas border_bawah border_kanan border_kiri font_kecil" style="padding:0;border-spacing:0px;">
+        <tr>
+            <td class="border_bawah" style="width: 5%">
+                <table align="left">
+                    <tr>
+                        <td align="left">
+                            <?php $gambar = "/var/www/html" . $this->basePath() . "/" . $data_pemda->s_logo; ?>        
+                            <img src="<?= $gambar ?>" style="width:50px; padding: 0px"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td colspan="9" class="border_kanan border_bawah">
+                <table width="100%" style="padding:0;border-spacing:0px;">
+                    <tr>
+                        <td align="center" class="font_kecil">
+                            SURAT TANDA SETORAN
+                            <br/>
+                            <strong>( STS )</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" class="font_tujuh">
+                            <?= ucwords($data_pemda->s_namainstansi); ?> <?= ucwords($data_pemda->s_namakabkot); ?>
+                            <br/>
+                            <?= ucwords($data_pemda->s_alamatinstansi); ?>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="10" class="border_bawah font_delapan">
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="10" class="border_bawah font_delapan" style="padding: 10px 0px 10px 0px;">
+                <table width="100%"  style="border-spacing: 0px;">
+                    <tr>
+                        <td align="center" style="width: 5%; padding:0;">
+
+                        </td>
+                        <td align="center" style="width: 60%; padding:0;">
+                            <table style="border-spacing: 0px;">
+                                <tr>
+                                    <td>
+                                        STS No.  
+                                    </td>
+                                    <td>
+                                        : <?= $dataSts['t_kohirds'] ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Kode Bayar Bank  
+                                    </td>
+                                    <td>
+                                        : <?= $dataSts['t_kodebayards'] ?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table style="border-spacing: 0px;">
+                                <tr>
+                                    <td>
+                                        Bank 
+                                    </td>
+                                    <td>
+                                        : <?= strtoupper($data_pemda->s_namabank); ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        No. Rekening 
+                                    </td>
+                                    <td>
+                                        : <?= $data_pemda->s_norekbank; ?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="width: 5%; padding:0;">
+
+                        </td>
+                        <td align="center" style="width: 60%; padding:0;">
+                            <table style="border-spacing: 0px;">
+                                <tr>
+                                    <td>
+                                        <br><br><br>
+                                        Harap diterima uang sebesar 
+                                    </td>
+                                    <td>
+                                        <br><br><br>
+                                        : <?= number_format($dataSts['t_jumlahds'], 0, ',', '.') ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        (dengan huruf) 
+                                    </td>
+                                    <td>
+                                        # <?= ucwords(strtolower(terbilang($dataSts['t_jumlahds']) . " Rupiah")); ?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="width: 5%; padding:0;">
+
+                        </td>
+                        <td align="center" style="width: 60%; padding:0;">
+                            <table style="border-spacing: 0px;">
+                                <tr>
+                                    <td>
+                                        <br><br>
+                                        Dengan rincian penerimaan sebagai berikut :
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%"  style="border-spacing: 0px;">
+                    <tr>
+                        <td align="center" style="width: 5%; padding:0;">
+
+                        </td>
+                        <td style="width: 25%; padding:0;">
+                            <br>
+                            Nama Notaris
+                        </td>
+                        <td>
+                            <br>
+                            : <?= strtoupper($dataSts['s_namanotaris']) ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="width: 5%; padding:0;">
+
+                        </td>
+                        <td>
+                            Alamat
+                        </td>
+                        <td>
+                            : <?= strtoupper($dataSts['s_alamatnotaris']) ?>
+                        </td>
+                    </tr>
+                    <?php if ($dataSts['t_ketetapands'] == 3) { ?>
+                        <tr>
+                            <td align="center" style="width: 5%; padding:0;">
+
+                            </td>
+                            <td>
+                                Keterlambatan Bulan/Tahun
+                            </td>
+                            <td>
+                                : <?= strtoupper($dataSts['t_dendabulan']) ?> / <?= $dataSts['t_periodeds'] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="width: 5%; padding:0;">
+
+                            </td>
+                            <td colspan="2">
+                                <br>
+                                Guna pembayaran DENDA keterlambatan pelaporan Notaris 
+                            </td>
+                        </tr>
+                    <?php } else { ?> 
+                        <tr>
+                            <td align="center" style="width: 5%; padding:0;">
+
+                            </td>
+                            <td>
+                                No./Tanggal AJB
+                            </td>
+                            <td>
+                                : <?= $dataSts['t_noajbbaru'] ?> / <?= $dataSts['t_tglajbbaru'] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="width: 5%; padding:0;">
+
+                            </td>
+                            <td colspan="2">
+                                <br>
+                                Guna pembayaran SANKSI Penerbitan Tanggal dan No AJB. 
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    <tr>
+                        <td align="center" colspan="3">
+                            <br>
+                            Uang tersebut diterima pada tanggal <?= date('d/m/Y') ?>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%"  style="border-spacing: 0px;">
+                    <tr>
+                        <td align="center" style="width: 50%;">
+                            <br><br>
+                            <b>Pengguna Anggaran/ Kuasa Pengguna Anggaran</b><br>
+                            <?= $ar_Pejabat1->s_jabatanpejabat ?><br>
+                        </td>
+                        <td align="center" style="width: 50%;">
+                            <br><br><br>
+                            <b><?= $ar_Pejabat2->s_jabatanpejabat ?></b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="width: 50%;">
+                            <br><br><br><br>
+                            ( <?= strtoupper($ar_Pejabat1->s_namapejabat) ?> )<br>
+                            NIP. <?= $ar_Pejabat1->s_nippejabat ?> 
+                        </td>
+                        <td align="center" style="width: 50%;">
+                            <br><br><br><br>
+                            ( <?= strtoupper($ar_Pejabat2->s_namapejabat) ?> )<br>
+                            NIP. <?= $ar_Pejabat2->s_nippejabat ?> 
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+

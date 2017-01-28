@@ -1,0 +1,262 @@
+<style type="text/css">
+
+    /*@page { margin: 180px 50px; }
+                #header { position: fixed; left: 0px; top: -150px; right: 0px; height: 50px; background-color: white; text-align: center; }
+                #header img { position: absolute;
+                              float:left;
+    
+                }
+                #footer { position: fixed; left: 0px; bottom: -180px; right: 0px; height: 50px; background-color: white; }
+                #footer .page:after { content: counter(page, upper-roman); }
+    
+    */
+    .kotak {
+        border: 1px black solid;
+    }
+
+    .tengah {
+        float: none;
+        margin: 0 auto;
+    }
+
+    .radio_render {
+        margin-top: -2.5px;
+        margin-left: 17%;
+    }
+
+    .radio_render label {
+        width: 75%;
+        float: left;
+    }
+</style>
+<?php
+ini_set("max_execution_time", 500);
+foreach ($this->data_sspd as $row) {
+    $data_pemda = $this->data_pemda;
+    ?>
+    <div style="page-break-after: always; width: 100%;">
+
+        <?php
+        $result_array_syarat = \Zend\Json\Json::decode($row['t_persyaratan']);
+        $jml_syarat = count($result_array_syarat);
+
+        $result_array_syarat_verifikasi = \Zend\Json\Json::decode($row['t_verifikasispt']);
+        $jml_syarat_verifikasi = count($result_array_syarat_verifikasi);
+
+        if ($jml_syarat == $jml_syarat_verifikasi) {
+            ?>    
+            <table>
+                <tr>
+                    <td width="100px">
+                        <?php $gambar = "/var/www/html" . $this->basePath() . "/" . $data_pemda->s_logo; ?>        
+                        <img width="75" title="LOGO <?= $data_pemda->s_namakabkot; ?>" align="left" src="<?=$gambar?>" />
+                    </td>
+                    <td style="text-align: center;">
+                        <b>PEMERINTAH <?= strtoupper($data_pemda->s_namakabkot); ?>, <?= strtoupper($data_pemda->s_namaprov); ?></b><br>
+                        <b style="font-size: 15px"><?= strtoupper($data_pemda->s_namainstansi); ?> (<?= strtoupper($data_pemda->s_namasingkatinstansi); ?>)</b><br>
+                        <b style="font-size: 12px"><?= strtoupper($data_pemda->s_alamatinstansi); ?> Telp/Fax <?= $data_pemda->s_notelinstansi ?>, <?= $data_pemda->s_namaibukotakabkot ?> <?= $data_pemda->s_kodepos ?></b>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <br>
+            <center>
+                <table class="kotak" align="center">
+                    <thead>
+                        <tr>
+                            <th><b>BUKTI PENERIMAAN SURAT</b></th>
+                        </tr>
+                    </thead>
+                </table>
+            </center>
+            <br>
+            <div class="tengah">
+                <table align="center">
+                    <thead>
+                        <tr>
+                            <th width="100px" align="left"><b>No. Pendaftaran</b></th>
+                            <th>:</th>
+                            <th align="left"><?= str_pad($row['t_kohirspt'], 4, '0', STR_PAD_LEFT) ?></th>
+                        </tr>
+                        <tr>
+                            <th align="left"><b>N.O.P</b></th>
+                            <th>:</th>
+                            <th align="left"><?= $row['t_nopbphtbsppt'] ?></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <br>
+            <table width="100%" style="border-spacing: 0px;">
+                <tr>
+                    <td style="width: 200px">1. Nama Wajib Pajak</td>
+                    <td>: <?= strtoupper($row['t_namawppembeli']) ?> </td>
+                </tr>
+                <tr>
+                    <td>2. NPWP</td>
+                    <td>: <?= $row['t_npwpwppembeli'] ?></td>
+                </tr>
+                <tr>
+                    <td>3. Alamat Wajib Pajak</td>
+                    <td class="border_bawah">: <?= strtoupper($row["t_alamatwppembeli"]) ?></td>
+                </tr>
+                <tr>
+                    <td class="border_bawah">4. Kelurahan/Desa</td>
+                    <td>: <?= strtoupper($row["t_kelurahanwppembeli"]) ?></td>
+                </tr>
+                <tr>
+                    <td class="border_bawah">5. Kecamatan</td>
+                    <td>: <?= strtoupper($row["t_kecamatanwppembeli"]) ?></td>
+                </tr>
+                <tr>
+                    <td class="border_bawah">6. Kabupaten/Kota</td>
+                    <td>: <?= strtoupper($row["t_kabkotawppembeli"]) ?></td>
+                </tr>
+                <tr>
+                    <td class="border_bawah">7. Kode Pos</td>
+                    <td>: <?= $row["t_kodeposwppembeli"] ?></td>
+                </tr>
+                <tr>
+                    <td class="border_bawah">8. Periode</td>
+                    <td>: <?= $row["t_thnsppt"] ?></td>
+                </tr>
+            </table>
+            <br> <br>
+            <div class="tengah">
+                Telah menyampaikan berkas permohonan BPHTB dan dinyatakan <b>LENGKAP
+                    dan TERVALIDASI</b>
+            </div>
+            <br>
+            <div class="tengah">
+                <table align="right">
+                    <tr>
+                        <td width="100px" align="left">Tanggal Terima, <?php echo date('d-m-Y', strtotime($tgl_cetak)) ?></td>
+                    </tr>
+                    <tr>
+                        <td align="center"><?= $ar_Pejabat->s_jabatanpejabat ?></td>
+                    </tr>
+                    <tr>
+                        <td align="left">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="left">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="left">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="center">( <?= strtoupper($ar_Pejabat->s_namapejabat) ?> )</td>
+                    </tr>
+                    <tr>
+                        <td align="center">NIP. <?= $ar_Pejabat->s_nippejabat ?> </td>
+                    </tr>
+                </table>
+            </div> 
+
+            <?php
+            $data_tidspt[] = $row['t_idspt'];
+        } else {
+            ?>    
+            <table>
+                <tr>
+                    <td width="100px">
+                        <?php $gambar = "/var/www/html" . $this->basePath() . "/" . $data_pemda->s_logo; ?>        
+                        <img width="75" title="LOGO <?= $data_pemda->s_namakabkot; ?>" align="left" src="<?=$gambar?>" />
+                    </td>
+                    <td style="text-align: center">
+                        <b>PEMERINTAH <?= strtoupper($data_pemda->s_namakabkot); ?>, <?= strtoupper($data_pemda->s_namaprov); ?></b><br>
+                        <b style="font-size: 15px"><?= strtoupper($data_pemda->s_namainstansi); ?> (<?= strtoupper($data_pemda->s_namasingkatinstansi); ?>)</b><br>
+                        <b style="font-size: 12px"><?= strtoupper($data_pemda->s_alamatinstansi); ?> Telp/Fax <?= $data_pemda->s_notelinstansi ?>, <?= $data_pemda->s_namaibukotakabkot ?> <?= $data_pemda->s_kodepos ?></b>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <center>SURAT PEMBERITAHUAN MELENGKAPI BERKAS</center>
+            <br>
+            <table>
+                <tr>
+                    <td colspan="2">Melalui Surat ini kami selaku pihak <?= ucwords($data_pemda->s_namainstansi); ?> bermaksud untuk memberitahukan kepada saudara/i dengan data diri sebagai berikut :</td>
+                </tr>
+                <tr>
+                    <td style="width: 150px">Nama</td>
+                    <td> : <?= strtoupper($row['t_namawppembeli']) ?></td>
+                </tr>
+                <tr>
+                    <td>Alamat</td>
+                    <td> : <?= strtoupper($row["t_alamatwppembeli"]) ?>, <?= strtoupper($row["t_kelurahanwppembeli"]) ?>, <?= strtoupper($row["t_kecamatanwppembeli"]) ?></td>
+                </tr>
+                <tr>
+                    <td>NPWP</td>
+                    <td> : <?= strtoupper($row['t_npwpwppembeli']) ?></td>
+                </tr>
+                <tr>
+                    <td>Nomor Pendaftaran</td>
+                    <td>: <?= str_pad($row['t_kohirspt'], 4, '0', STR_PAD_LEFT) ?></td>
+                </tr>
+            </table>
+            <br> <br> Proses Validasi yang Saudara ajukan belum dapat kami proses
+            dikarenakan dokumen-dokumen persyaratan yang Saudara lampirkan belum
+            lengkap, yakni : <br>
+            <div class="radio_render">
+                <?php
+                foreach ($testarray as $hasil) {
+                    foreach ($hasil as $we) {
+                        $result_array = Zend\Json\Json::decode($row['t_verifikasispt']);
+                        if (in_array($we->s_idpersyaratan, $result_array)) {
+                            
+                        } else {
+                            echo '-' . $we->s_namapersyaratan . '<br>';
+                        }
+                    }
+                }
+                ?>
+            </div>
+            <br>
+            <?php
+
+            function adddate($vardate, $added) {
+                $data = explode("-", $vardate);
+                $date = new DateTime();
+                $date->setDate($data[0], $data[1], $data[2]);
+                $date->modify("" . $added . "");
+                $day = $date->format("Y-m-d");
+                return $day;
+            }
+
+            $tanggalnya = adddate(date('Y-m-d', strtotime($row['t_tglprosesspt'])), "+" . $datahari['s_jumlahhari'] . " day");
+            $tanggalnya1 = explode('-', $tanggalnya);
+            ?>
+            Sehubungan dengan hal tersebut diharapkan Saudara segera melengkapi paling lambat tanggal <?= $tanggalnya1[2] ?>-<?= $tanggalnya1[1] ?>-<?= $tanggalnya1[0] ?>.
+            <br> <br> <br>
+            <div class="tengah">
+                <table align="right">
+                    <tr>
+                        <td align="left"><?=  str_ireplace("Kabupaten", "", $data_pemda->s_namakabkot)?>, <?php echo date('d-m-Y', strtotime($tgl_cetak)) ?></td>
+                    </tr>
+                    <tr>
+                        <td align="center"><?= $ar_Pejabat->s_jabatanpejabat ?></td>
+                    </tr>
+                    <tr>
+                        <td align="left">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="left">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="left">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="center">( <?= strtoupper($ar_Pejabat->s_namapejabat) ?> )</td>
+                    </tr>
+                    <tr>
+                        <td align="center">NIP. <?= $ar_Pejabat->s_nippejabat ?> </td>
+                    </tr>
+                </table>
+            </div> 
+            <?php
+        }
+        ?>
+    </div>
+    <?php
+}
+?>

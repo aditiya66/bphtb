@@ -1,0 +1,306 @@
+<table width="100%" style="border-spacing: 0" class="font_sembilan">
+    <tr style="text-align: center;">
+        <td colspan="15">
+            <strong>LAPORAN REALISASI BPHTB PER-TAHUN</strong>
+            <br>
+            <?php
+            $tanggal_bayar = explode('-', $tgl_cetak);
+            $tahun = $tanggal_bayar[2];
+            $bulan = $tanggal_bayar[1];
+            $tanggal = $tanggal_bayar[0];
+            ?>
+            TAHUN <?= $tahun ?>
+            <br>
+        </td>
+    </tr>
+    <tr style="text-align: left;">
+        <td colspan="5">
+            Tanggal Cetak : <?= $tgl_cetak ?>
+        </td>
+    </tr>
+    <tr style="text-align: center">
+        <td class="border_atas border_bawah border_kanan border_kiri">
+            No.
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Jenis Transaksi
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Januari
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Februari
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Maret
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            April
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Mei
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Juni
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Juli
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Agustus
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            September
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Oktober
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            November
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Desember
+        </td>
+        <td class="border_atas border_bawah border_kanan">
+            Jumlah
+        </td>
+    </tr>
+    <?php
+    $jmljan = 0;
+    $jmlfeb = 0;
+    $jmlmar = 0;
+    $jmlap = 0;
+    $jmlmei = 0;
+    $jmljun = 0;
+    $jmljul = 0;
+    $jmlagu = 0;
+    $jmlsept = 0;
+    $jmlokt = 0;
+    $jmlnov = 0;
+    $jmldes = 0;
+    $jmlsluruh = 0;
+    $counter = 1;
+    foreach ($this->data_Realisasi as $k => $v) {
+        ?>
+        <tr>
+            <td style="text-align: center; width: 10px" class="border_bawah border_kanan border_kiri">
+                <?= $counter ?>
+            </td>
+            <td class="border_bawah border_kanan">
+                <?= $v['s_namajenistransaksi'] ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['januari'], 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['februari'], 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['maret'], 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['april'], 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['mei'], 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['juni'], 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['juli'], 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['agustus'], 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['september'], 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['oktober'], 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['november'], 0, ',', '.'); ?>
+            </td>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($v['desember'], 0, ',', '.'); ?>
+            </td>
+            <?php
+            $jumlahsebaris = $v['januari'] + $v['februari'] + $v['maret'] + $v['april'] + $v['mei'] + $v['juni'] + $v['juli'] + $v['agustus'] + $v['september'] + $v['oktober'] + $v['november'] + $v['desember'];
+            ?>
+            <td style="text-align: right" class="border_bawah border_kanan">
+                <?= number_format($jumlahsebaris, 0, ',', '.'); ?>
+            </td>
+        </tr>
+        <?php
+        $jmljan += $v['januari'];
+        $jmlfeb += $v['februari'];
+        $jmlmar += $v['maret'];
+        $jmlap += $v['april'];
+        $jmlmei += $v['mei'];
+        $jmljun += $v['juni'];
+        $jmljul += $v['juli'];
+        $jmlagu += $v['agustus'];
+        $jmlsept += $v['september'];
+        $jmlokt += $v['oktober'];
+        $jmlnov += $v['november'];
+        $jmldes += $v['desember'];
+        $jmlsluruh += $jumlahsebaris;
+        $counter++;
+    }
+    ?>
+    <tr>
+        <td style="text-align: center;" colspan="2" class="border_bawah border_kanan border_kiri">
+            Jumlah
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmljan, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmlfeb, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmlmar, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmlap, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmlmei, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmljun, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmljul, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmlagu, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmlsept, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmlokt, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmlnov, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmldes, 0, ',', '.'); ?>
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmlsluruh, 0, ',', '.'); ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;" colspan="14" class="border_bawah border_kanan border_kiri">
+            Target Anggaran&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td style="text-align: right;" class="border_bawah border_kanan">
+            <?= number_format($data_TargetAnggaran['target_anggaran'], 0, ',', '.') ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;" colspan="14" class="border_bawah border_kanan border_kiri">
+            Realisasi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmlsluruh, 0, ',', '.'); ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;" colspan="14" class="border_bawah border_kanan border_kiri">
+            Sisa&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($data_TargetAnggaran['target_anggaran'] - $jmlsluruh, 0, ',', '.'); ?>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;" colspan="14" class="border_bawah border_kanan border_kiri">
+            Presentase Realisasi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format($jmlsluruh / $data_TargetAnggaran['target_anggaran'] * 100, 5, ',', '.'); ?> %
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: right;" colspan="14" class="border_bawah border_kanan border_kiri">
+            Presentase Kekurangan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+        <td style="text-align: right" class="border_bawah border_kanan">
+            <?= number_format(100 - ($jmlsluruh / $data_TargetAnggaran['target_anggaran'] * 100), 5, ',', '.'); ?> %
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: center; padding-top: 30px;">
+            Mengetahui,
+            <br>
+            <?= $data_mengetahui->s_jabatanpejabat ?>
+            <br><br><br><br>
+    <u><?= $data_mengetahui->s_namapejabat ?></u>
+    <br>
+    NIP. <?= $data_mengetahui->s_nippejabat ?>
+    </td>
+    <td colspan="8"></td>
+    <td colspan="3" style="text-align: center; padding-top: 30px;">
+        <?= $data_pemda->s_namakabkot ?>, <?= $tgl_cetak; ?>
+        <br>
+        <?= $data_pejabat->s_jabatanpejabat ?>
+        <br><br><br><br>
+    <u><?= $data_pejabat->s_namapejabat ?></u>
+    <br>
+    NIP. <?= $data_pejabat->s_nippejabat ?>
+    </td>
+    </tr>
+</table>
+
+<style type="text/css">
+
+    .border_atas {
+        border-top: 1px black solid;
+    }
+
+    .border_kiri {
+        border-left: 1px black solid;
+    }
+
+    .border_kanan {
+        border-right: 1px black solid;
+    }
+
+    .border_bawah {
+        border-bottom: 1px black solid;
+    }
+
+    .font_besar {
+        font-size: 12pt;
+    }
+
+    .font_kecil {
+        font-size: 10pt;
+    }
+
+    .font_lima {
+        font-size: 7pt;
+    }
+
+    .font_tujuh {
+        font-size: 7pt;
+    }  
+
+    .font_delapan {
+        font-size: 8pt;
+    }    
+
+    .font_sembilan {
+        font-size: 9pt;
+    }    
+
+
+    @page {
+        margin-top: 1.5em;  
+        margin-left: 3.8em;          
+    }
+</style>

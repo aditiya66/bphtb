@@ -1,0 +1,95 @@
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">FORM CETAK DAFTAR PENDAFTARAN</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="form-horizontal form-group col-md-9">
+                                    <label for="inputType" class="col-md-3"><b>Tahun Pajak <span style="float:right;">:</span></b></label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="periode_sptverifikasi" value="<?= date('Y') ?>" style="width: 100px;"> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-horizontal form-group col-md-9">
+                                    <label for="inputType" class="col-md-3"><b>Tanggal Cetak <span style="float:right;">:</span></b></label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="tgl_cetakverifikasi" value="<?= date('d-m-Y') ?>" style="width: 100px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-horizontal form-group col-md-12">
+                                    <div class="col-md-9">
+                                        <div class="form-group row">
+                                            <label for="inputKey" class="col-md-3"><b>Tanggal Pendaftaran <span style="float:right;">:</span></b></label>
+                                            <div class="col-md-2">
+                                                <input type="text" class="form-control" id="tgl_verifikasi1" value="<?= date('d-m-Y') ?>" style="width: 100px;">
+                                            </div>
+                                            <label for="inputValue" class="col-md-1">S/d</label>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control" id="tgl_verifikasi2" value="<?= date('d-m-Y') ?>" style="width: 100px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-horizontal form-group col-md-9" style="<?= $show_hide_combo_notaris ?>">
+                                    <label for="inputType" class="col-md-3"><b>Nama Notaris <span style="float:right;">:</span></b></label>
+                                    <div class="col-md-5">
+                                        <?= $this->formRow($frm->get('t_idnotarisspt')) ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-horizontal form-group col-md-9">
+                                    <label for="inputType" class="col-md-3"></label>
+                                    <div class="col-md-4 pull-left">
+                                        <a href="<?= $this->url() ?>" class="btn btn-primary btn-sm btn-flat">
+                                            <i class="glyphicon glyphicon-circle-arrow-left"></i> Kembali</a>
+                                        <button class="btn btn-success btn-flat btn-sm" onclick="cetakDaftarVerifikasi();">
+                                            <span class="glyphicon glyphicon-print"></span> Cetak</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+
+<script type="text/javascript">
+
+    $("#periode_sptverifikasi").datepicker({
+        format: 'yyyy',
+        viewMode: "years",
+        minViewMode: "years"
+    });
+
+    jQuery("#tgl_cetakverifikasi").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_verifikasi1").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+    jQuery("#tgl_verifikasi2").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+
+    function cetakDaftarVerifikasi() {
+        window.open('<?= $this->url('pendataan_sspd') ?>/cetakdatapendaftaran?periode_spt=' + $("#periode_sptverifikasi").val() + "&tgl_cetak=" + $("#tgl_cetakverifikasi").val() + "&tgl_verifikasi1=" + $("#tgl_verifikasi1").val() + "&tgl_verifikasi2=" + $("#tgl_verifikasi2").val() + "&t_idnotarisspt=" + $("#t_idnotarisspt").val());
+    }
+
+</script>    

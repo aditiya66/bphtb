@@ -1,0 +1,137 @@
+<style type="text/css">
+
+    /*@page { margin: 180px 50px; }
+            #header { position: fixed; left: 0px; top: -150px; right: 0px; height: 50px; background-color: white; text-align: center; }
+            #header img { position: absolute;
+                          float:left;
+
+            }
+            #footer { position: fixed; left: 0px; bottom: -180px; right: 0px; height: 50px; background-color: white; }
+            #footer .page:after { content: counter(page, upper-roman); }
+
+    */
+    .kotak{
+
+        border-bottom: 1px black solid;
+
+    }
+    .tengah {
+        float: none;
+        margin: 0 auto;
+    }
+
+    .border_putus {
+        border-top: 1px black dashed;
+    }
+
+    .border_atas {
+        border-top: 1px black solid;
+    }
+
+    .border_kiri {
+        border-left: 1px black solid;
+    }
+
+    .border_kanan {
+        border-right: 1px black solid;
+    }
+
+    .border_bawah {
+        border-bottom: 1px black solid;
+    }
+
+    .font_besar {
+        font-size: 12pt;
+    }
+
+    .font_kecil {
+        font-size: 10pt;
+    }
+
+    .font_lima {
+        font-size: 7pt;
+    }
+
+    .font_tujuh {
+        font-size: 7pt;
+    }  
+
+    .font_delapan {
+        font-size: 8pt;
+    }    
+
+    .font_sembilan {
+        font-size: 9pt;
+    }    
+    /*@page {
+        margin-top: 1.5em;  
+        margin-left: 3.8em;          
+    }*/
+</style>
+<div style="page-break-after: always;width: 100%;">
+
+    <?php
+    foreach ($this->data_sspd as $k => $v) {
+        ?>
+        <div style="page-break-after: always;width: 100%;">
+            <table>
+                <tr>
+                    <td width="100px">
+                        <?php $gambar = "/var/www/html" . $this->basePath() . "/" . $data_pemda->s_logo; ?>                                                                        
+                        <img width="50" title="LOGO <?= $data_pemda->s_namakabkot; ?>" align="left" src="<?=$gambar?>"/>
+                    </td>
+                    <td style="text-align: center">
+                        <b>PEMERINTAH <?= strtoupper($data_pemda->s_namakabkot); ?>, <?= strtoupper($data_pemda->s_namaprov);?></b><br>
+                        <b style="font-size: 15px"><?= strtoupper($data_pemda->s_namainstansi); ?> (<?= strtoupper($data_pemda->s_namasingkatinstansi); ?>)</b><br>
+                        <b style="font-size: 12px"><?= strtoupper($data_pemda->s_alamatinstansi); ?> Telp/Fax <?= $data_pemda->s_notelinstansi?>, <?= $data_pemda->s_namaibukotakabkot?> <?= $data_pemda->s_kodepos?></b>
+                    </td>
+                </tr>
+            </table>
+            <hr><br>
+            <center>
+                <table class="kotak" align="center">
+                    <thead>
+                        <tr>
+                            <th>
+                                <b>KODE BAYAR</b>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </center><br>
+            <table align="center" width="100%" style="padding: 10 10 10 10">
+                <tr>
+                    <td><b>Tanggal Cetak</b></td>
+                    <td>:</td>
+                    <td><?= $tgl_cetak ?></td>
+                </tr>
+                <tr>
+                    <td><b>Tanggal Proses</b></td>
+                    <td>:</td>
+                    <td><?= date('d-m-Y', strtotime($v['t_tglprosesspt'])) ?></td>
+                </tr>
+                <tr>
+                    <td><b>Nama WP</b></td>
+                    <td>:</td>
+                    <td><?= strtoupper($v['t_namawppembeli']) ?> </td>
+                </tr>
+                <tr>
+                    <td><b>No. SSPD</b></td>
+                    <td>:</td>
+                    <td><?= str_pad($v['t_kohirketetapanspt'], 4, '0', STR_PAD_LEFT) ?></td>
+                </tr>
+                <tr>
+                    <td><b>NOP</b></td>
+                    <td>:</td>
+                    <td><?= $v['t_nopbphtbsppt'] ?></td>
+                </tr>
+                <tr>
+                    <td><b>Kode Bayar</b></td>
+                    <td>:</td>
+                    <td><?= $v['t_kodebayarbanksppt_pembayaran'] ?></td>
+                </tr>
+
+            </table>
+        </div>
+    <?php } ?>
+</div>

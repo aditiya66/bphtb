@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/var/www/html/bandungbarat/html/module/Bphtb/src/Bphtb/Controller/Pendataan/PendataanSSPD.php</file>
+            <file>file:/var/www/html/bandungbarat/html/module/Bphtb/src/Bphtb/Controller/Setting/Paginator.php</file>
+            <file>file:/var/www/html/bandungbarat/html/module/Bphtb/view/bphtb/side_right.phtml</file>
+            <file>file:/var/www/html/bandungbarat/html/module/Bphtb/src/Bphtb/Controller/Setting/SettingDokTanah.php</file>
+            <file>file:/var/www/html/bandungbarat/html/module/Bphtb/src/Bphtb/Controller/BPN/Bpn.php</file>
+            <file>file:/var/www/html/bandungbarat/html/module/Bphtb/src/Bphtb/Controller/Koreksi/Koreksi.php</file>
+            <file>file:/var/www/html/bandungbarat/html/module/Bphtb/src/Bphtb/Controller/Pembayaran/PembayaranSPT.php</file>
+            <file>file:/var/www/html/bandungbarat/html/module/Bphtb/src/Bphtb/Controller/Setting/SettingHakTanah.php</file>
+            <file>file:/var/www/html/bandungbarat/html/module/Bphtb/src/Bphtb/Controller/Setting/SettingHargaAcuan.php</file>
+            <file>file:/var/www/html/bandungbarat/html/module/Bphtb/src/Bphtb/Controller/Setting/SettingUser.php</file>
+            <file>file:/var/www/html/bandungbarat/html/module/Bphtb/src/Bphtb/Controller/Verifikasi/VerifikasiSPT.php</file>
+            <file>file:/var/www/html/bandungbarat/html/module/Bphtb/src/Bphtb/Model/Pembayaran/PembayaranSptTable.php</file>
+        </group>
+    </open-files>
+</project-private>

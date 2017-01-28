@@ -1,0 +1,55 @@
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3 class="panel-title"><span style="font-size: 11pt">SSPD BPHTB</span></h3>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div style=" overflow: auto;">
+                <table id="listsspd"></table>
+                <div id="pagersspd"></div>
+            </div>
+        </div>     
+    </div>  
+</div>
+<script type="text/javascript">
+
+    $(function() {
+        jQuery("#listsspd").flexigrid({
+            url: '<?= $this->url() ?>/dataGridSismiop',
+            colModel: [
+                {display: "No. Daftar", name: "t_kohirspt", align: 'center', width: 70, sortable: true},
+                {display: "Tahun Pajak", name: "t_periodespt", align: 'center', width: 70, sortable: true},
+                {display: "Tanggal Proses", name: "t_tglprosesspt", align: 'center', width: 90, sortable: true},
+                {display: "Nama Wajib Pajak", name: "t_namawppembeli", align: 'left', width: 120, sortable: true},
+                {display: "Jumlah Pajak", name: "t_totalspt", align: 'right', width: 100, sortable: true},
+                {display: "Jenis Transaksi", name: "s_namajenistransaksi", align: 'left', width: 100, sortable: true},
+                {display: "No./Tgl AJB Baru", name: "Tgl AJB Baru", align: 'center', formatter: 'button', sortable: false, width: 90},
+                {display: "Pilihan", name: "Pilihan", align: 'center', formatter: 'button', sortable: false, width: 80},
+            ],
+            searchitems: [
+                {display: 'Nomor Pendaftaran', name: 't_kohirspt', isdefault: true},
+                {display: 'Periode SPT', name: 't_periodespt'},
+                {display: 'Tanggal Proses', name: 't_tglprosesspt'},
+                {display: 'Nama Wajib Pajak', name: 't_namawppembeli'},
+                {display: 'Jenis Transaksi', name: 's_namajenistransaksi'},
+            ],
+            sortname: "t_kohirspt",
+            sortorder: "desc",
+            singleSelect: true,
+            usepager: true,
+            title: 'DAFTAR PENDAFTARAN SSPD BPHTB',
+            useRp: true,
+            rp: 10,
+            showTableToggleBtn: false,
+            height: 275,
+            width: '100%',
+            pagetext: 'Hal ',
+            outof: 's.d'
+        });
+    });
+
+</script>

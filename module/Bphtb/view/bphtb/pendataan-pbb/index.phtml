@@ -1,0 +1,172 @@
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <span style="font-size: 17px">SISMIOP</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div style=" overflow: auto;">
+                                        <table class="table table-hover table-bordered" style="font-size: 12px">
+                                            <thead>
+                                                <tr class="bg-blue">  
+                                                    <th class="text-center">
+                                                        No. Daftar
+                                                    </th>           
+                                                    <th class="text-center">
+                                                        Thn. Pajak
+                                                    </th>     
+                                                    <th class="text-center">
+                                                        Tgl. Daftar
+                                                    </th>     
+                                                    <th class="text-center">
+                                                        Nama WP
+                                                    </th>     
+                                                    <th class="text-center">
+                                                        Jumlah Pajak
+                                                    </th>     
+                                                    <th class="text-center">
+                                                        Jenis Transaksi
+                                                    </th>      
+                                                    <th class="text-center" colspan="2">
+                                                        No/Tgl AJB Baru
+                                                    </th>          
+                                                    <th class="text-center">
+                                                        Input Data Ke SIMPBB
+                                                    </th>  
+                                                </tr>
+                                            </thead>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" id="t_kohirspt" name="t_kohirspt" class="form-control input-sm" onkeyup="calldatagrid()">
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="t_periodespt" name="t_periodespt" class="form-control input-sm" onkeyup="calldatagrid()" onchange="calldatagrid()" onblur="calldatagrid()">
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="t_tglprosesspt" name="t_tglprosesspt" class="form-control input-sm" onkeyup="calldatagrid()" onchange="calldatagrid()" onblur="calldatagrid()">
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="t_namawppembeli" name="t_namawppembeli" class="form-control input-sm" onkeyup="calldatagrid()">
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="t_totalspt" name="t_totalspt" class="form-control input-sm" onkeyup="calldatagrid()" onchange="calldatagrid()" onblur="calldatagrid()">
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="s_namajenistransaksi" name="s_namajenistransaksi" class="form-control input-sm" onkeyup="calldatagrid()" onchange="calldatagrid()" onblur="calldatagrid()">
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="t_noajbbaru" name="t_noajbbaru" placeholder="No" class="form-control input-sm" onkeyup="calldatagrid()">
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="t_tglajbbaru" name="t_tglajbbaru" placeholder="Tgl" class="form-control input-sm" onkeyup="calldatagrid()" onchange="calldatagrid()" onblur="calldatagrid()">
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tbody id="body_grid">
+                                            </tbody>
+                                            <tfoot>              
+                                                <tr>
+                                                    <td colspan="12" class="text-center">
+                                                        <div class="row">
+                                                            <div class="col-sm-4 text-left">Jumlah Baris Ditampilkan: <input type="text" id="rows" style="width: 20%" class="text-center" value="10"></div>
+                                                            <div class="col-sm-3">
+                                                                <a href="#" onclick="calldatagrid(1);
+                                                                        return false;"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></a>
+
+                                                                <input type="text" id="page" value="1" style="width: 20%" class="text-center">
+
+                                                                <a href="#" onclick="calldatagrid(2);
+                                                                        return false;"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a>
+                                                            </div>
+                                                            <div class="col-sm-5 text-right">
+                                                                <p>Jumlah Data <span id="total_data"></span>&nbsp;Jumlah Halaman <span id="total_halaman"></span></p>                                    
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+<script type="text/javascript">
+    $(function () {
+        calldatagrid();
+    });
+    
+    $("#t_periodespt").datepicker({
+        format: 'yyyy',
+        viewMode: "years",
+        minViewMode: "years"
+    });
+
+    jQuery("#t_tglprosesspt").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+
+    jQuery("#t_tglajbbaru").datepicker({
+        format: 'dd-mm-yyyy',
+        language: 'id'
+    });
+
+    function calldatagrid(direction) {
+        if ($("#t_kohirspt").val().length == 0)
+            par1 = undefined;
+        else
+            par1 = $("#t_kohirspt").val()
+        if ($("#t_periodespt").val().length == 0)
+            par2 = undefined;
+        else
+            par2 = $("#t_periodespt").val()
+        if ($("#t_tglprosesspt").val().length == 0)
+            par3 = undefined;
+        else
+            par3 = $("#t_tglprosesspt").val()
+        if ($("#t_namawppembeli").val().length == 0)
+            par4 = undefined;
+        else
+            par4 = $("#t_namawppembeli").val()
+        if ($("#t_totalspt").val().length == 0)
+            par5 = undefined;
+        else
+            par5 = $("#t_totalspt").val()
+        if ($("#s_namajenistransaksi").val().length == 0)
+            par6 = undefined;
+        else  
+            par6 = $("#s_namajenistransaksi").val()
+        if ($("#t_noajbbaru").val().length == 0)
+            par7 = undefined;
+        else  
+            par7 = $("#t_noajbbaru").val()
+        if ($("#t_tglajbbaru").val().length == 0)
+            par8 = undefined;
+        else  
+            par8 = $("#t_tglajbbaru").val()
+        datagrid($("#page").val(), $("#rows").val(), direction, par1, par2, par3, par4, par5, par6, par7, par8);
+    }
+
+    function datagrid(page, row, direction, par1, par2, par3, par4, par5, par6, par7, par8) {
+        $.get('<?= $this->url() ?>/dataGrid/' + page + '/' + row + '/' + direction + '/' + par1 + '/' + par2 + '/' + par3 + '/' + par4 + '/' + par5 + '/' + par6 + '/' + par7 + '/' + par8, function (data) {
+            var aa = JSON.parse(data)
+            $("#body_grid").html(aa.grid);
+            $("#rows").val(aa.rows);
+            $("#page").val(aa.page);
+            $("#total_data").html(": " + aa.count);
+            $("#total_halaman").html(": " + aa.total_halaman);
+        });
+    }
+
+</script>

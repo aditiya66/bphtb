@@ -1,0 +1,57 @@
+<div class="col-md-3">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title"><span style="font-size: 8pt">Navigasi Setting</span></h3></div>
+        <div class="panel-body">
+            <?= $this->sidemenu ?>
+        </div>        
+    </div>    
+</div>
+<div class="col-md-9">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title"><span style="font-size: 10pt">Setting Hak Tanah</span></h3></div>
+        <div class="panel-body">
+            <div align="right" class="well-small">
+                <a href="<?= $this->url() ?>/tambah" class="btn btn-success">Tambah</a>                        
+            </div>
+            <div style=" overflow-x: auto;">
+                <table id="listjenisketetapan"></table>
+                <div id="pagerjenisketetapan"></div>
+            </div>
+        </div>        
+    </div>    
+</div>
+
+
+<script type="text/javascript">
+    function hapus(a) {
+        var aa = confirm('Hapus data ini?');
+        if (aa) {
+            $.post('<?= $this->url() ?>/hapus/'+a, function (data) {
+                $("#listjenisketetapan").jqGrid().trigger("reloadGrid");
+            });
+        }
+    }
+
+    $(function () {
+        $("#listjenisketetapan").jqGrid({
+            url: '<?= $this->url() ?>/dataGrid',
+            colNames: ["Nama Jenis Ketetapan", "Nama Singkat Ketetapan", "Pilihan"],
+            colModel: [
+                {name: "Nama Jenis Ketetapan", align: 'center'},
+                {name: "Nama Singkat Ketetapan", align: 'left'},
+                {name: "Pilihan", align: 'center', formatter: 'button'}
+            ],
+            pager: "#pagerjenisketetapan",
+            autowidth: true,
+            height: '100%',
+            rowNum: 10,
+            rowList: [10, 20, 30],
+            sortname: "s_idjenisketetapan",
+            sortorder: "asc",
+            viewrecords: true,
+            gridview: true,
+            autoencode: true,
+            caption: "JENIS KETETAPAN"
+        });
+    });
+</script>

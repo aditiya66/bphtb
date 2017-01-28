@@ -1,0 +1,548 @@
+<style type="text/css">
+
+    .border_putus {
+        border-top: 1px black dashed;
+    }
+
+    .border_atas {
+        border-top: 1px black solid;
+    }
+
+    .border_kiri {
+        border-left: 1px black solid;
+    }
+
+    .border_kanan {
+        border-right: 1px black solid;
+    }
+
+    .border_bawah {
+        border-bottom: 1px black solid;
+    }
+
+    .font_besar {
+        font-size: 12pt;
+    }
+
+    .font_kecil {
+        font-size: 10pt;
+    }
+
+    .font_lima {
+        font-size: 7pt;
+    }
+
+    .font_tujuh {
+        font-size: 7pt;
+    }  
+
+    .font_delapan {
+        font-size: 8pt;
+    }    
+
+    .font_sembilan {
+        font-size: 9pt;
+    }    
+
+
+    @page {
+        margin-top: 1.5em;  
+        margin-left: 3.8em;          
+    }
+</style>
+
+<?php
+ini_set("max_execution_time", 500);
+if (!function_exists('kekata')) {
+
+    function kekata($x) {
+        $x = abs($x);
+        $angka = array("", "Satu", "Dua", "Tiga", "Empat", "Lima",
+            "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas");
+        $temp = "";
+        if ($x < 12) {
+            $temp = " " . $angka[$x];
+        } else if ($x < 20) {
+            $temp = kekata($x - 10) . " Belas";
+        } else if ($x < 100) {
+            $temp = kekata($x / 10) . " Puluh" . kekata($x % 10);
+        } else if ($x < 200) {
+            $temp = " Seratus" . kekata($x - 100);
+        } else if ($x < 1000) {
+            $temp = kekata($x / 100) . " Ratus" . kekata($x % 100);
+        } else if ($x < 2000) {
+            $temp = " Seribu" . kekata($x - 1000);
+        } else if ($x < 1000000) {
+            $temp = kekata($x / 1000) . " Ribu" . kekata($x % 1000);
+        } else if ($x < 1000000000) {
+            $temp = kekata($x / 1000000) . " Juta" . kekata($x % 1000000);
+        } else if ($x < 1000000000000) {
+            $temp = kekata($x / 1000000000) . " Milyar" . kekata(fmod($x, 1000000000));
+        } else if ($x < 1000000000000000) {
+            $temp = kekata($x / 1000000000000) . " Trilyun" . kekata(fmod($x, 1000000000000));
+        }
+        return $temp;
+    }
+
+}
+
+function terbilang($x, $style = 4) {
+    if ($x < 0) {
+        $hasil = "MINUS " . trim(kekata($x));
+    } else {
+        $hasil = trim(kekata($x));
+    }
+    switch ($style) {
+        case 1:
+            $hasil = strtoupper($hasil);
+            break;
+        case 2:
+            $hasil = strtolower($hasil);
+            break;
+        case 3:
+            $hasil = ucwords($hasil);
+            break;
+        default:
+            $hasil = ucfirst($hasil);
+            break;
+    }
+    return $hasil;
+}
+
+foreach ($this->data_Skpdkb as $row) {
+    $pemda = $this->data_pemda;
+    ?>
+    <div style="page-break-after: always;width: 100%;">
+        <table width="100%" class="border_atas border_bawah border_kanan border_kiri font_kecil" style="padding:0;border-spacing:0px;">
+            <tr>
+                <td class="border_kanan border_bawah font_lima" style="width:50%">
+                    <?php // $gambar = $_SERVER['DOCUMENT_ROOT'] . $this->basePath() . "/" . $data_pemda->s_logo;  ?>
+                    PEMERINTAH <?= strtoupper($pemda->s_namakabkot) ?>
+                    <br>
+                    <?= strtoupper($pemda->s_namainstansi) ?>
+                    <br>
+                    <?= strtoupper($pemda->s_alamatinstansi) ?> ,<?= strtoupper($pemda->s_namaibukotakabkot) ?>
+                                <!--<img src="<?= $gambar ?>" style="width:80px;height:80px;" />-->
+                </td>
+                <td class="border_kanan border_bawah" align="center">
+                    <strong>SKPDKB</strong>
+                    <br/>
+                    (Surat Ketetapan Pajak Daerah Kurang Bayar)
+                    <br/>
+                    Tahun : <?= $periode_skpdkb; ?>
+                </td>
+                <td class="border_bawah" style="width:10%; text-align: center;">
+                    No. Urut 
+                    <br>
+                    <?= $row['p_kohirskpdkb']?>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="font_besar">
+                    Nama : <?= strtoupper($row['t_namawppembeli']) ?> 
+                </td>
+            </tr>
+            <tr>
+                <td class="border_bawah font_besar" colspan="3">
+                    Alamat : <?= strtoupper($row["t_alamatwppembeli"]) ?>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td style="width: 5%">
+                                I.
+                            </td>
+                            <td colspan="2"> 
+                                Berdasarkan Pasal 97 Undang-Undang No. 28 Tahun 2009 telah dilakukan pemeriksaan atau keterangan lain atas
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td colspan="2">
+                                pelaksanaan kewajiban :
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="width: 30%">
+                                NOP
+                            </td>
+                            <td>
+                                : <?= $row['t_nopbphtbsppt'] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="width: 30%">
+                                Nama WP
+                            </td>
+                            <td>
+                                : <?= $row['t_namawppenjual'] ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="width: 30%">
+                                Alamat
+                            </td>
+                            <td>
+                                : <?= $row["t_kelurahanop"] ?> , <?= $row["t_kecamatanop"] ?> , <?= strtoupper($row["t_kabupatenop"]) ?>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                II.
+                            </td>
+                            <td colspan="2">
+                                Dari pemeriksaan atau keterangan lain tersebut diatas, penghitungan jumlah yang masih harus dibayar adalah sebagai
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td colspan="2">
+                                berikut :
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td colspan="2">
+                                <table width="100%">
+                                    <tr>
+                                        <td style="width: 40%">
+                                            1. Dasar Pengenaan
+                                        </td>
+                                        <td style="width: 5%">
+
+                                        </td>
+                                        <td style="width: 25%">
+
+                                        </td>
+                                        <td style="width: 5%">
+                                            Rp.
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                            <?= number_format($row["p_nilaitransaksispt"], 2, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 40%">
+                                            2. Pajak yang terhutang 
+                                        </td>
+                                        <td style="width: 5%">
+
+                                        </td>
+                                        <td style="width: 25%">
+
+                                        </td>
+                                        <td style="width: 5%">
+                                            Rp.
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                            <?= number_format($row["p_nilaipembayaranspt"], 2, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            3. Kredit Pajak 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 40%">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a. Setoran yang dilakukan 
+                                        </td>
+                                        <td style="width: 5%">
+                                            Rp.
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                            <?= number_format($row["t_nilaipembayaranspt"], 2, ',', '.') ?>
+                                        </td>
+                                        <td style="width: 5%">
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 40%">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. Jumlah yang dapat dikreditkan
+                                        </td>
+                                        <td style="width: 5%">
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                        </td>
+                                        <td style="width: 5%">
+                                            Rp.
+                                        </td>
+                                        <td class="border_bawah" style="width: 25%; text-align: right;">
+                                            <?= number_format($row["p_nilaipembayaranspt"], 2, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 40%">
+                                            4. Jumlah yang masih harus dibayar (2 - 3e)
+                                        </td>
+                                        <td style="width: 5%">
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                        </td>
+                                        <td style="width: 5%">
+                                            Rp.
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                            <?= number_format($row["p_nilaikurangbayar"], 2, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 40%">
+                                            5. Sanksi administrasi :
+                                        </td>
+                                        <td style="width: 5%">
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                        </td>
+                                        <td style="width: 5%">
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 40%">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a. Bunga (Psl 97(5)) 
+                                        </td>
+                                        <td style="width: 5%">
+                                            Rp.
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                            <!--9.500.000,00-->
+                                        </td>
+                                        <td style="width: 5%">
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 40%">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. Kenaikan (Psl 97(5)) 
+                                        </td>
+                                        <td style="width: 5%">
+                                            Rp.
+                                        </td>
+                                        <td class="border_bawah" style="width: 25%; text-align: right;">
+                                            <!--9.500.000,00-->
+                                        </td>
+                                        <td style="width: 5%">
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 40%">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c. Jumlah sanksi administrasi (a+b)  
+                                        </td>
+                                        <td style="width: 5%">
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                        </td>
+                                        <td style="width: 5%">
+                                            Rp.
+                                        </td>
+                                        <td class="border_bawah" style="width: 25%; text-align: right;">
+                                            <!--5000.000,00-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 40%">
+                                            6. Jumlah yang masih harus dibayar (4+5c) 
+                                        </td>
+                                        <td style="width: 5%">
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                        </td>
+                                        <td style="width: 5%">
+                                            Rp.
+                                        </td>
+                                        <td style="width: 25%; text-align: right;">
+                                            <?= number_format($row["p_nilaikurangbayar"], 2, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="border_bawah">
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    Dengan Huruf :
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="border_bawah">
+                    <?= ucwords(strtolower(terbilang($row['p_nilaikurangbayar']) . " Rupiah")); ?>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <td colspan="2">
+                                PERHATIAN
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 2%;">
+                                1.
+                            </td>
+                            <td>
+                                Harap penyetoran dilakukan melalui KAS Daerah (Bank BJB) dengan menggunakan Surat Setoran Pajak Daerah (SSPD
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                BPHTB)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                2.
+                            </td>
+                            <td>
+                                Apabila SKPDKB ini tidak atau Kurang Dibayar setelah lewat waktu paling lama 30 hari sejak SKPDKB ini diterima 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                dikenakan sanksi administrasi berupa bunga sebesar 2% per bulan.
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="border_bawah" colspan="3"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2" style="text-align: center">
+                    <?= strtoupper($pemda->s_namaibukotakabkot) ?>, <?= $tgl_cetak ?>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2" style="text-align: center">
+                    an. <?= $pemda->s_namainstansi ?>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2" style='text-align: center'>
+                    <?= $data_pejabat->s_jabatanpejabat ?>
+                    <br><br><br><br>
+            <u><?= $data_pejabat->s_namapejabat ?></u>
+            <br>
+            NIP. <?= $data_pejabat->s_nippejabat ?>
+            </td>
+            </tr>
+            <tr>
+                <td class="border_bawah" colspan="3">
+
+                </td>
+            </tr>
+        </table>
+        <br>
+        <table width="100%" class="border_atas border_bawah border_kanan border_kiri font_kecil" style="padding:0;border-spacing:0px;">
+            <tr>
+                <td style="width:60%">
+
+                </td>
+                <td style="width:40%">
+                    No. SKPDKB : <?= $row['p_kohirskpdkb'] ?>/SKPDKB/BPHTB
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right">TANDA TERIMA</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="text-align: left">
+                    <table width='100%'>
+                        <tr>
+                            <td style="width: 20%">
+                                NPWPD
+                            </td>
+                            <td>
+                                :
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="text-align: left">
+                    <table width='100%'>
+                        <tr>
+                            <td style="width: 20%">
+                                NAMA
+                            </td>
+                            <td>
+                                : <?= strtoupper($row['t_namawppembeli']) ?>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td style="text-align: left">
+                    <table width='100%'>
+                        <tr>
+                            <td style="width: 20%">
+                                ALAMAT
+                            </td>
+                            <td>
+                                : <?= $row['t_alamatwppembeli'] ?> , <?= $row['t_kelurahanwppembeli'] ?> <?= $row['t_kecamatanwppembeli'] ?>, <?= $row['t_kabkotawppembeli'] ?>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: center">
+                    <?= strtoupper($pemda->s_namaibukotakabkot) ?>, <?= $tgl_cetak ?>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: center">
+                    Yang Menerima,
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: center">
+                    <br><br><br>(.............................)
+                </td>
+            </tr>
+        </table>
+    </div>
+    <?php
+}
